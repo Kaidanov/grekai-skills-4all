@@ -52,7 +52,7 @@ with **no server and no repository**. Persistence rides on a shared cloud sync f
 a stateful HTML file reads and writes a `state.json` sidecar; an MCP agent rewrites the
 source from approved changes.
 
-![The No-Repo Architecture — Serverless AI Collaboration](./assets/images/architecture-pillars.png)
+![The No-Repo Architecture — Serverless AI Collaboration](./assets/images/architecture-pillars.svg)
 
 ### The four architectural pillars
 
@@ -65,7 +65,7 @@ source from approved changes.
 4. **The Agentic Orchestrator (MCP)** — Claude connects directly to the local directory via a
    File System MCP server to read and edit files.
 
-![The 4 Pillars of No-Repo Architecture](./assets/images/architecture-4-pillars.png)
+![The 4 Pillars of No-Repo Architecture](./assets/images/architecture-4-pillars.svg)
 
 ### The collaborative workflow
 
@@ -87,14 +87,17 @@ AI assistant, change approvals, and export to PPTX/PDF.
 
 | Comment on the image area | Comment on the title |
 |---|---|
-| ![Comment pin on the image area](./assets/images/collab-comment-image-area.png) | ![Comment pin on the title](./assets/images/collab-comment-title.png) |
+| ![Comment pin on the image area](./assets/images/collab-comment-image-area.svg) | ![Comment pin on the title](./assets/images/collab-comment-title.svg) |
 
-![Full collaborative deck view](./assets/images/collab-deck-full.png)
+![Full collaborative deck view](./assets/images/collab-deck-full.svg)
 
-![Comment dialog, zoomed](./assets/images/collab-comment-title-zoom.png)
+![Comment dialog, zoomed](./assets/images/collab-comment-title-zoom.svg)
 
-> **Note:** the image files referenced above need to be added to
-> [`assets/images/`](./assets/images/) — see that folder's README for the exact filenames.
+> **About these images:** the diagrams and UI mocks above are committed **SVG
+> recreations** so the README renders everywhere with no binary assets. To use the
+> real product screenshots instead, drop PNGs into [`assets/images/`](./assets/images/)
+> and switch the extension from `.svg` to `.png` in the links above — the filenames
+> already match.
 
 ---
 

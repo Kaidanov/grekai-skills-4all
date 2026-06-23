@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 560" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+  <rect width="1200" height="560" fill="#13111f"/>
+  <!-- top toolbar -->
+  <rect x="0" y="0" width="1200" height="56" fill="#1b1830"/>
+  <rect x="24" y="16" width="92" height="26" rx="13" fill="#2a2547"/><text x="70" y="33" text-anchor="middle" font-size="12" fill="#cdc8e8">⬇ PPTX</text>
+  <rect x="124" y="16" width="84" height="26" rx="13" fill="#2a2547"/><text x="166" y="33" text-anchor="middle" font-size="12" fill="#cdc8e8">⬇ PDF</text>
+  <rect x="216" y="16" width="104" height="26" rx="13" fill="#2a2547"/><text x="268" y="33" text-anchor="middle" font-size="12" fill="#cdc8e8">✨ AI Assistant</text>
+  <rect x="328" y="16" width="110" height="26" rx="13" fill="#3a86ff"/><text x="383" y="33" text-anchor="middle" font-size="12" fill="#fff">💬 Review Mode</text>
+  <circle cx="700" cy="29" r="9" fill="#f4b740"/><text x="718" y="33" font-size="12" fill="#cdc8e8">zvi · Connected</text>
+  <rect x="980" y="16" width="190" height="26" rx="13" fill="#1f6b4a"/><text x="1075" y="33" text-anchor="middle" font-size="12" fill="#bff0d6">ClaudePresentationColab</text>
+
+  <!-- left review sidebar -->
+  <rect x="0" y="56" width="300" height="504" fill="#17142a"/>
+  <text x="24" y="92" font-size="14" font-weight="700" fill="#e6e3f5">📋 Review &amp; Collaboration</text>
+  <text x="24" y="116" font-size="11.5" fill="#9a93bf">Review mode is on — click any slide</text>
+  <text x="24" y="132" font-size="11.5" fill="#9a93bf">element to leave a comment.</text>
+  <rect x="20" y="150" width="260" height="70" rx="10" fill="#211d3a"/>
+  <text x="34" y="174" font-size="11.5" font-weight="700" fill="#f4b740">zvi · 23.06, 12:37</text>
+  <text x="34" y="196" font-size="12" fill="#d8d4ee" direction="rtl">בוא נשנה את הטקסט</text>
+  <rect x="20" y="236" width="200" height="30" rx="8" fill="#211d3a"/><text x="34" y="256" font-size="11.5" fill="#7d779e">Add a reply…</text>
+  <rect x="228" y="236" width="52" height="30" rx="8" fill="#7c5cff"/><text x="254" y="256" text-anchor="middle" font-size="11.5" fill="#fff">Send</text>
+
+  <!-- slide canvas -->
+  <rect x="340" y="92" width="820" height="380" rx="16" fill="#211d3a"/>
+  <rect x="372" y="128" width="756" height="40" rx="8" fill="none" stroke="#3a3470" stroke-dasharray="4 4"/>
+  <text x="1110" y="154" text-anchor="end" font-size="13" fill="#9a93bf" direction="rtl">מצגת צוות · 2026</text>
+  <rect x="372" y="178" width="756" height="56" rx="8" fill="none" stroke="#3a3470" stroke-dasharray="4 4"/>
+  <text x="1110" y="214" text-anchor="end" font-size="26" font-weight="700" fill="#f1eefc" direction="rtl">ברוכים הבאים למצגת השיתופית</text>
+  <circle cx="560" cy="190" r="13" fill="#ff4d6d"/><text x="560" y="195" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">1</text>
+  <rect x="372" y="246" width="756" height="40" rx="8" fill="none" stroke="#3a3470" stroke-dasharray="4 4"/>
+  <text x="1110" y="272" text-anchor="end" font-size="14" fill="#c7c2e4" direction="rtl">עורך מצגות מבוזר, ללא שרת, מתוך תיקייה משותפת בענן</text>
+  <rect x="372" y="300" width="756" height="140" rx="10" fill="#2a2547"/>
+  <text x="750" y="376" text-anchor="middle" font-size="13" fill="#8f89b3" direction="rtl">🖼️ אזור תמונה — השתמשו ב-✨ אסיסטנט AI ליצירת תמונה</text>
+
+  <!-- pager -->
+  <text x="750" y="512" text-anchor="middle" font-size="12" fill="#9a93bf">◀ Prev   ·   Slide 1 / 3   ·   Next ▶</text>
+</svg>

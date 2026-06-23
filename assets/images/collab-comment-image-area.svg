@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 560" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+  <rect width="1200" height="560" fill="#13111f"/>
+  <rect x="0" y="0" width="1200" height="56" fill="#1b1830"/>
+  <rect x="328" y="16" width="110" height="26" rx="13" fill="#3a86ff"/><text x="383" y="33" text-anchor="middle" font-size="12" fill="#fff">💬 Review Mode</text>
+  <rect x="980" y="16" width="190" height="26" rx="13" fill="#1f6b4a"/><text x="1075" y="33" text-anchor="middle" font-size="12" fill="#bff0d6">ClaudePresentationColab</text>
+
+  <!-- sidebar hint -->
+  <rect x="0" y="56" width="300" height="504" fill="#17142a"/>
+  <text x="24" y="92" font-size="14" font-weight="700" fill="#e6e3f5">📋 Review &amp; Collaboration</text>
+  <rect x="20" y="110" width="260" height="64" rx="10" fill="#211d3a"/>
+  <text x="270" y="134" text-anchor="end" font-size="11.5" font-weight="700" fill="#f4b740" direction="rtl">כותרת ראשית · zvi</text>
+  <text x="270" y="156" text-anchor="end" font-size="12" fill="#d8d4ee" direction="rtl">בוא נשנה את הטקסט</text>
+
+  <rect x="340" y="100" width="820" height="380" rx="16" fill="#211d3a"/>
+  <text x="1110" y="150" text-anchor="end" font-size="13" fill="#9a93bf" direction="rtl">מצגת צוות · 2026</text>
+  <text x="1110" y="196" text-anchor="end" font-size="24" font-weight="700" fill="#f1eefc" direction="rtl">ברוכים הבאים למצגת השיתופית</text>
+  <!-- image area highlighted -->
+  <rect x="372" y="230" width="756" height="210" rx="10" fill="#2a2547" stroke="#7c5cff" stroke-width="2"/>
+  <text x="750" y="300" text-anchor="middle" font-size="13" fill="#8f89b3" direction="rtl">🖼️ אזור תמונה — השתמשו ב-✨ אסיסטנט AI</text>
+
+  <!-- comment dialog over image area -->
+  <rect x="560" y="320" width="320" height="150" rx="12" fill="#1d1933" stroke="#7c5cff" stroke-width="1.5"/>
+  <text x="860" y="346" text-anchor="end" font-size="13" font-weight="700" fill="#e6e3f5" direction="rtl">הערה על: אזור תמונה</text>
+  <rect x="580" y="360" width="280" height="58" rx="8" fill="#0f0d1c" stroke="#3a3470"/>
+  <text x="840" y="392" text-anchor="end" font-size="12" fill="#7d779e" direction="rtl">כתבו את ההערה שלכם כאן…</text>
+  <rect x="580" y="428" width="74" height="30" rx="8" fill="#2a2547"/><text x="617" y="448" text-anchor="middle" font-size="12" fill="#cdc8e8" direction="rtl">ביטול</text>
+  <rect x="760" y="428" width="100" height="30" rx="8" fill="#7c5cff"/><text x="810" y="448" text-anchor="middle" font-size="12" fill="#fff" direction="rtl">הוסף הערה</text>
+</svg>

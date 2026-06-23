@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 560" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+  <rect width="1200" height="560" fill="#13111f"/>
+  <text x="24" y="34" font-size="12" fill="#6f6a8c">…/outputs/collab-deck.html</text>
+  <rect x="0" y="48" width="1200" height="48" fill="#1b1830"/>
+  <rect x="300" y="60" width="110" height="26" rx="13" fill="#3a86ff"/><text x="355" y="77" text-anchor="middle" font-size="12" fill="#fff">💬 Review Mode</text>
+  <rect x="980" y="60" width="190" height="26" rx="13" fill="#1f6b4a"/><text x="1075" y="77" text-anchor="middle" font-size="12" fill="#bff0d6">ClaudePresentationColab</text>
+
+  <rect x="200" y="130" width="800" height="360" rx="16" fill="#211d3a"/>
+  <rect x="240" y="180" width="720" height="64" rx="8" fill="none" stroke="#7c5cff" stroke-width="2"/>
+  <text x="950" y="224" text-anchor="end" font-size="30" font-weight="700" fill="#f1eefc" direction="rtl">ברוכים הבאים למצגת השיתופית</text>
+
+  <!-- zoomed comment dialog centered -->
+  <rect x="360" y="210" width="380" height="180" rx="14" fill="#1d1933" stroke="#7c5cff" stroke-width="2"/>
+  <text x="720" y="240" text-anchor="end" font-size="15" font-weight="700" fill="#e6e3f5" direction="rtl">הערה על: כותרת ראשית</text>
+  <rect x="384" y="256" width="332" height="70" rx="8" fill="#0f0d1c" stroke="#3a3470"/>
+  <text x="696" y="296" text-anchor="end" font-size="13" fill="#7d779e" direction="rtl">כתבו את ההערה שלכם כאן…</text>
+  <rect x="384" y="340" width="86" height="34" rx="8" fill="#2a2547"/><text x="427" y="362" text-anchor="middle" font-size="13" fill="#cdc8e8" direction="rtl">ביטול</text>
+  <rect x="600" y="340" width="116" height="34" rx="8" fill="#7c5cff"/><text x="658" y="362" text-anchor="middle" font-size="13" fill="#fff" direction="rtl">הוסף הערה</text>
+</svg>
