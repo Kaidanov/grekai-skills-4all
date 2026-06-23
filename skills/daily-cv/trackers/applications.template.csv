@@ -1,0 +1,2 @@
+date_found,company,title,location,work_mode,status,canonical_job_url,apply_url,source,evidence,score,output_folder,notes
+2026-01-01,Example Corp,VP Engineering,Metropolis,Hybrid,found,https://example.com/jobs/123,https://example.com/apply/123,techmap,"techmap updated within 14 days",85,./out,"fictional example row - delete before use"

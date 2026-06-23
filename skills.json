@@ -22,6 +22,50 @@
         "demo": "./decks/elon-musk/",
         "docs": "./skills/no-repo-collab-deck/"
       }
+    },
+    {
+      "id": "handoff",
+      "category": "skills",
+      "title": "Session Handoff",
+      "description": "Package the current working session so the NEXT session resumes with ZERO re-research. Produces a dated handoff doc, a standalone resume-prompt, and a session-log metrics row. Works in any repo — run it when context is nearly exhausted or you say \"hand off\".",
+      "tags": ["context-management", "productivity", "handoff", "sessions", "claude-code"],
+      "status": "live",
+      "links": {
+        "docs": "./skills/handoff/"
+      }
+    },
+    {
+      "id": "setup-memory",
+      "category": "skills",
+      "title": "Setup Memory — Memory-in-Repo",
+      "description": "Move Claude's per-project memory INTO the repo (memories/repo/) and auto-load it via a filesystem junction. Memory becomes committed, team-shared, and token-efficient: pay once to write it, save tokens every future session. Generic and publishable — no secrets, no per-user content.",
+      "tags": ["memory", "context-management", "team", "token-efficiency", "claude-code"],
+      "status": "live",
+      "links": {
+        "docs": "./skills/setup-memory/"
+      }
+    },
+    {
+      "id": "dev-rules-and-agents",
+      "category": "skills",
+      "title": "Dev Rules & 13-Agent Roster",
+      "description": "A portable bundle of general engineering rules (coding, refactoring, working-style) plus a reusable 13-agent specialist roster and a routing standard. Drop it into any codebase to bootstrap CLAUDE.md / AGENTS.md / .cursor rules and stand up frontend, backend, refactor, QA, security, devops and orchestration subagents.",
+      "tags": ["agents", "subagents", "engineering-rules", "claude-md", "bootstrapping"],
+      "status": "live",
+      "links": {
+        "docs": "./skills/dev-rules-and-agents/"
+      }
+    },
+    {
+      "id": "daily-cv",
+      "category": "skills",
+      "title": "Daily CV — Automated Job Hunt",
+      "description": "Config-driven, self-learning job-search agent. Reads your profile, validates that roles are actively accepting applications, and generates an ATS-optimised CV + cover letter (DOCX + PDF) from verified facts only — never repeating a company+role. Your real profile stays local and gitignored; only sanitized templates ship here.",
+      "tags": ["job-search", "cv", "automation", "ats", "agent"],
+      "status": "live",
+      "links": {
+        "docs": "./skills/daily-cv/"
+      }
     }
   ]
 }

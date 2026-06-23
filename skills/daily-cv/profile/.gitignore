@@ -1,0 +1,11 @@
+# The real, filled profile is the single source of truth and must NEVER be committed.
+PROFILE.json
+
+# Any per-user local variants.
+*.local.json
+*.local.*
+
+# Generated application output, if a user points output_dir here.
+out/
+*.docx
+*.pdf
