@@ -1,0 +1,27 @@
+{
+  "$schema": "./skills.schema.json",
+  "site": {
+    "title": "GrekAI Skills 4 All",
+    "tagline": "A catalog of agent skills, hooks & connectors",
+    "owner": "Kaidanov"
+  },
+  "categories": [
+    { "id": "skills", "label": "Skills", "description": "Reusable agent / Claude skills." },
+    { "id": "hooks", "label": "Hooks", "description": "Automation hooks (SessionStart, pre/post events).", "comingSoon": true },
+    { "id": "connectors", "label": "Connectors", "description": "Integrations (OneDrive, Vercel, GitHub, …).", "comingSoon": true }
+  ],
+  "items": [
+    {
+      "id": "no-repo-collab-deck",
+      "category": "skills",
+      "title": "No-Repo Collaborative Deck",
+      "description": "Serverless, AI-driven presentation collaboration. Stateful HTML reads/writes a sidecar state.json synced over a shared cloud folder; an MCP agent rewrites the deck from approved changes. Figma-style comment pins, AI prompt drafts and approvals — no server, no repo.",
+      "tags": ["collaboration", "presentations", "mcp", "file-system-access", "serverless"],
+      "status": "live",
+      "links": {
+        "demo": "./decks/elon-musk/",
+        "docs": "./skills/no-repo-collab-deck/"
+      }
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/
+
+# Vercel
+.vercel
+
+# Node (in case tooling is added later)
+node_modules/
+npm-debug.log*
+
+# Local runtime state from collab decks (never commit per-session sidecars)
+**/state.local.json

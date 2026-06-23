@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GrekAI Skills 4 All</title>
+  <meta name="description" content="A catalog of agent skills, hooks & connectors." />
+  <link rel="stylesheet" href="./assets/style.css" />
+</head>
+<body>
+  <header class="hero">
+    <h1 id="site-title">GrekAI Skills 4 All</h1>
+    <p id="site-tagline" class="tagline">A catalog of agent skills, hooks &amp; connectors</p>
+    <nav id="filters" class="filters" aria-label="Categories"></nav>
+  </header>
+
+  <main>
+    <section id="catalog" class="catalog" aria-live="polite"></section>
+    <p id="empty" class="empty" hidden>No items in this category yet.</p>
+  </main>
+
+  <footer class="footer">
+    <span>Manifest-driven &middot; add a folder + an entry in <code>skills.json</code> to register a new item.</span>
+  </footer>
+
+  <script>
+    const state = { items: [], categories: [], active: "all" };
+
+    async function load() {
+      const res = await fetch("./skills.json", { cache: "no-cache" });
+      const data = await res.json();
+      if (data.site) {
+        document.getElementById("site-title").textContent = data.site.title || "Catalog";
+        document.getElementById("site-tagline").textContent = data.site.tagline || "";
+        document.title = data.site.title || document.title;
+      }
+      state.categories = data.categories || [];
+      state.items = data.items || [];
+      renderFilters();
+      render();
+    }
+
+    function renderFilters() {
+      const nav = document.getElementById("filters");
+      const cats = [{ id: "all", label: "All" }, ...state.categories];
+      nav.innerHTML = "";
+      for (const c of cats) {
+        const btn = document.createElement("button");
+        btn.className = "chip" + (c.id === state.active ? " chip--active" : "");
+        btn.textContent = c.label + (c.comingSoon ? " ·soon" : "");
+        btn.onclick = () => { state.active = c.id; renderFilters(); render(); };
+        nav.appendChild(btn);
+      }
+    }
+
+    function render() {
+      const catalog = document.getElementById("catalog");
+      const empty = document.getElementById("empty");
+      const items = state.active === "all"
+        ? state.items
+        : state.items.filter(i => i.category === state.active);
+      catalog.innerHTML = "";
+      empty.hidden = items.length !== 0;
+      for (const item of items) {
+        catalog.appendChild(card(item));
+      }
+    }
+
+    function card(item) {
+      const el = document.createElement("article");
+      el.className = "card";
+      const tags = (item.tags || []).map(t => `<span class="tag">${t}</span>`).join("");
+      const links = Object.entries(item.links || {})
+        .map(([k, v]) => `<a class="btn" href="${v}">${k}</a>`).join("");
+      const status = item.status ? `<span class="status status--${item.status}">${item.status}</span>` : "";
+      el.innerHTML = `
+        <div class="card__top">
+          <span class="card__cat">${item.category}</span>
+          ${status}
+        </div>
+        <h2 class="card__title">${item.title}</h2>
+        <p class="card__desc">${item.description || ""}</p>
+        <div class="tags">${tags}</div>
+        <div class="card__links">${links}</div>`;
+      return el;
+    }
+
+    load().catch(err => {
+      document.getElementById("catalog").innerHTML =
+        `<p class="empty">Failed to load catalog: ${err.message}</p>`;
+    });
+  </script>
+</body>
+</html>
