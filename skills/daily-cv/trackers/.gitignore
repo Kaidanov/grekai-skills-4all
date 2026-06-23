@@ -1,0 +1,4 @@
+# Real tracker files stay local (also covered by the repo-root .gitignore).
+*.csv
+# ...except the committed starter template.
+!applications.template.csv

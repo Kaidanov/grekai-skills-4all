@@ -1,0 +1,120 @@
+{
+  "_comment": "daily-cv profile template. Copy this file to PROFILE.json and fill in YOUR real values. PROFILE.json is gitignored and never committed. See profile/README.md and INIT.md for how to populate it. Replace every placeholder below. Delete the _comment fields if you like.",
+
+  "identity": {
+    "display_name": "Jane Doe",
+    "_comment_display_name": "Exact name order you want on the CV. The generators print this verbatim.",
+    "filename_slug": "Doe",
+    "_comment_filename_slug": "Used in output filenames, e.g. Doe_CV_Acme_20260101.pdf",
+    "headline": "VP Engineering | SaaS Platform Leader",
+    "location": "City, Country",
+    "clearances": "",
+    "_comment_clearances": "Optional. Free text shown in the contact line, e.g. a held security clearance (state historical/active accurately). Leave empty to omit."
+  },
+
+  "contact": {
+    "_comment": "Treat these as private. PROFILE.json is gitignored so these are never committed.",
+    "email": "jane@example.com",
+    "phone": "+1-555-0100",
+    "linkedin": "linkedin.com/in/jane-doe",
+    "website": ""
+  },
+
+  "summary": "Two-sentence professional summary. Lead with your target role title and weave in 2-3 keywords from the job description. Keep factual.",
+
+  "competencies": [
+    "Competency One",
+    "Competency Two",
+    "Competency Three",
+    "Competency Four",
+    "Competency Five",
+    "Competency Six",
+    "Competency Seven",
+    "Competency Eight"
+  ],
+  "_comment_competencies": "8-12 short keyword phrases, pipe-joined at render time. Mirror the JD's vocabulary.",
+
+  "experience": [
+    {
+      "title": "Your Current Title",
+      "company": "Current Company",
+      "dates": "Mon YYYY - Present",
+      "city": "City",
+      "bullets": [
+        "Achievement bullet with a concrete, verifiable metric and outcome.",
+        "Second achievement bullet, varied length, no fabricated numbers.",
+        "Third achievement bullet.",
+        "Fourth achievement bullet (current role may have up to 4)."
+      ]
+    },
+    {
+      "title": "Previous Title",
+      "company": "Previous Company",
+      "dates": "YYYY - YYYY",
+      "city": "City",
+      "bullets": [
+        "Achievement bullet.",
+        "Achievement bullet.",
+        "Achievement bullet (roles 2-3: up to 3 bullets each)."
+      ]
+    },
+    {
+      "title": "Earlier Title",
+      "company": "Earlier Company",
+      "dates": "YYYY - YYYY",
+      "city": "City",
+      "bullets": [
+        "Achievement bullet.",
+        "Achievement bullet (older roles: up to 2 bullets)."
+      ]
+    }
+  ],
+
+  "earlier_career": [
+    "Title - Company (YYYY-YYYY): one-line summary of scope and impact.",
+    "Title - Company (YYYY-YYYY): one-line summary of scope and impact."
+  ],
+  "_comment_earlier_career": "Optional. Condensed one-liners for older roles, rendered as a compact paragraph.",
+
+  "education": [
+    {
+      "degree": "Degree Name",
+      "institution": "Institution",
+      "dates": "YYYY-YYYY",
+      "note": ""
+    },
+    {
+      "degree": "Degree Name",
+      "institution": "Institution",
+      "dates": "YYYY-YYYY",
+      "note": ""
+    }
+  ],
+
+  "volunteering": [
+    "Role | Organization | YYYY-Present - one-line description."
+  ],
+
+  "key_metrics": [
+    { "metric": "Customers acquired", "value": "10,000", "context": "Company X" },
+    { "metric": "Team managed (max)", "value": "12 people", "context": "Company X" }
+  ],
+  "_comment_key_metrics": "Anti-fabrication ground truth. Every number used in a CV/cover letter MUST come from this list. Add your real, verifiable metrics.",
+
+  "anti_fabrication_notes": [
+    "Exact title at Company X is '...' (not '...').",
+    "Frame the funding/investment fact as '...' (never overstate).",
+    "Name order is '...' - verify the wrong order appears 0 times in output."
+  ],
+  "_comment_anti_fabrication_notes": "Per-person guardrails the assistant must respect when tailoring. Optional but recommended.",
+
+  "target_defaults": {
+    "_comment": "Defaults for a run when not overridden by CLI/run-config. Edit per application.",
+    "company": "Acme Corp",
+    "role": "VP Engineering",
+    "run_date": "20260101",
+    "letter_date": "January 1, 2026",
+    "salutation": "Dear Hiring Team, Acme Corp,",
+    "output_dir": "./out"
+  }
+}
