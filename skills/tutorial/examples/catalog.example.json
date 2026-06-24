@@ -1,0 +1,14 @@
+{
+  "tagline": "Narrated, step-by-step walkthroughs of the app.",
+  "items": [
+    {
+      "slug": "example-tour",
+      "title": "Example Tutorial",
+      "description": "A two-step narrated tour of the home page — the shape every generated tutorial follows.",
+      "status": "live",
+      "video": "./example-tour-jenny.mp4",
+      "poster": "./example-tour-01.png",
+      "recordedAt": "2026-06-24"
+    }
+  ]
+}
