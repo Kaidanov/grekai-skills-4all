@@ -7,6 +7,31 @@ source from approved changes.
 
 ![The No-Repo Architecture — Serverless AI Collaboration](../../assets/images/architecture-pillars.svg)
 
+## Install
+
+Pull the technique's files (the deck template, overlay JS, and state logic) into a working folder:
+
+```bash
+npx degit Kaidanov/grekai-skills-4all/skills/no-repo-collab-deck ~/.claude/skills/no-repo-collab-deck
+```
+
+- **Project-scoped instead?** Use `.claude/skills/no-repo-collab-deck` as the target.
+- **No `npx`?** The [skill page](https://grekai-skills-4all.vercel.app/skill?id=no-repo-collab-deck)
+  shows a `git sparse-checkout` alternative.
+
+## Use it
+
+1. **Try the demo first** — open [`decks/elon-musk/`](../../decks/elon-musk/) to see the Figma-style
+   overlay in action.
+2. **Pick a shared cloud folder** (OneDrive / Google Drive / Dropbox) that every collaborator syncs —
+   this is where the deck HTML and its `state.json` sidecar live.
+3. **Open the deck HTML in a Chromium-based browser** and grant File System Access when prompted, so
+   the page can read/write `state.json` locally.
+4. **Collaborate** — add comment pins and draft AI prompts; edits sync to teammates via the cloud
+   folder. Per-session scratch state stays in the git-ignored `state.local.json`.
+5. **Let the agent finalize** — point Claude at the folder via a File System MCP server; it reads the
+   approved `state.json` and rewrites the deck HTML.
+
 ## How it works
 
 - **Stateful HTML** uses the File System Access API to read/write a sidecar `state.json`.

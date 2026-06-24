@@ -5,6 +5,21 @@ verifies the posting is live and accepting applications, and produces a ready-to
 an ATS-optimised CV and a tailored cover letter (DOCX + PDF) — using **only verified facts from
 your profile**. It learns from every run and never repeats a company+role.
 
+## Install
+
+Add the skill to your **global** Claude skills folder so you can run a job hunt from anywhere:
+
+```bash
+npx degit Kaidanov/grekai-skills-4all/skills/daily-cv ~/.claude/skills/daily-cv
+```
+
+- **Project-scoped instead?** Use `.claude/skills/daily-cv` as the target.
+- **No `npx`?** The [skill page](https://grekai-skills-4all.vercel.app/skill?id=daily-cv) shows a
+  `git sparse-checkout` alternative.
+
+You work **inside** the installed folder: your gitignored `profile/PROFILE.json` and the `config/`
+files live there. After installing, jump to **[HOW-TO (quick start)](#how-to-quick-start)** below.
+
 ## What it does
 
 - Searches broad job sources and a configurable company watchlist.

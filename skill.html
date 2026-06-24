@@ -27,7 +27,7 @@
 
       <section class="panel" id="install-panel">
         <h2>Install</h2>
-        <p class="panel__hint">Download just this skill into your project's <code>.claude/skills/</code> folder:</p>
+        <p class="panel__hint">Add this skill to your <strong>global</strong> Claude skills folder (<code>~/.claude/skills/</code>) so it's available in every project — or swap the target for a repo's <code>.claude/skills/</code> to scope it to one project:</p>
         <div class="codeblock">
           <button class="copy" data-target="install-cmd" type="button">Copy</button>
           <pre><code id="install-cmd"></code></pre>
@@ -179,12 +179,12 @@
 
       // Install commands
       const installCmd = item.install ||
-        ("npx degit " + slug + "/skills/" + folder + " .claude/skills/" + folder);
+        ("npx degit " + slug + "/skills/" + folder + " ~/.claude/skills/" + folder);
       const installAlt =
         "git clone --depth 1 --filter=blob:none --sparse " + repoUrl + ".git\n" +
         "cd grekai-skills-4all\n" +
         "git sparse-checkout set skills/" + folder + "\n" +
-        "cp -r skills/" + folder + " <your-project>/.claude/skills/" + folder;
+        "cp -r skills/" + folder + " ~/.claude/skills/" + folder;
       $("install-cmd").textContent = installCmd;
       $("install-alt").textContent = installAlt;
 

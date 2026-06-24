@@ -21,6 +21,8 @@
       "description": "Query and analyze Israeli provident, study (קרן השתלמות) and investment-provident (גמל להשקעה) funds via the official GemelNet open dataset. Compare funds, rank one against its like-for-like peers, scan a statement into a portfolio checkup, and estimate shekel revenue — public fund-level data only, framed as data-grounded analysis, not financial advice. Ships with a UserPromptSubmit hook that auto-triggers on Hebrew/English fund keywords.",
       "tags": ["israel", "pension", "gemelnet", "finance", "data-gov-il", "hook"],
       "status": "live",
+      "install": "npx degit Kaidanov/grekai-skills-4all/skills/gemelnet-advisor .claude/skills/gemelnet-advisor",
+      "usage": "Just ask your assistant — e.g. \"compare my study fund 9012 with its peers and tell me what I'm paying in fees\" — and it drives SKILL.md. Or run the stdlib-only engine directly: python3 scripts/gemelnet.py fund 9012 (also funds --q, compare, rank, revenue). Optionally wire the bundled UserPromptSubmit hook so it auto-triggers on Hebrew/English pension keywords. Public fund-level data only — analysis, not financial advice.",
       "links": {
         "docs": "./skills/gemelnet-advisor/"
       }

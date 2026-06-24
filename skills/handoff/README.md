@@ -5,6 +5,25 @@ resumes with zero re-research. It produces a dated handoff doc, a standalone
 copy-paste resume prompt, and a metrics row — and syncs the shared coordination
 file when a concurrent session is active.
 
+## Install
+
+Add the skill to your **global** Claude skills folder so it's available in every repo:
+
+```bash
+npx degit Kaidanov/grekai-skills-4all/skills/handoff ~/.claude/skills/handoff
+```
+
+- **Project-scoped instead?** Use `.claude/skills/handoff` as the target to commit it with one repo.
+- **No `npx`?** The [skill page](https://grekai-skills-4all.vercel.app/skill?id=handoff) shows a
+  `git sparse-checkout` alternative.
+
+## Use it
+
+When your session is nearly out of context, say **"hand off"** (or invoke the skill). It writes a
+dated handoff doc, a standalone copy-paste resume prompt, and an appended `session-log.csv` row under
+the project's `docs/handoffs/` folder, then commits them. Paste the resume prompt into your next
+session to continue cold — see the pipeline below for exactly what it captures.
+
 ## Why
 
 Long or context-bound sessions lose state when they end. Re-deriving "where were

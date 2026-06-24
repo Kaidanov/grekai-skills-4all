@@ -11,6 +11,21 @@ This skill answers two recurring needs in one place:
 2. **Agents** — 13 specialist subagent definitions (one source, down-converts to Claude / Copilot /
    Cursor) plus a routing and standards guide.
 
+## Install
+
+Add the bundle to your **global** Claude skills folder so it's available in every repo:
+
+```bash
+npx degit Kaidanov/grekai-skills-4all/skills/dev-rules-and-agents ~/.claude/skills/dev-rules-and-agents
+```
+
+- **Project-scoped instead?** Use `.claude/skills/dev-rules-and-agents` to commit it with one repo.
+- **No `npx`?** The [skill page](https://grekai-skills-4all.vercel.app/skill?id=dev-rules-and-agents)
+  shows a `git sparse-checkout` alternative.
+
+This skill is a library you draw from rather than a script you run — see **Use it** for how to apply
+the rules and agents to a project.
+
 ## Contents
 
 | Path | Purpose |

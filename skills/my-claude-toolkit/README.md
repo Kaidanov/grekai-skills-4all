@@ -7,6 +7,34 @@ from their own marketplaces); only user-written artifacts live here.
 See `SKILL.md` for the reinstall steps. This file is the **inventory +
 provenance** record.
 
+## Install
+
+Pull the toolkit down, then place each piece where it belongs (see `SKILL.md`):
+
+```bash
+npx degit Kaidanov/grekai-skills-4all/skills/my-claude-toolkit ~/.claude/skills/my-claude-toolkit
+```
+
+- **No `npx`?** The [skill page](https://grekai-skills-4all.vercel.app/skill?id=my-claude-toolkit)
+  shows a `git sparse-checkout` alternative.
+
+This is a **collection**, not a single skill: the included command-scripts, hooks, and usage
+monitor get copied into `~/.claude/` (global) or a project's `.claude/` depending on the item — the
+**Contents & provenance** table below lists the target for each, and `SKILL.md` has the step-by-step.
+
+## Use it
+
+After installing, follow `SKILL.md` to wire up the pieces you want:
+
+- **Command-scripts** (`commands/scripts/commit-and-pr.ps1`, `verify.ps1`) → a project's
+  `.claude/scripts/`.
+- **Hooks** (`hooks/*.ps1`, `monitor/usage-*.ps1`) → registered in `settings.json` (global or
+  project).
+- **Usage monitor / dashboard** (`monitor/`) → `~/.claude/scripts/`, then run the aggregators for the
+  cost report.
+
+All secrets are stripped to env-var placeholders — fill in your own local values, never commit them.
+
 ## Contents & provenance
 
 Source paths below are shown generically — they point at where each item
