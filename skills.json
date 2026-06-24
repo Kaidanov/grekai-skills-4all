@@ -15,6 +15,19 @@
   ],
   "items": [
     {
+      "id": "tutorial",
+      "category": "skills",
+      "title": "Tutorial — Narrated Playwright Walkthroughs",
+      "description": "Record narrated, themeable product tutorials by driving any web app with Playwright and voicing every step with a neural TTS voice (Jenny by default). One plain-English goal becomes a drift-free MP4 + WebVTT captions plus a light/dark, logo-branded index.html that switches between all your tutorials. Human-gated: approve the scenario before recording, approve the video before publishing. Ships /tutorial-create, /tutorial-update and /tutorial-status, a config-driven theme, and runnable Playwright + render scripts.",
+      "tags": ["playwright", "tutorials", "video", "narration", "tts", "edge-tts", "theming", "claude-code"],
+      "status": "live",
+      "install": "npx degit Kaidanov/grekai-skills-4all/skills/tutorial .claude/skills/tutorial",
+      "usage": "Set a one-time tutorial.config.json (brand, paths, voice), then say \"/tutorial-create show a new user how to create their first record\". The skill drafts a scenario for your approval, records it with Playwright, renders a narrated MP4 + captions with edge-tts, shows it for approval, then rebuilds a themeable light/dark index.html switching between every tutorial. /tutorial-update <slug> re-records one; /tutorial-status reports stale/missing. Needs Node 18+, Playwright, ffmpeg and edge-tts on PATH.",
+      "links": {
+        "docs": "./skills/tutorial/"
+      }
+    },
+    {
       "id": "gemelnet-advisor",
       "category": "skills",
       "title": "GemelNet Advisor — Israeli Pension Funds",

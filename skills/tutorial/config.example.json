@@ -1,0 +1,28 @@
+{
+  "project": {
+    "name": "My App",
+    "baseUrl": "http://127.0.0.1:5173",
+    "devCommand": "npm run dev",
+    "startScript": ""
+  },
+  "brand": {
+    "logo": "/logo.svg",
+    "accent": "#2563eb",
+    "accentDark": "#60a5fa",
+    "defaultTheme": "dark"
+  },
+  "tts": {
+    "voice": "en-US-JennyNeural",
+    "tailPadMs": 600
+  },
+  "paths": {
+    "scenariosDir": "tutorials/scenarios",
+    "specsDir": "tests",
+    "outputDir": "public/tutorials",
+    "catalogFile": "public/tutorials/catalog.json"
+  },
+  "video": {
+    "width": 1920,
+    "height": 1080
+  }
+}
