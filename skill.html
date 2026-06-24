@@ -94,20 +94,28 @@
       return null;
     }
 
-    function renderMarkdown(md, docsBaseAbs) {
+    function renderMarkdown(md, docsBaseAbs, gh) {
       const target = $("readme");
       try {
         if (window.marked) {
           target.innerHTML = marked.parse(md, { mangle: false, headerIds: true });
-          // Resolve relative images/links against the skill's docs folder.
+          // Images: keep them on the deployed site so they render inline.
           target.querySelectorAll("img").forEach((img) => {
             const src = img.getAttribute("src") || "";
             if (src && !/^(https?:|\/|data:|#)/.test(src)) img.src = new URL(src, docsBaseAbs).href;
             img.loading = "lazy";
           });
+          // Links: send relative repo links to GitHub (blob for files, tree for
+          // folders) — the static site has no directory index and serves .md as
+          // raw text, so those would 404 or look broken. GitHub always renders them.
           target.querySelectorAll("a[href]").forEach((a) => {
             const href = a.getAttribute("href") || "";
-            if (href && !/^(https?:|\/|#|mailto:)/.test(href)) a.href = new URL(href, docsBaseAbs).href;
+            if (href && !/^(https?:|\/\/|#|mailto:)/.test(href)) {
+              const u = new URL(href, "https://x/skills/" + gh.folder + "/");
+              const path = u.pathname.replace(/^\/+/, "");
+              const isDir = href.split("#")[0].endsWith("/");
+              a.href = gh.repoUrl + "/" + (isDir ? "tree" : "blob") + "/" + gh.branch + "/" + path + (u.hash || "");
+            }
             if (/^https?:/.test(a.href)) { a.target = "_blank"; a.rel = "noopener"; }
           });
         } else {
@@ -174,7 +182,8 @@
       if (item.links && item.links.demo) {
         actions.push('<a class="btn btn--ghost" href="' + esc(item.links.demo) + '">Open demo</a>');
       }
-      actions.push('<a class="btn btn--ghost" href="' + esc(docs) + '">Browse files</a>');
+      // "Browse files" → the README on GitHub (raw .md on the static site 404s/looks broken).
+      actions.push('<a class="btn btn--ghost" href="' + esc(ghTree) + '" target="_blank" rel="noopener">Browse files</a>');
       $("d-actions").innerHTML = actions.join("");
 
       // Install commands
@@ -204,7 +213,7 @@
       if (item.readme) names.push(item.readme);
       names.push("README.md", "SKILL.md");
       const doc = await fetchFirst(docsBaseAbs, names);
-      if (doc) renderMarkdown(doc.text, docsBaseAbs);
+      if (doc) renderMarkdown(doc.text, docsBaseAbs, { repoUrl: repoUrl, branch: branch, folder: folder });
       else $("readme").innerHTML = '<p class="empty">No README found. <a href="' + esc(ghTree) + '" target="_blank" rel="noopener">View on GitHub</a>.</p>';
     }
 

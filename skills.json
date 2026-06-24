@@ -72,7 +72,6 @@
       "description": "Move Claude's per-project memory INTO the repo (memories/repo/) and auto-load it via a filesystem junction. Memory becomes committed, team-shared, and token-efficient: pay once to write it, save tokens every future session. Generic and publishable — no secrets, no per-user content.",
       "tags": ["memory", "context-management", "team", "token-efficiency", "claude-code"],
       "status": "live",
-      "readme": "SKILL.md",
       "usage": "Run the bundled PowerShell script against your repo root:\n\n    & \"$HOME\\.claude\\skills\\setup-memory\\scripts\\Setup-Memory.ps1\" -ProjectPath .\n\nIt creates memories/repo/ with a MEMORY.md index and junctions it into ~/.claude/projects/<slug>/memory. Idempotent, no admin required (add -WhatIf to preview).",
       "links": {
         "docs": "./skills/setup-memory/"
