@@ -69,19 +69,23 @@
     function card(item) {
       const el = document.createElement("article");
       el.className = "card";
+      const detailHref = `./skill?id=${encodeURIComponent(item.id)}`;
       const tags = (item.tags || []).map(t => `<span class="tag">${t}</span>`).join("");
-      const links = Object.entries(item.links || {})
-        .map(([k, v]) => `<a class="btn" href="${v}">${k}</a>`).join("");
+      // Primary CTA opens the skill's own page; demo (if any) is a secondary link.
+      const links = [`<a class="btn" href="${detailHref}">View skill</a>`];
+      if (item.links && item.links.demo) {
+        links.push(`<a class="btn btn--ghost" href="${item.links.demo}">Demo</a>`);
+      }
       const status = item.status ? `<span class="status status--${item.status}">${item.status}</span>` : "";
       el.innerHTML = `
         <div class="card__top">
           <span class="card__cat">${item.category}</span>
           ${status}
         </div>
-        <h2 class="card__title">${item.title}</h2>
+        <h2 class="card__title"><a class="card__titlelink" href="${detailHref}">${item.title}</a></h2>
         <p class="card__desc">${item.description || ""}</p>
         <div class="tags">${tags}</div>
-        <div class="card__links">${links}</div>`;
+        <div class="card__links">${links.join("")}</div>`;
       return el;
     }
 

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Skill · GrekAI Skills 4 All</title>
+  <meta name="description" content="Skill details — README, install command and usage." />
+  <link rel="stylesheet" href="./assets/style.css" />
+</head>
+<body>
+  <header class="hero hero--detail">
+    <a class="back" href="./">&larr; All skills</a>
+    <h1 id="skill-title">Loading…</h1>
+    <p id="skill-tagline" class="tagline"></p>
+  </header>
+
+  <main class="detail">
+    <article id="detail" hidden>
+      <div class="detail__meta">
+        <span id="d-cat" class="card__cat"></span>
+        <span id="d-status"></span>
+      </div>
+      <p id="d-desc" class="detail__desc"></p>
+      <div id="d-tags" class="tags"></div>
+
+      <div id="d-actions" class="detail__actions"></div>
+
+      <section class="panel" id="install-panel">
+        <h2>Install</h2>
+        <p class="panel__hint">Download just this skill into your project's <code>.claude/skills/</code> folder:</p>
+        <div class="codeblock">
+          <button class="copy" data-target="install-cmd" type="button">Copy</button>
+          <pre><code id="install-cmd"></code></pre>
+        </div>
+        <details class="alt">
+          <summary>No <code>npx</code>? Use git sparse-checkout instead</summary>
+          <div class="codeblock">
+            <button class="copy" data-target="install-alt" type="button">Copy</button>
+            <pre><code id="install-alt"></code></pre>
+          </div>
+        </details>
+      </section>
+
+      <section class="panel" id="usage-panel" hidden>
+        <h2>How to use</h2>
+        <div id="d-usage" class="panel__usage"></div>
+      </section>
+
+      <section class="panel readme" id="readme-panel">
+        <h2>README</h2>
+        <div id="readme" class="markdown">Loading README…</div>
+      </section>
+    </article>
+
+    <p id="error" class="empty" hidden></p>
+  </main>
+
+  <footer class="footer">
+    <span>Part of <a href="./">GrekAI Skills 4 All</a> · <span id="repo-link"></span></span>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script>
+    const $ = (id) => document.getElementById(id);
+    const params = new URLSearchParams(location.search);
+    const wantedId = params.get("id");
+
+    function esc(s) {
+      return String(s).replace(/[&<>"']/g, (c) =>
+        ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+    }
+
+    // Folder name from a docs link like "./skills/handoff/" -> "handoff"
+    function folderFromDocs(docs, id) {
+      if (!docs) return id;
+      const m = docs.replace(/\/+$/, "").split("/");
+      return m[m.length - 1] || id;
+    }
+
+    function fail(msg) {
+      $("detail").hidden = true;
+      const e = $("error");
+      e.hidden = false;
+      e.innerHTML = esc(msg) + ' — <a href="./">back to the catalog</a>.';
+    }
+
+    async function fetchFirst(base, names) {
+      for (const n of names) {
+        try {
+          const res = await fetch(base + n, { cache: "no-cache" });
+          if (res.ok) return { text: await res.text(), name: n };
+        } catch (_) { /* try next */ }
+      }
+      return null;
+    }
+
+    function renderMarkdown(md, docsBaseAbs) {
+      const target = $("readme");
+      try {
+        if (window.marked) {
+          target.innerHTML = marked.parse(md, { mangle: false, headerIds: true });
+          // Resolve relative images/links against the skill's docs folder.
+          target.querySelectorAll("img").forEach((img) => {
+            const src = img.getAttribute("src") || "";
+            if (src && !/^(https?:|\/|data:|#)/.test(src)) img.src = new URL(src, docsBaseAbs).href;
+            img.loading = "lazy";
+          });
+          target.querySelectorAll("a[href]").forEach((a) => {
+            const href = a.getAttribute("href") || "";
+            if (href && !/^(https?:|\/|#|mailto:)/.test(href)) a.href = new URL(href, docsBaseAbs).href;
+            if (/^https?:/.test(a.href)) { a.target = "_blank"; a.rel = "noopener"; }
+          });
+        } else {
+          target.innerHTML = "<pre>" + esc(md) + "</pre>";
+        }
+      } catch (err) {
+        target.innerHTML = "<pre>" + esc(md) + "</pre>";
+      }
+    }
+
+    function wireCopyButtons() {
+      document.querySelectorAll(".copy").forEach((btn) => {
+        btn.addEventListener("click", async () => {
+          const txt = $(btn.dataset.target).textContent;
+          try {
+            await navigator.clipboard.writeText(txt);
+            const old = btn.textContent;
+            btn.textContent = "Copied!";
+            btn.classList.add("copied");
+            setTimeout(() => { btn.textContent = old; btn.classList.remove("copied"); }, 1400);
+          } catch (_) {
+            btn.textContent = "Copy failed";
+          }
+        });
+      });
+    }
+
+    async function load() {
+      if (!wantedId) return fail("No skill specified");
+
+      let data;
+      try {
+        data = await (await fetch("./skills.json", { cache: "no-cache" })).json();
+      } catch (err) {
+        return fail("Failed to load catalog: " + err.message);
+      }
+
+      const site = data.site || {};
+      const item = (data.items || []).find((i) => i.id === wantedId);
+      if (!item) return fail("Skill \"" + wantedId + "\" not found");
+
+      const docs = (item.links && item.links.docs) || ("./skills/" + item.id + "/");
+      const folder = folderFromDocs(docs, item.id);
+      const slug = site.repoSlug || "Kaidanov/grekai-skills-4all";
+      const branch = site.defaultBranch || "main";
+      const repoUrl = site.repo || ("https://github.com/" + slug);
+      const ghTree = repoUrl + "/tree/" + branch + "/skills/" + folder;
+
+      // Header + meta
+      document.title = item.title + " · GrekAI Skills 4 All";
+      $("skill-title").textContent = item.title;
+      $("skill-tagline").textContent = "Skill · " + slug + "/skills/" + folder;
+      $("d-cat").textContent = item.category || "skill";
+      $("d-status").innerHTML = item.status
+        ? '<span class="status status--' + esc(item.status) + '">' + esc(item.status) + "</span>" : "";
+      $("d-desc").textContent = item.description || "";
+      $("d-tags").innerHTML = (item.tags || [])
+        .map((t) => '<span class="tag">' + esc(t) + "</span>").join("");
+      $("repo-link").innerHTML = '<a href="' + esc(repoUrl) + '" target="_blank" rel="noopener">' + esc(slug) + "</a>";
+
+      // Action buttons
+      const actions = [];
+      actions.push('<a class="btn" href="' + esc(ghTree) + '" target="_blank" rel="noopener">View on GitHub</a>');
+      if (item.links && item.links.demo) {
+        actions.push('<a class="btn btn--ghost" href="' + esc(item.links.demo) + '">Open demo</a>');
+      }
+      actions.push('<a class="btn btn--ghost" href="' + esc(docs) + '">Browse files</a>');
+      $("d-actions").innerHTML = actions.join("");
+
+      // Install commands
+      const installCmd = item.install ||
+        ("npx degit " + slug + "/skills/" + folder + " .claude/skills/" + folder);
+      const installAlt =
+        "git clone --depth 1 --filter=blob:none --sparse " + repoUrl + ".git\n" +
+        "cd grekai-skills-4all\n" +
+        "git sparse-checkout set skills/" + folder + "\n" +
+        "cp -r skills/" + folder + " <your-project>/.claude/skills/" + folder;
+      $("install-cmd").textContent = installCmd;
+      $("install-alt").textContent = installAlt;
+
+      // Usage
+      if (item.usage) {
+        $("usage-panel").hidden = false;
+        // Render usage as markdown so indented code blocks / inline code work.
+        $("d-usage").innerHTML = window.marked ? marked.parse(item.usage, { mangle: false }) : esc(item.usage);
+      }
+
+      $("detail").hidden = false;
+      wireCopyButtons();
+
+      // README (try item.readme override, then README.md, then SKILL.md)
+      const docsBaseAbs = new URL(docs, location.href).href;
+      const names = [];
+      if (item.readme) names.push(item.readme);
+      names.push("README.md", "SKILL.md");
+      const doc = await fetchFirst(docsBaseAbs, names);
+      if (doc) renderMarkdown(doc.text, docsBaseAbs);
+      else $("readme").innerHTML = '<p class="empty">No README found. <a href="' + esc(ghTree) + '" target="_blank" rel="noopener">View on GitHub</a>.</p>';
+    }
+
+    load();
+  </script>
+</body>
+</html>
