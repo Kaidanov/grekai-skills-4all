@@ -3,7 +3,10 @@
   "site": {
     "title": "GrekAI Skills 4 All",
     "tagline": "A catalog of agent skills, hooks & connectors",
-    "owner": "Kaidanov"
+    "owner": "Kaidanov",
+    "repo": "https://github.com/Kaidanov/grekai-skills-4all",
+    "repoSlug": "Kaidanov/grekai-skills-4all",
+    "defaultBranch": "main"
   },
   "categories": [
     { "id": "skills", "label": "Skills", "description": "Reusable agent / Claude skills." },
@@ -12,12 +15,26 @@
   ],
   "items": [
     {
+      "id": "gemelnet-advisor",
+      "category": "skills",
+      "title": "GemelNet Advisor — Israeli Pension Funds",
+      "description": "Query and analyze Israeli provident, study (קרן השתלמות) and investment-provident (גמל להשקעה) funds via the official GemelNet open dataset. Compare funds, rank one against its like-for-like peers, scan a statement into a portfolio checkup, and estimate shekel revenue — public fund-level data only, framed as data-grounded analysis, not financial advice. Ships with a UserPromptSubmit hook that auto-triggers on Hebrew/English fund keywords.",
+      "tags": ["israel", "pension", "gemelnet", "finance", "data-gov-il", "hook"],
+      "status": "live",
+      "install": "npx degit Kaidanov/grekai-skills-4all/skills/gemelnet-advisor .claude/skills/gemelnet-advisor",
+      "usage": "Just ask your assistant — e.g. \"compare my study fund 9012 with its peers and tell me what I'm paying in fees\" — and it drives SKILL.md. Or run the stdlib-only engine directly: python3 scripts/gemelnet.py fund 9012 (also funds --q, compare, rank, revenue). Optionally wire the bundled UserPromptSubmit hook so it auto-triggers on Hebrew/English pension keywords. Public fund-level data only — analysis, not financial advice.",
+      "links": {
+        "docs": "./skills/gemelnet-advisor/"
+      }
+    },
+    {
       "id": "no-repo-collab-deck",
       "category": "skills",
       "title": "No-Repo Collaborative Deck",
       "description": "Serverless, AI-driven presentation collaboration. Stateful HTML reads/writes a sidecar state.json synced over a shared cloud folder; an MCP agent rewrites the deck from approved changes. Figma-style comment pins, AI prompt drafts and approvals — no server, no repo.",
       "tags": ["collaboration", "presentations", "mcp", "file-system-access", "serverless"],
       "status": "live",
+      "usage": "Open the deck HTML in a Chromium-based browser and pick a synced cloud folder when prompted (File System Access API). Add Figma-style comment pins and draft AI prompts; once a change is approved in state.json, the MCP agent rewrites the deck. Try the live demo first.",
       "links": {
         "demo": "./decks/elon-musk/",
         "docs": "./skills/no-repo-collab-deck/"
@@ -30,6 +47,7 @@
       "description": "Package the current working session so the NEXT session resumes with ZERO re-research. Produces a dated handoff doc, a standalone resume-prompt, and a session-log metrics row. Works in any repo — run it when context is nearly exhausted or you say \"hand off\".",
       "tags": ["context-management", "productivity", "handoff", "sessions", "claude-code"],
       "status": "live",
+      "usage": "When your session is nearly out of context, say \"hand off\" (or invoke the skill). It writes a dated handoff doc, a standalone copy-paste resume prompt, and an appended session-log.csv row under the project's docs/handoffs/ folder, then commits them.",
       "links": {
         "docs": "./skills/handoff/"
       }
@@ -41,6 +59,8 @@
       "description": "Move Claude's per-project memory INTO the repo (memories/repo/) and auto-load it via a filesystem junction. Memory becomes committed, team-shared, and token-efficient: pay once to write it, save tokens every future session. Generic and publishable — no secrets, no per-user content.",
       "tags": ["memory", "context-management", "team", "token-efficiency", "claude-code"],
       "status": "live",
+      "readme": "SKILL.md",
+      "usage": "Run the bundled PowerShell script against your repo root:\n\n    & \"$HOME\\.claude\\skills\\setup-memory\\scripts\\Setup-Memory.ps1\" -ProjectPath .\n\nIt creates memories/repo/ with a MEMORY.md index and junctions it into ~/.claude/projects/<slug>/memory. Idempotent, no admin required (add -WhatIf to preview).",
       "links": {
         "docs": "./skills/setup-memory/"
       }
@@ -52,6 +72,7 @@
       "description": "A portable bundle of general engineering rules (coding, refactoring, working-style) plus a reusable 13-agent specialist roster and a routing standard. Drop it into any codebase to bootstrap CLAUDE.md / AGENTS.md / .cursor rules and stand up frontend, backend, refactor, QA, security, devops and orchestration subagents.",
       "tags": ["agents", "subagents", "engineering-rules", "claude-md", "bootstrapping"],
       "status": "live",
+      "usage": "Fold rules/* into your project's CLAUDE.md / AGENTS.md and copy agents/*.md into .claude/agents/ (transform to .github/agents/*.agent.md for Copilot). Or point your assistant at a single file: \"follow rules/refactoring-rules.md\" or \"use the refactor-test-guardian agent\".",
       "links": {
         "docs": "./skills/dev-rules-and-agents/"
       }
@@ -63,6 +84,7 @@
       "description": "Config-driven, self-learning job-search agent. Reads your profile, validates that roles are actively accepting applications, and generates an ATS-optimised CV + cover letter (DOCX + PDF) from verified facts only — never repeating a company+role. Your real profile stays local and gitignored; only sanitized templates ship here.",
       "tags": ["job-search", "cv", "automation", "ats", "agent"],
       "status": "live",
+      "usage": "Run INIT.md once to build your gitignored profile/PROFILE.json (the single source of truth). Then invoke the skill daily: each run finds one live, accepting role and generates an ATS-optimised CV + tailored cover letter (DOCX + PDF) from verified facts only — never repeating a company+role.",
       "links": {
         "docs": "./skills/daily-cv/"
       }
@@ -74,6 +96,7 @@
       "description": "A portable, hand-authored Claude Code setup: reusable helper command-scripts (commit-and-PR, verify), hooks, a token/cost usage monitor + dashboard, a sparse-worktree engine, and a sanitized MCP-server inventory. Use to bootstrap or restore your Claude Code setup on a new machine. All secrets stripped to env-var placeholders.",
       "tags": ["claude-code", "toolkit", "hooks", "usage-monitor", "powershell"],
       "status": "live",
+      "usage": "See SKILL.md for the reinstall steps. Copy the helper command-scripts (commit-and-PR, verify), hooks, and the token/cost usage monitor into ~/.claude/ or your project's .claude/ to restore or bootstrap your Claude Code setup on a new machine. All secrets are stripped to env-var placeholders.",
       "links": {
         "docs": "./skills/my-claude-toolkit/"
       }
