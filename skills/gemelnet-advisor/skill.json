@@ -1,0 +1,11 @@
+{
+  "id": "gemelnet-advisor",
+  "category": "skills",
+  "title": "GemelNet Advisor — Israeli Pension Funds",
+  "description": "Query and analyze Israeli provident, study (קרן השתלמות) and investment-provident (גמל להשקעה) funds via the official GemelNet open dataset. Compare funds, rank one against its like-for-like peers, scan a statement into a portfolio checkup, and estimate shekel revenue — public fund-level data only, framed as data-grounded analysis, not financial advice. Ships with a UserPromptSubmit hook that auto-triggers on Hebrew/English fund keywords.",
+  "tags": ["israel", "pension", "gemelnet", "finance", "data-gov-il", "hook"],
+  "status": "live",
+  "links": {
+    "docs": "./skills/gemelnet-advisor/"
+  }
+}

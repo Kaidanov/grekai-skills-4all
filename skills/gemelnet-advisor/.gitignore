@@ -1,0 +1,11 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+
+# Local statement scans / portfolio inputs (never commit personal data)
+scans/
+*.statement.*
+*.local.*
+out/
