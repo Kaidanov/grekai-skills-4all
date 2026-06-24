@@ -1,0 +1,123 @@
+{
+  "_comment": "FICTIONAL example profile (Jane Doe). Used as a fallback by the generators when profile/PROFILE.json is missing, and as a reference for the complete shape. Contains NO real person's data. Do not put real data here - put it in PROFILE.json (gitignored).",
+
+  "identity": {
+    "display_name": "Jane Doe",
+    "filename_slug": "Doe",
+    "headline": "VP Engineering | SaaS Platform Leader",
+    "location": "Metropolis, Freedonia",
+    "clearances": "held example government clearance (historical)"
+  },
+
+  "contact": {
+    "email": "jane@example.com",
+    "phone": "+1-555-0100",
+    "linkedin": "linkedin.com/in/jane-doe",
+    "website": "janedoe.example.com"
+  },
+
+  "summary": "VP Engineering with 18+ years building SaaS platforms and leading cross-functional R&D organizations from zero to scale; proven record in cloud-native architecture, AI integration, and enterprise team leadership across publicly listed and high-growth SaaS environments.",
+
+  "competencies": [
+    "VP R&D Leadership",
+    "SaaS Platform Engineering",
+    "Cloud-Native Architecture (AWS, Azure)",
+    "AI/ML & GenAI Integration",
+    "CI/CD & DevOps",
+    "Agile R&D Management",
+    "Team Building & Mentoring",
+    "Product Roadmap",
+    "Microservices",
+    "Enterprise B2B",
+    "P&L Management"
+  ],
+
+  "experience": [
+    {
+      "title": "VP Engineering",
+      "company": "Globex SaaS (NASDAQ: GLBX)",
+      "dates": "Mar 2023 - Present",
+      "city": "Metropolis",
+      "bullets": [
+        "Delivered 6 AI proofs-of-concept in 12 months - RAG-powered analytics, agentic automation, and a BI/ML data model - advancing the platform toward cloud-native microservices.",
+        "Established company-wide technical standards and an AI tooling playbook adopted across R&D, QA, and delivery teams spanning three product lines.",
+        "Mentored Directors of Development and QA plus team leads; introduced an enterprise identity service and a WCAG accessibility framework.",
+        "Speaker at the Globex Engineering Summit on AI and platform modernization."
+      ]
+    },
+    {
+      "title": "Director of Product",
+      "company": "Initech Insurance",
+      "dates": "2021 - 2023",
+      "city": "Metropolis",
+      "bullets": [
+        "Scaled a telematics SaaS mobile app 8x in user growth and drove a 60% increase in digital conversion.",
+        "Managed a portfolio of 9 B2B and B2C products with UX, data, and security stakeholders.",
+        "Led an AI-based claims-flow initiative and integrated two external startups into the core workflow."
+      ]
+    },
+    {
+      "title": "CTO & Head of Product",
+      "company": "Hooli Logistics",
+      "dates": "2015 - 2021",
+      "city": "Metropolis / Capital City",
+      "bullets": [
+        "Built a SaaS clearance platform from 0 to 9,000 customers with 75% paid conversion across four B2B/B2C products.",
+        "Led a 12-person cross-functional team (6 leads) delivering a CI/CD roadmap on cloud microservices with full DevSecOps.",
+        "Sourced a $2M investment commitment and integrated ERP, brokers, and payment systems into production."
+      ]
+    },
+    {
+      "title": "VP R&D & Program Director",
+      "company": "Stark Tech Academy",
+      "dates": "2013 - 2015",
+      "city": "Capital City",
+      "bullets": [
+        "Built a complete R&D curriculum and a student-management system from zero; managed a 2M annual budget; board member.",
+        "Recruited and managed technical staff and secured startup project partnerships via business development."
+      ]
+    }
+  ],
+
+  "earlier_career": [
+    "Co-Founder & CTO - Vandelay AI (2013-2015): computer-vision platform shipped to app stores; accelerator alumnus.",
+    "Backend Team Lead - Wonka Systems (2011-2013): 6-person international backend team, Scrum Master, payments integration."
+  ],
+
+  "education": [
+    { "degree": "Executive MBA", "institution": "Metropolis University", "dates": "2010-2012", "note": "students' speaker" },
+    { "degree": "B.Sc. Computer Science", "institution": "Capital Institute of Technology", "dates": "2004-2008", "note": "" }
+  ],
+
+  "volunteering": [
+    "Mentor | Example Tech Mentorship | 2023-Present - mentored a data-science team that placed 2nd in a national competition."
+  ],
+
+  "key_metrics": [
+    { "metric": "Customers acquired", "value": "9,000", "context": "Hooli Logistics" },
+    { "metric": "Paid conversion rate", "value": "75%", "context": "Hooli Logistics" },
+    { "metric": "Team managed (max)", "value": "12 people, 6 team leads", "context": "Hooli Logistics" },
+    { "metric": "App user growth", "value": "8x", "context": "Initech Insurance" },
+    { "metric": "Digital conversion uplift", "value": "60%", "context": "Initech Insurance" },
+    { "metric": "Products managed", "value": "9", "context": "Initech Insurance" },
+    { "metric": "Budget managed", "value": "2M/yr", "context": "Stark Tech Academy" },
+    { "metric": "Investment sourced", "value": "$2M commitment", "context": "Hooli Logistics" },
+    { "metric": "Years experience", "value": "18+", "context": "Full career" },
+    { "metric": "AI POCs delivered", "value": "6 in 12 months", "context": "Globex SaaS" }
+  ],
+
+  "anti_fabrication_notes": [
+    "Exact title at Globex SaaS is 'VP Engineering' - do not inflate to 'CTO'.",
+    "Frame the Hooli investment as 'sourced $2M investment commitment' - never 'raised $2M'.",
+    "Name order is 'Jane Doe' - verify 'Doe Jane' appears 0 times in any generated file."
+  ],
+
+  "target_defaults": {
+    "company": "Acme Corp",
+    "role": "VP Engineering",
+    "run_date": "20260101",
+    "letter_date": "January 1, 2026",
+    "salutation": "Dear Hiring Team, Acme Corp,",
+    "output_dir": "./out"
+  }
+}
