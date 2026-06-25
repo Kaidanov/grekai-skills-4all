@@ -16,9 +16,13 @@ marked `n/a`.
 ## Prerequisites
 
 - An agent host that supports skills — Claude Code (CLI or IDE extension) or a compatible runner.
-- **No external tools, no network, no config.** It only reads what's already in the session.
+- The **report itself** needs no external tools, no network, no config — it only reads what's already
+  in the session.
 - Works best when your subagents return a `usage` block (tokens + duration) — those are the only
   numbers reported as exact.
+- **For the daily trail log only:** PowerShell (Windows ships it; macOS/Linux can use `pwsh`). The
+  bundled `scripts/Append-TldrTrail.ps1` appends each report to `~/.claude/tldr-trail/<date>.md`. If
+  you don't want the trail, just skip that step — the in-chat report works on its own.
 
 ## Install
 
@@ -42,13 +46,32 @@ npx degit Kaidanov/grekai-skills-4all/skills/tldr .claude/skills/tldr
 
 Type `/tldr` — or just ask for a "status", "wrap-up", or "TLDR". You get:
 
-- **Work statistics** — total tokens `(est)`, exact per-subagent token + duration breakdown, and a
-  small **components-used** table (what each subagent / tool / skill / hook did).
+- **Work statistics** — total tokens `(est)`, exact per-subagent token + duration breakdown, the
+  **rounds** (user turns) and ~time/round, the **tools activated** this batch, and a small
+  **components-used** table (what each subagent / tool / skill / hook did).
+- **Reasoning (summary)** — 1–2 lines on the approach taken and why.
+- **Q&A (self + user)** — the key questions this batch and how each resolved (decisions made
+  autonomously vs. answered by you).
 - **Done** — what shipped (with commit hashes where relevant).
 - **To do** — what's left, in priority order.
 - **Issues** — blockers / problems found.
 - **Options** — concrete next choices.
 - **New session?** — an explicit YES/NO recommendation (long transcripts are the biggest token sink).
+
+## Daily trail log (every window → one file per day)
+
+Each report is also appended to a **shared daily log** so *all* your Claude windows accumulate one
+scannable TLDR trail per day at `~/.claude/tldr-trail/<YYYY-MM-DD>.md`:
+
+```powershell
+& "$HOME\.claude\skills\tldr\scripts\Append-TldrTrail.ps1" -Path "<tempfile>" -Project "<repo>@<branch>" -Session "<short id>"
+```
+
+- **Concurrency-safe.** An atomic lock means two windows finishing at once queue instead of
+  clobbering the file; it waits up to 2s, steals a stale lock after 30s, and deletes the temp file.
+- **Real time.** Each entry stamps the wall-clock elapsed since the previous one — the trustworthy
+  time source (the in-chat per-round time stays an estimate).
+- **UTF-8, append-only.** Safe for em-dashes, Hebrew, emoji, etc.
 
 ## Notes
 
