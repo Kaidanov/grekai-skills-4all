@@ -78,6 +78,8 @@ wall-clock. The hook never throws and caps its stdin read at 3s, so it can't sta
 }
 ```
 
+> Ready-to-paste copy: [`examples/settings.stop-hook.json`](./examples/settings.stop-hook.json). After editing `settings.json`, reload the window (or restart the session) so the hook loads.
+
 **2. Full report on `/tldr`.** When you run a full report, also append the whole thing:
 
 ```powershell
