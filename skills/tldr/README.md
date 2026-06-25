@@ -46,6 +46,8 @@ npx degit Kaidanov/grekai-skills-4all/skills/tldr .claude/skills/tldr
 
 Type `/tldr` — or just ask for a "status", "wrap-up", or "TLDR". You get:
 
+- **Original ask** — your initiating request for this batch, quoted back, so a `/tldr` late in a long
+  session reminds you what you actually asked for.
 - **Work statistics** — total tokens `(est)`, exact per-subagent token + duration breakdown, the
   **rounds** (user turns) and ~time/round, the **tools activated** this batch, and a small
   **components-used** table (what each subagent / tool / skill / hook did).
@@ -65,8 +67,9 @@ trail per day at `~/.claude/tldr-trail/<YYYY-MM-DD>.md`. Two layers feed it:
 
 **1. Automatic per-turn heartbeat (no `/tldr` needed).** Wire `scripts/Log-TurnHeartbeat.ps1` as a
 `Stop` hook in `~/.claude/settings.json` and *every* turn appends a compact one-liner
-(`time · proj@branch · session · +Δmin · gist`). The gap between heartbeats is the real per-round
-wall-clock. The hook never throws and caps its stdin read at 3s, so it can't stall turn-end.
+(`time · proj@branch · session · +Δmin · ask → gist`) — capturing **your prompt** plus a gist of the
+reply, so the trail reconstructs what you asked each turn. The gap between heartbeats is the real
+per-round wall-clock. The hook never throws and caps its stdin read at 3s, so it can't stall turn-end.
 
 ```jsonc
 // ~/.claude/settings.json
