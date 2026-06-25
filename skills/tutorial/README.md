@@ -48,8 +48,21 @@ npx degit Kaidanov/grekai-skills-4all/skills/tutorial ~/.claude/skills/tutorial
 | **edge-tts** | the neural narration voice (Jenny) | `pip install edge-tts` then `edge-tts --list-voices` |
 | **ffmpeg + ffprobe** | _optional_ — only for the downloadable **MP4** path | Windows: `winget install Gyan.FFmpeg` · macOS: `brew install ffmpeg` · Linux: `apt install ffmpeg` |
 
-The **HTML player** path needs only Node + Playwright + edge-tts — **no ffmpeg**. ffmpeg is required
-only if you also want a downloadable MP4. Scripts fail fast with a clear message if a tool is missing.
+**Which do I actually need?**
+
+- **HTML player path** (default) — needs only **Node + Playwright + edge-tts**. **No ffmpeg.**
+- **MP4 path** (optional) — additionally needs **ffmpeg + ffprobe**.
+
+No system ffmpeg but you have a binary lying around (e.g. a project's `node_modules/ffmpeg-static`)?
+Point the renderer at it — no install required:
+
+```bash
+FFMPEG_BIN=/path/to/ffmpeg FFPROBE_BIN=/path/to/ffprobe \
+  node scripts/render-tutorial-video.mjs --manifest <out>/<slug>-steps.json --out <out>
+```
+
+If `ffprobe` is missing the renderer estimates clip lengths from the edge-tts mp3 instead of failing.
+Scripts fail fast with a clear message if a required tool is genuinely unavailable.
 
 ## Setup (one-time, per project)
 

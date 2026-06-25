@@ -40,6 +40,7 @@ const steps = manifest.steps.map((s, idx) => {
   return { img: s.image, title: s.title || `Step ${idx + 1}`, caption: s.narration || '', audio: a?.file || null, duration: a?.durationSec || 0 };
 });
 const data = { title: manifest.title || manifest.slug, voice: (audioData?.voice || manifest.voice || ''), steps };
+const mp4 = existsSync(join(dir, `${manifest.slug}-jenny.mp4`)) ? `${manifest.slug}-jenny.mp4` : '';
 const out = resolve(arg('out', join(dir, 'index.html')));
 mkdirSync(dirname(out), { recursive: true });
 
@@ -98,7 +99,7 @@ const html = `<!DOCTYPE html>
     <span class="sp"></span>
     <span class="count" id="count"></span>
   </div>
-  <p class="meta">Narrated with <b id="voice"></b> · built by the <a href="https://github.com/Kaidanov/grekai-skills-4all/tree/main/skills/tutorial">tutorial</a> skill</p>
+  <p class="meta">Narrated with <b id="voice"></b>${mp4 ? ` · <a href="${esc(mp4)}" download>⬇ Download MP4</a>` : ''} · built by the <a href="https://github.com/Kaidanov/grekai-skills-4all/tree/main/skills/tutorial">tutorial</a> skill</p>
 </div>
 <script type="application/json" id="data">${json}</script>
 <script>

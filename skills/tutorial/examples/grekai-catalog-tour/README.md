@@ -3,13 +3,16 @@
 A **real, runnable** tutorial produced by this skill — a narrated tour of the GrekAI Skills
 catalog (the site this repo deploys). Open **[`index.html`](./index.html)** to watch it: real
 screenshots, real **Jenny** (edge-tts) narration, captions, a light/dark toggle, and player
-controls — **no ffmpeg required**.
+controls — **no ffmpeg required**. It also ships a **downloadable
+[`grekai-catalog-tour-jenny.mp4`](./grekai-catalog-tour-jenny.mp4)** (39 s) rendered via the ffmpeg
+path — so this one example demonstrates *both* output formats.
 
 ## What's here
 
 | File | What it is |
 |------|------------|
 | `index.html` | The playable HTML audio-slideshow (open this). |
+| `grekai-catalog-tour-jenny.mp4` | The downloadable narrated MP4 (ffmpeg path), 39 s. |
 | `scenario.md` | The approved scenario + acceptance criteria. |
 | `grekai-catalog-tour.spec.ts` | The Playwright spec — captures the screenshots and asserts AC1–AC5. |
 | `grekai-catalog-tour-steps.json` | Step manifest (image + narration per step). |
