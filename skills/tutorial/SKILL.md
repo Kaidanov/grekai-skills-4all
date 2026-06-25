@@ -52,11 +52,23 @@ literal `/tutorial-create`, `/tutorial-update`, `/tutorial-status` tokens onto t
 
 | Mode | Trigger | What it does |
 |------|---------|--------------|
+| **init** | `/tutorial-init` | Ask setup questions, then write `tutorial.config.json` + scaffold folders. Optionally flow into create. |
 | **create** | `/tutorial-create "<free-text goal>"` | Draft+approve a scenario → record → render → approve → publish. |
 | **update** | `/tutorial-update <slug>` | Re-record an existing tutorial and refresh its video + index card. |
 | **status** | `/tutorial-status` | Report which tutorials are recorded vs stale/missing. **No recording.** |
 
+> 📺 **Working example to copy:** [`examples/grekai-catalog-tour/`](./examples/grekai-catalog-tour/) — a real
+> narrated tour (real screenshots + real Jenny audio + a no-ffmpeg HTML player). Open its `index.html`.
+
 ---
+
+## init — interactive setup (ask first)
+
+When invoked via `/tutorial-init`, **ask the user before doing anything** (AskUserQuestion, one batch):
+app name + base URL + dev command · brand (logo, accent, default theme) · narration voice + output folder
+· an optional first-tutorial goal. Then copy `config.example.json` → `tutorial.config.json`, fill it from
+the answers, create the `scenariosDir`/`outputDir`, and confirm. If a first-tutorial goal was given, flow
+straight into **create** (draft the scenario for approval). Never record before a scenario is approved.
 
 ## create — the gated pipeline
 
@@ -80,12 +92,21 @@ npx playwright test <specsDir>/<slug>.spec.ts
 ```
 The spec must go green and emit the per-step PNGs + `<slug>-steps.json`.
 
-**5. Render the narration (Jenny).** Drift-free slideshow from the manifest:
-```bash
-node <skill>/scripts/render-tutorial-video.mjs --manifest <outputDir>/<slug>-steps.json --out <outputDir>
-```
-Produces `<slug>-jenny.mp4` + `<slug>-narration.vtt`. The script **fails hard if the output has no
-audio stream** — never ship a silent or wrong-voice video.
+**5. Render the narration (Jenny).** Two output formats — pick by what's installed:
+
+- **A · HTML player (no ffmpeg, recommended)** — needs only `edge-tts`:
+  ```bash
+  node <skill>/scripts/synthesize-audio.mjs   --manifest <outputDir>/<slug>-steps.json --out <outputDir>
+  node <skill>/scripts/build-tutorial-page.mjs --steps    <outputDir>/<slug>-steps.json --out <outputDir>/<slug>.html
+  ```
+  Produces per-step `audio/*.mp3`, `<slug>-narration.vtt`, `<slug>-audio.json`, and a self-contained,
+  themeable `<slug>.html` that plays the screenshots in sync with the audio (captions + light/dark toggle).
+- **B · Downloadable MP4 (needs ffmpeg)**:
+  ```bash
+  node <skill>/scripts/render-tutorial-video.mjs --manifest <outputDir>/<slug>-steps.json --out <outputDir>
+  ```
+  Produces `<slug>-jenny.mp4` + `<slug>-narration.vtt`. **Fails hard if the output has no audio stream** —
+  never ship a silent or wrong-voice video.
 
 **6. ⛔ GATE 2 — show & approve the tutorial.** Open the MP4 (or capture a Playwright screenshot of it
 playing) and present it. Review honestly against the acceptance criteria; fix issues (re-narrate,
@@ -116,5 +137,10 @@ Output a tight table. Never start a recording in this mode.
 - **done = proven** — show the rendered video / a screenshot; state what passed and what didn't.
 - **Honesty in narration** — if the UI can't do a step, say so on camera; don't hide it.
 - **No fabrication** — never claim a render/test passed without the artifact.
-- **KISS** — the slideshow renderer (screenshots + voice) is the default; a full screencast-with-voice
-  mux is an advanced option (see README), not the baseline.
+- **KISS** — the HTML audio player (screenshots + voice, no ffmpeg) is the default; the downloadable
+  MP4 (ffmpeg) is an option, not the baseline.
+
+---
+
+Part of [GrekAI Skills 4 All](https://github.com/Kaidanov/grekai-skills-4all) · MIT-licensed, free to use.
+Created by **Tzvi Gregory Kaidanov** — [Set4u](https://set4u.biz). ⭐ the repo if it helps you.

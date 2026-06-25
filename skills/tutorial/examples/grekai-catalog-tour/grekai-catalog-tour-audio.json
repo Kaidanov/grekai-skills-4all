@@ -1,0 +1,42 @@
+{
+  "slug": "grekai-catalog-tour",
+  "voice": "en-US-JennyNeural",
+  "totalSec": 39.124,
+  "steps": [
+    {
+      "index": 1,
+      "file": "audio/step-01.mp3",
+      "title": "The catalog",
+      "narration": "This is GrekAI Skills for All, a free and open catalog of agent skills you can drop straight into Claude Code.",
+      "durationSec": 7.412
+    },
+    {
+      "index": 2,
+      "file": "audio/step-02.mp3",
+      "title": "Filter by category",
+      "narration": "Filter by category to find what you need. Everything here is a ready to use, self contained skill.",
+      "durationSec": 7.775
+    },
+    {
+      "index": 3,
+      "file": "audio/step-03.mp3",
+      "title": "The Tutorial skill",
+      "narration": "Here is the Tutorial skill. It records narrated walkthroughs of your own app, exactly like the one you are watching now.",
+      "durationSec": 8.35
+    },
+    {
+      "index": 4,
+      "file": "audio/step-04.mp3",
+      "title": "Skill details",
+      "narration": "Open any skill for its own page: what it does, when to use it, and the full README.",
+      "durationSec": 6.412
+    },
+    {
+      "index": 5,
+      "file": "audio/step-05.mp3",
+      "title": "One-line install",
+      "narration": "Copy the one line install, and the skill lands in your Claude skills folder. Free to use, and open for your contributions.",
+      "durationSec": 9.175
+    }
+  ]
+}

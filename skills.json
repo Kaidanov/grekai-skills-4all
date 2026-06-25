@@ -22,9 +22,10 @@
       "tags": ["playwright", "tutorials", "video", "narration", "tts", "edge-tts", "theming", "claude-code"],
       "status": "live",
       "install": "npx degit Kaidanov/grekai-skills-4all/skills/tutorial .claude/skills/tutorial",
-      "usage": "Set a one-time tutorial.config.json (brand, paths, voice), then say \"/tutorial-create show a new user how to create their first record\". The skill drafts a scenario for your approval, records it with Playwright, renders a narrated MP4 + captions with edge-tts, shows it for approval, then rebuilds a themeable light/dark index.html switching between every tutorial. /tutorial-update <slug> re-records one; /tutorial-status reports stale/missing. Needs Node 18+, Playwright, ffmpeg and edge-tts on PATH.",
+      "usage": "Run /tutorial-init once (it asks a few questions and writes tutorial.config.json), then say \"/tutorial-create show a new user how to create their first record\". The skill drafts a scenario for your approval, records it with Playwright, narrates each step with edge-tts (Jenny), and builds either a no-ffmpeg HTML audio-slideshow player or a downloadable MP4 — then a themeable light/dark index.html switching between every tutorial. /tutorial-update <slug> re-records one; /tutorial-status reports stale/missing. HTML path needs only Node + Playwright + edge-tts (ffmpeg optional, for MP4).",
       "links": {
-        "docs": "./skills/tutorial/"
+        "docs": "./skills/tutorial/",
+        "demo": "./skills/tutorial/examples/grekai-catalog-tour/"
       }
     },
     {
