@@ -40,6 +40,8 @@ const steps = manifest.steps.map((s, idx) => {
 });
 const data = { title: manifest.title || manifest.slug, voice: (audioData?.voice || manifest.voice || ''), steps, acceptance: manifest.acceptance || [] };
 const mp4 = existsSync(join(dir, `${manifest.slug}-jenny.mp4`)) ? `${manifest.slug}-jenny.mp4` : '';
+const vtt = existsSync(join(dir, `${manifest.slug}-narration.vtt`)) ? `${manifest.slug}-narration.vtt` : '';
+const poster = steps[0]?.img || '';
 const out = resolve(arg('out', join(dir, 'index.html')));
 mkdirSync(dirname(out), { recursive: true });
 
@@ -63,6 +65,11 @@ const html = `<!DOCTYPE html>
   #toggle{background:var(--panel);border:1px solid var(--line);color:var(--text);border-radius:999px;height:38px;padding:0 14px;font-size:14px;cursor:pointer}
   #toggle:hover{border-color:var(--accent)}
   .wrap{max-width:1000px;margin:0 auto;padding:0 20px 50px}
+  .modebar{display:flex;justify-content:center;gap:6px;margin:0 auto 14px}
+  .modebar button{background:var(--panel);border:1px solid var(--line);color:var(--muted);border-radius:999px;padding:7px 16px;font-size:13.5px;cursor:pointer}
+  .modebar button:hover{border-color:var(--accent)}
+  .modebar button.active{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600}
+  .stage video{width:100%;height:100%;display:block;background:#000;object-fit:contain}
   .stage{position:relative;background:#0b0d12;border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:var(--shadow);aspect-ratio:${manifest.width || 16}/${manifest.height || 9}}
   .stage img{width:100%;height:100%;object-fit:contain;display:block;background:#0b0d12}
   .cc{position:absolute;left:0;right:0;bottom:0;padding:14px 18px;background:linear-gradient(transparent,rgba(0,0,0,.85));color:#fff;font-size:17px;line-height:1.4}
@@ -99,7 +106,15 @@ const html = `<!DOCTYPE html>
   <button id="toggle" aria-label="Toggle light/dark">◑ Theme</button>
 </header>
 <div class="wrap">
-  <div class="stage"><img id="frame" alt="" /><div class="cc" id="cc"></div></div>
+  ${mp4 ? `<div class="modebar" id="modebar">
+    <button data-mode="pics" class="active">🖼 Step-by-step</button>
+    <button data-mode="video">🎬 Video</button>
+  </div>` : ''}
+  <div class="stage">
+    <img id="frame" alt="" />
+    ${mp4 ? `<video id="video" controls preload="metadata" playsinline hidden${poster ? ` poster="${esc(poster)}"` : ''}><source src="${esc(mp4)}" type="video/mp4" />${vtt ? `<track kind="captions" src="${esc(vtt)}" srclang="en" label="English" default />` : ''}</video>` : ''}
+    <div class="cc" id="cc"></div>
+  </div>
   <div class="bar" id="bar"></div>
   <div class="ctrls">
     <button class="play" id="play">▶ Play</button>
@@ -169,6 +184,26 @@ const html = `<!DOCTYPE html>
   function tick() { clearTimeout(timer); const d = (data.steps[i].duration || 4) * 1000; timer = setTimeout(() => { if (playing && i < data.steps.length - 1) { go(i + 1, true); tick(); } else setPlay(false); }, d); }
 
   go(0, false);
+
+  // Pics vs Video mode (only when an MP4 is present)
+  const videoEl = document.getElementById('video');
+  const modebar = document.getElementById('modebar');
+  if (modebar && videoEl) {
+    const ctrlsEl = document.querySelector('.ctrls');
+    const MKEY = 'tutorial-mode';
+    function setMode(m) {
+      const isVideo = m === 'video';
+      frame.hidden = isVideo; videoEl.hidden = !isVideo;
+      cc.style.display = isVideo ? 'none' : '';
+      bar.style.display = isVideo ? 'none' : '';
+      if (ctrlsEl) ctrlsEl.style.display = isVideo ? 'none' : '';
+      if (isVideo) { audio.pause(); setPlay(false); } else { videoEl.pause(); }
+      [...modebar.children].forEach((b) => b.classList.toggle('active', b.dataset.mode === m));
+      localStorage.setItem(MKEY, m);
+    }
+    [...modebar.children].forEach((b) => { b.onclick = () => setMode(b.dataset.mode); });
+    setMode(localStorage.getItem(MKEY) || 'pics');
+  }
 </script>
 </body>
 </html>
