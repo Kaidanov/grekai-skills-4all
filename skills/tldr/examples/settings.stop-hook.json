@@ -1,0 +1,15 @@
+{
+  "_README": "Copy the \"Stop\" block below into your ~/.claude/settings.json (merge it with any hooks you already have). Replace <you> with your Windows username. This auto-appends a one-line TLDR heartbeat to ~/.claude/tldr-trail/<date>.md on EVERY turn — no /tldr needed. The unknown _README key is ignored by Claude Code. macOS/Linux: use the pwsh path and a forward-slash path to the script.",
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -File \"C:\\Users\\<you>\\.claude\\skills\\tldr\\scripts\\Log-TurnHeartbeat.ps1\""
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -113,6 +113,32 @@
       "links": {
         "docs": "./skills/my-claude-toolkit/"
       }
+    },
+    {
+      "id": "tldr",
+      "category": "skills",
+      "title": "TLDR — End-of-Turn Status Report",
+      "description": "One-command status memo for the batch of work just finished: tokens (total estimate + exact per-subagent), time, rounds, tools activated, a reasoning + Q&A summary, done, to-do, issues, options, and a fresh-session recommendation. Bundles a concurrency-safe daily trail log (one file per day, shared across all windows) plus an optional Stop hook that auto-captures a per-turn heartbeat with no /tldr needed. Never fabricates numbers — exact where measurable, estimates labelled, n/a otherwise.",
+      "tags": ["context-management", "productivity", "status-report", "token-efficiency", "claude-code", "hook"],
+      "status": "live",
+      "install": "npx degit Kaidanov/grekai-skills-4all/skills/tldr ~/.claude/skills/tldr",
+      "usage": "Type /tldr (or ask for a status / wrap-up / TLDR). You get a work-statistics block (total tokens est + exact per-subagent breakdown + a components-used table), plus a reasoning + self/user Q&A summary, Done / To-do / Issues / Options, and an explicit new-session call. Each report is appended to a daily trail at ~/.claude/tldr-trail/<date>.md via scripts/Append-TldrTrail.ps1 (-Scope global|project, atomic lock, real wall-clock deltas); wire scripts/Log-TurnHeartbeat.ps1 as a Stop hook (see examples/settings.stop-hook.json) to auto-log every turn. Honors a project-specific report format if your repo defines one.",
+      "links": {
+        "docs": "./skills/tldr/"
+      }
+    },
+    {
+      "id": "token-audit",
+      "category": "skills",
+      "title": "Token Audit — Cut Context Cost",
+      "description": "Audit your agent setup for token waste and get a prioritized, quality-preserving reduction plan. Inventories and estimates the per-session cost of CLAUDE.md files, MCP servers, SessionStart hooks, skills, agents, plugins and the memory index, ranks the biggest sinks, and proposes safe cuts. Read-only by default — proposes, never changes config without approval.",
+      "tags": ["context-management", "token-efficiency", "mcp", "hooks", "claude-code"],
+      "status": "live",
+      "install": "npx degit Kaidanov/grekai-skills-4all/skills/token-audit ~/.claude/skills/token-audit",
+      "usage": "Type /token-audit (or ask \"why is my context so big / what can I trim\"). It inventories MCP servers, hooks, the CLAUDE.md chain, skills, agents, plugins and memory, estimates each at ~bytes/4 tokens, ranks them biggest-first, and returns Top-3 quick wins + a full table + estimated total reclaim. Read-only — asks before applying any change.",
+      "links": {
+        "docs": "./skills/token-audit/"
+      }
     }
   ]
 }
