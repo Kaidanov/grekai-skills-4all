@@ -60,18 +60,38 @@ Type `/tldr` — or just ask for a "status", "wrap-up", or "TLDR". You get:
 
 ## Daily trail log (every window → one file per day)
 
-Each report is also appended to a **shared daily log** so *all* your Claude windows accumulate one
-scannable TLDR trail per day at `~/.claude/tldr-trail/<YYYY-MM-DD>.md`:
+Reports accumulate into a **shared daily log** so *all* your Claude windows build one scannable TLDR
+trail per day at `~/.claude/tldr-trail/<YYYY-MM-DD>.md`. Two layers feed it:
+
+**1. Automatic per-turn heartbeat (no `/tldr` needed).** Wire `scripts/Log-TurnHeartbeat.ps1` as a
+`Stop` hook in `~/.claude/settings.json` and *every* turn appends a compact one-liner
+(`time · proj@branch · session · +Δmin · gist`). The gap between heartbeats is the real per-round
+wall-clock. The hook never throws and caps its stdin read at 3s, so it can't stall turn-end.
+
+```jsonc
+// ~/.claude/settings.json
+"hooks": {
+  "Stop": [
+    { "hooks": [ { "type": "command",
+      "command": "powershell -NoProfile -ExecutionPolicy Bypass -File \"C:\\Users\\<you>\\.claude\\skills\\tldr\\scripts\\Log-TurnHeartbeat.ps1\"" } ] }
+  ]
+}
+```
+
+**2. Full report on `/tldr`.** When you run a full report, also append the whole thing:
 
 ```powershell
 & "$HOME\.claude\skills\tldr\scripts\Append-TldrTrail.ps1" -Path "<tempfile>" -Project "<repo>@<branch>" -Session "<short id>"
 ```
 
+- **Choose where it lives.** `-Scope global` (default) → `~/.claude/tldr-trail/`; `-Scope project` →
+  `<repo-root>/.claude/tldr-trail/` (travels with the repo); `-TrailDir "<path>"` → explicit override.
 - **Concurrency-safe.** An atomic lock means two windows finishing at once queue instead of
   clobbering the file; it waits up to 2s, steals a stale lock after 30s, and deletes the temp file.
 - **Real time.** Each entry stamps the wall-clock elapsed since the previous one — the trustworthy
-  time source (the in-chat per-round time stays an estimate).
-- **UTF-8, append-only.** Safe for em-dashes, Hebrew, emoji, etc.
+  time source (in-chat per-round time stays an estimate).
+- **UTF-8, append-only, clickable.** Safe for em-dashes, Hebrew, emoji; the script prints the trail
+  path so the assistant can link it (`file://` for the global log, a relative path when in-project).
 
 ## Notes
 
