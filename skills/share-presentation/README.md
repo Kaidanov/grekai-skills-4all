@@ -1,7 +1,8 @@
-# No-Repo Collaborative Deck
+# Share Presentation — Collaborate Over Shared Org Folders
 
 A serverless, AI-driven way to collaborate on presentations (and other documents)
-with **no server and no repository**. Persistence rides on a shared cloud sync folder;
+**inside your organization** with **no server and no repository**. Persistence rides on a
+**shared org folder** your team already syncs (OneDrive / SharePoint / Google Drive / Dropbox);
 a stateful HTML file reads and writes a `state.json` sidecar; an MCP agent rewrites the
 source from approved changes.
 
@@ -12,11 +13,11 @@ source from approved changes.
 Pull the technique's files (the deck template, overlay JS, and state logic) into a working folder:
 
 ```bash
-npx degit Kaidanov/grekai-skills-4all/skills/no-repo-collab-deck ~/.claude/skills/no-repo-collab-deck
+npx degit Kaidanov/grekai-skills-4all/skills/share-presentation ~/.claude/skills/share-presentation
 ```
 
-- **Project-scoped instead?** Use `.claude/skills/no-repo-collab-deck` as the target.
-- **No `npx`?** The [skill page](https://grekai-skills-4all.vercel.app/skill?id=no-repo-collab-deck)
+- **Project-scoped instead?** Use `.claude/skills/share-presentation` as the target.
+- **No `npx`?** The [skill page](https://grekai-skills-4all.vercel.app/skill?id=share-presentation)
   shows a `git sparse-checkout` alternative.
 
 ## Use it
