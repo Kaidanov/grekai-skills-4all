@@ -16,6 +16,14 @@ publishing. It honors **done = proven** — you see the real video, nothing is f
    regenerate themeable index ◀──⛔ you approve the video──◀─────────────────┘
 ```
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](../../LICENSE)
+[![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](../../CONTRIBUTING.md)
+[![GitHub stars](https://img.shields.io/github/stars/Kaidanov/grekai-skills-4all?style=social)](https://github.com/Kaidanov/grekai-skills-4all)
+[![Made by Set4u](https://img.shields.io/badge/made%20by-Set4u-2563eb)](https://set4u.biz)
+
+▶️ **See it in action** — the [GrekAI catalog tour](./examples/grekai-catalog-tour/): real screenshots + real
+Jenny audio in a no-ffmpeg HTML player. It's a tutorial *of this catalog*, made *by this skill*.
+
 ## Install
 
 Add it to your **global** Claude skills folder (available in every repo):
@@ -37,10 +45,11 @@ npx degit Kaidanov/grekai-skills-4all/skills/tutorial ~/.claude/skills/tutorial
 |------|-----|-----------------|
 | **Node 18+** | runs the renderer + index generator (`.mjs`) | `node -v` |
 | **Playwright** | drives the app and captures screenshots | `npm i -D @playwright/test && npx playwright install chromium` |
-| **ffmpeg + ffprobe** | builds and concatenates the video | Windows: `winget install Gyan.FFmpeg` · macOS: `brew install ffmpeg` · Linux: `apt install ffmpeg` |
 | **edge-tts** | the neural narration voice (Jenny) | `pip install edge-tts` then `edge-tts --list-voices` |
+| **ffmpeg + ffprobe** | _optional_ — only for the downloadable **MP4** path | Windows: `winget install Gyan.FFmpeg` · macOS: `brew install ffmpeg` · Linux: `apt install ffmpeg` |
 
-All four must be on your `PATH`. The renderer fails fast with a clear message if one is missing.
+The **HTML player** path needs only Node + Playwright + edge-tts — **no ffmpeg**. ffmpeg is required
+only if you also want a downloadable MP4. Scripts fail fast with a clear message if a tool is missing.
 
 ## Setup (one-time, per project)
 
@@ -66,7 +75,8 @@ The assistant does this with you on the first `/tutorial-*` run.
 
 | Command | What happens |
 |---------|--------------|
-| `/tutorial-create "<goal>"` | Drafts a scenario → **you approve** → records with Playwright → renders the narrated MP4 → **you approve** → publishes + rebuilds the index. |
+| `/tutorial-init` | Asks a few setup questions, writes `tutorial.config.json`, scaffolds folders. Run this first. |
+| `/tutorial-create "<goal>"` | Drafts a scenario → **you approve** → records with Playwright → renders narration (HTML player or MP4) → **you approve** → publishes + rebuilds the index. |
 | `/tutorial-update <slug>` | Re-records an existing tutorial and refreshes its video + index card. |
 | `/tutorial-status` | Prints which tutorials are recorded vs stale/missing. No recording. |
 
@@ -106,8 +116,11 @@ Open `public/tutorials/index.html` — toggle light/dark, watch the narrated tou
 | `SKILL.md` | The full skill instructions (the gated create/update/status pipeline). |
 | `README.md` | This guide. |
 | `config.example.json` | Per-project settings template → copy to `tutorial.config.json`. |
-| `scripts/render-tutorial-video.mjs` | Manifest → drift-free narrated MP4 + WebVTT (edge-tts + ffmpeg). |
+| `scripts/synthesize-audio.mjs` | Manifest → per-step Jenny mp3 + WebVTT + `-audio.json` (**no ffmpeg**). |
+| `scripts/build-tutorial-page.mjs` | Steps + audio → a self-contained HTML **audio-slideshow player** (no ffmpeg). |
+| `scripts/render-tutorial-video.mjs` | Manifest → drift-free narrated MP4 + WebVTT (edge-tts + **ffmpeg**). |
 | `scripts/build-index.mjs` | Catalog + config → themeable, switchable `index.html`. |
+| `examples/grekai-catalog-tour/` | A real, runnable example — screenshots + audio + the player. |
 | `templates/scenario-template.md` | The scenario draft skeleton (steps + narration + acceptance). |
 | `templates/theme.css` | Light/dark token sheet shipped beside the index. |
 | `templates/playwright.config.example.ts` | Starter Playwright config (1920×1080 video). |
@@ -121,9 +134,11 @@ Open `public/tutorials/index.html` — toggle light/dark, watch the narrated tou
 1. **Scenario** — draft `<scenariosDir>/<slug>.md`; **approve** it (gate 1).
 2. **Record** — a Playwright spec drives the UI, captions each step on camera, screenshots into
    `<outputDir>/<slug>-NN.png`, and `publishManifest()` writes `<slug>-steps.json`.
-3. **Narrate** — `render-tutorial-video.mjs` synthesizes Jenny audio per step, holds each slide for
-   exactly its audio length (+ tail pad → **no drift**), concatenates to `<slug>-jenny.mp4`, writes
-   `<slug>-narration.vtt`, and **aborts if the video has no audio stream**.
+3. **Narrate** — pick a format:
+   - **HTML player (no ffmpeg):** `synthesize-audio.mjs` makes per-step Jenny mp3s (slide held for its
+     exact audio length → **no drift**), then `build-tutorial-page.mjs` emits a self-contained player.
+   - **MP4 (ffmpeg):** `render-tutorial-video.mjs` muxes audio + slides into `<slug>-jenny.mp4` and
+     **aborts if the video has no audio stream**.
 4. **Approve** — watch it; fix/re-render in a loop (gate 2).
 5. **Publish** — upsert the catalog and rebuild the themeable `index.html`.
 
@@ -144,3 +159,10 @@ Hand-made walkthrough videos rot the moment the UI changes, and re-recording + r
 tedious. This skill makes tutorials **reproducible**: the scenario is text you approve, the recording
 is a Playwright spec you can re-run, and the narration + branded index regenerate on command — so
 refreshing a tutorial is one `/tutorial-update`, not an afternoon.
+
+## License & credits
+
+[MIT](../../LICENSE) — free to use, modify, and ship; keep the copyright notice. Created by
+**Tzvi Gregory Kaidanov** — **[Set4u](https://set4u.biz)**. Contributions welcome
+([CONTRIBUTING](../../CONTRIBUTING.md)); if it helps you, please ⭐ the
+[repo](https://github.com/Kaidanov/grekai-skills-4all).

@@ -1,5 +1,14 @@
 # GrekAI Skills 4 All
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](./LICENSE)
+[![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](./CONTRIBUTING.md)
+[![GitHub stars](https://img.shields.io/github/stars/Kaidanov/grekai-skills-4all?style=social)](https://github.com/Kaidanov/grekai-skills-4all/stargazers)
+[![Live site](https://img.shields.io/badge/live-grekai--skills--4all.vercel.app-black)](https://grekai-skills-4all.vercel.app/)
+[![Made by Set4u](https://img.shields.io/badge/made%20by-Set4u-2563eb)](https://set4u.biz)
+
+> **Free & open (MIT)** — use anything here, attribution appreciated. **PRs welcome.** Built by [Set4u](https://set4u.biz).
+> ▶️ Watch a [narrated demo of this very catalog](https://grekai-skills-4all.vercel.app/skills/tutorial/examples/grekai-catalog-tour/) — made by the **tutorial** skill. If it's useful, please ⭐.
+
 A **static catalog** of agent skills (and, soon, hooks &amp; connectors), deployable to
 Vercel with zero backend. The site root is a manifest-driven dashboard: add a folder
 and one entry in [`skills.json`](./skills.json) and a new card appears — no build step.
@@ -20,7 +29,7 @@ explanation, install command, and usage.
 
 | Skill | What it does | Docs |
 |---|---|---|
-| **[Tutorial — Narrated Playwright Walkthroughs](./skills/tutorial/)** | Record narrated, themeable product tutorials: Playwright drives the app and screenshots each step, `edge-tts` (Jenny) narrates, a drift-free renderer produces MP4 + WebVTT, and a light/dark, logo-branded `index.html` switches between all tutorials. Human-gated; ships `/tutorial-create`, `/tutorial-update`, `/tutorial-status`. | [README](./skills/tutorial/README.md) · [page](https://grekai-skills-4all.vercel.app/skill?id=tutorial) |
+| **[Tutorial — Narrated Playwright Walkthroughs](./skills/tutorial/)** | Record narrated, themeable product tutorials: Playwright drives the app and screenshots each step, `edge-tts` (Jenny) narrates, and you get either a **no-ffmpeg HTML player** or an MP4, plus a light/dark, logo-branded `index.html` switching between all tutorials. Human-gated; ships `/tutorial-init/create/update/status`. | [README](./skills/tutorial/README.md) · [page](https://grekai-skills-4all.vercel.app/skill?id=tutorial) · [▶ demo](https://grekai-skills-4all.vercel.app/skills/tutorial/examples/grekai-catalog-tour/) |
 | **[No-Repo Collaborative Deck](./skills/no-repo-collab-deck/)** | Serverless, AI-driven presentation collaboration — no server, no repo. Stateful HTML reads/writes a `state.json` sidecar synced over a shared cloud folder; an MCP agent rewrites the deck from approved changes. | [README](./skills/no-repo-collab-deck/README.md) · [page](https://grekai-skills-4all.vercel.app/skill?id=no-repo-collab-deck) · [demo](./decks/elon-musk/) |
 | **[Session Handoff](./skills/handoff/)** | Package the current session so the **next** one resumes with zero re-research — a dated handoff doc, a copy-paste resume prompt, and a session-log metrics row. | [README](./skills/handoff/README.md) · [page](https://grekai-skills-4all.vercel.app/skill?id=handoff) |
 | **[Setup Memory — Memory-in-Repo](./skills/setup-memory/)** | Move Claude's per-project memory **into** the repo (`memories/repo/`) and auto-load it via a filesystem junction — committed, team-shared, token-efficient. | [SKILL.md](./skills/setup-memory/SKILL.md) · [page](https://grekai-skills-4all.vercel.app/skill?id=setup-memory) |
@@ -73,6 +82,11 @@ automatically on the skill's page.
 
 ---
 
-## License
+## License & credits
 
-© Kaidanov. All rights reserved unless noted otherwise.
+Licensed under the **[MIT License](./LICENSE)** — free to use, modify, and distribute; just keep the
+copyright notice. A link back to [set4u.biz](https://set4u.biz) or this repo is appreciated.
+
+Created and maintained by **Tzvi Gregory Kaidanov** — **[Set4u](https://set4u.biz)**.
+Contributions are welcome — see **[CONTRIBUTING](./CONTRIBUTING.md)**. If this catalog helps you,
+a ⭐ on the [repo](https://github.com/Kaidanov/grekai-skills-4all) means a lot and helps others find it.
