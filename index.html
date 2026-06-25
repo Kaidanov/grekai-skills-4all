@@ -106,6 +106,18 @@
       const el = document.createElement("article");
       el.className = "card";
       const detailHref = `./skill?id=${encodeURIComponent(item.id)}`;
+      // The whole card is a click target; inner links/buttons keep their own behavior.
+      el.tabIndex = 0;
+      el.setAttribute("role", "link");
+      el.setAttribute("aria-label", item.title);
+      const go = (ev) => {
+        if (ev.target.closest("a, button")) return; // let real links handle themselves
+        window.location.href = detailHref;
+      };
+      el.addEventListener("click", go);
+      el.addEventListener("keydown", (ev) => {
+        if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); window.location.href = detailHref; }
+      });
       const tags = (item.tags || []).map(t => `<span class="tag">${t}</span>`).join("");
       // Primary CTA opens the skill's own page; demo (if any) is a secondary link.
       const links = [`<a class="btn" href="${detailHref}">View skill</a>`];
