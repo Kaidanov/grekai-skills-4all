@@ -42,16 +42,16 @@
       }
     },
     {
-      "id": "no-repo-collab-deck",
+      "id": "share-presentation",
       "category": "skills",
-      "title": "No-Repo Collaborative Deck",
-      "description": "Serverless, AI-driven presentation collaboration. Stateful HTML reads/writes a sidecar state.json synced over a shared cloud folder; an MCP agent rewrites the deck from approved changes. Figma-style comment pins, AI prompt drafts and approvals — no server, no repo.",
-      "tags": ["collaboration", "presentations", "mcp", "file-system-access", "serverless"],
+      "title": "Share Presentation — Collaborate Over Shared Org Folders",
+      "description": "Collaborate on a presentation across your organization with no server and no repo. Persistence rides on a shared org folder (OneDrive / SharePoint / Google Drive / Dropbox) that every teammate already syncs: stateful HTML reads/writes a sidecar state.json, and an MCP agent rewrites the deck from approved changes. Figma-style comment pins, AI prompt drafts and approvals.",
+      "tags": ["collaboration", "presentations", "shared-folder", "organization", "onedrive", "sharepoint", "mcp", "file-system-access", "serverless"],
       "status": "live",
-      "usage": "Open the deck HTML in a Chromium-based browser and pick a synced cloud folder when prompted (File System Access API). Add Figma-style comment pins and draft AI prompts; once a change is approved in state.json, the MCP agent rewrites the deck. Try the live demo first.",
+      "usage": "Drop the deck HTML and its state.json into a shared org folder (OneDrive / SharePoint / Google Drive / Dropbox) that your team syncs. Open the deck HTML in a Chromium-based browser and grant File System Access when prompted. Add Figma-style comment pins and draft AI prompts; edits sync to everyone via the shared folder. Once a change is approved in state.json, point Claude at the folder via a File System MCP server and it rewrites the deck. Try the live demo first.",
       "links": {
         "demo": "./decks/elon-musk/",
-        "docs": "./skills/no-repo-collab-deck/"
+        "docs": "./skills/share-presentation/"
       }
     },
     {
