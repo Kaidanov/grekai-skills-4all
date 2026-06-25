@@ -31,5 +31,12 @@
       "image": "step-05-install.png",
       "narration": "Copy the one line install, and the skill lands in your Claude skills folder. Free to use, and open for your contributions."
     }
+  ],
+  "acceptance": [
+    "The catalog loads and renders at least one skill card.",
+    "The Tutorial skill card is present in the catalog.",
+    "Filtering by the Skills category keeps the list non-empty.",
+    "The skill detail page opens for the tutorial skill.",
+    "The one-line install command is shown and correct (npx degit … skills/tutorial)."
   ]
 }

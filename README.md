@@ -1,10 +1,21 @@
+<div align="center">
+
+<img src="./logo.svg" width="92" alt="GrekAI Skills 4 All" />
+
 # GrekAI Skills 4 All
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](./LICENSE)
+**A free, open catalog of agent skills, hooks &amp; connectors — drop them into Claude Code, Cursor, Codex &amp; friends.**
+
+[![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE)
 [![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](./CONTRIBUTING.md)
 [![GitHub stars](https://img.shields.io/github/stars/Kaidanov/grekai-skills-4all?style=social)](https://github.com/Kaidanov/grekai-skills-4all/stargazers)
-[![Live site](https://img.shields.io/badge/live-grekai--skills--4all.vercel.app-black)](https://grekai-skills-4all.vercel.app/)
+[![Live site](https://img.shields.io/badge/live-vercel-black)](https://grekai-skills-4all.vercel.app/)
 [![Made by Set4u](https://img.shields.io/badge/made%20by-Set4u-2563eb)](https://set4u.biz)
+[![Sponsor](https://img.shields.io/badge/%F0%9F%92%96-Sponsor-ff5e9c)](https://set4u.biz)
+
+### 💖 [Support this project — keep it free &amp; open source](https://set4u.biz)
+
+</div>
 
 > **Free & open (MIT)** — use anything here, attribution appreciated. **PRs welcome.** Built by [Set4u](https://set4u.biz).
 > ▶️ Watch a [narrated demo of this very catalog](https://grekai-skills-4all.vercel.app/skills/tutorial/examples/grekai-catalog-tour/) — made by the **tutorial** skill. If it's useful, please ⭐.
