@@ -122,7 +122,7 @@
       "tags": ["context-management", "productivity", "status-report", "token-efficiency", "claude-code", "hook"],
       "status": "live",
       "install": "npx degit Kaidanov/grekai-skills-4all/skills/tldr ~/.claude/skills/tldr",
-      "usage": "Type /tldr (or ask for a status / wrap-up / TLDR). You get a work-statistics block (total tokens est + exact per-subagent breakdown + a components-used table), plus a reasoning + self/user Q&A summary, Done / To-do / Issues / Options, and an explicit new-session call. Each report is appended to a daily trail at ~/.claude/tldr-trail/<date>.md via scripts/Append-TldrTrail.ps1 (-Scope global|project, atomic lock, real wall-clock deltas); wire scripts/Log-TurnHeartbeat.ps1 as a Stop hook (see examples/settings.stop-hook.json) to auto-log every turn. Honors a project-specific report format if your repo defines one.",
+      "usage": "Type /tldr (or ask for a status / wrap-up / TLDR). It opens with your ORIGINAL ASK quoted back (so you remember what you asked late in a session), then a work-statistics block (total tokens est + exact per-subagent breakdown + a components-used table), plus a reasoning + self/user Q&A summary, Done / To-do / Issues / Options, and an explicit new-session call. Each report is appended to a daily trail at ~/.claude/tldr-trail/<date>.md via scripts/Append-TldrTrail.ps1 (-Scope global|project, atomic lock, real wall-clock deltas); wire scripts/Log-TurnHeartbeat.ps1 as a Stop hook (see examples/settings.stop-hook.json) to auto-log every turn. Honors a project-specific report format if your repo defines one.",
       "links": {
         "docs": "./skills/tldr/"
       }

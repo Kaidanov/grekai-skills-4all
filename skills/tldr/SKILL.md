@@ -17,6 +17,8 @@ Emit a tight, scannable status memo for the work done **this turn / this batch**
 
 **TLDR — <one-line of what this batch was>**
 
+**Original ask** — quote the user's *initiating* request for this batch (the first user message that started it), verbatim where short, lightly paraphrased only if very long. Lead with this so a `/tldr` run late in a long session reminds the user what they actually asked. If the batch spanned several distinct asks, list them as short bullets in order.
+
 **Work statistics**
 - **Tokens** — `~<N>k total (est)`; per-subagent breakdown below (exact).
 - **Time** — `~<N> min (est)` total; sub-step durations exact only where a subagent reported `duration_ms`. Real wall-clock between TLDRs is stamped in the daily trail (see below).
