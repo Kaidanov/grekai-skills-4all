@@ -34,6 +34,10 @@
   </header>
 
   <main>
+    <div class="searchbar">
+      <input id="search" type="search" class="search__input" autocomplete="off" spellcheck="false" />
+      <button id="search-clear" class="search__clear" type="button" hidden>&times;</button>
+    </div>
     <section id="catalog" class="catalog" aria-live="polite"></section>
     <p id="empty" class="empty" hidden data-i18n="emptyCat">No items in this category yet.</p>
   </main>
@@ -43,7 +47,19 @@
   </footer>
 
   <script>
-    const state = { items: [], categories: [], active: "all" };
+    const state = { items: [], categories: [], active: "all", query: "" };
+
+    // Free-text match across id, title, summary, description and tags — both
+    // languages — so search works regardless of the active UI language. All
+    // whitespace-separated tokens must match (AND).
+    function matches(item, q) {
+      if (!q) return true;
+      const hay = [
+        item.id, item.title, item.title_he, item.summary, item.summary_he,
+        item.description, item.description_he, (item.tags || []).join(" ")
+      ].filter(Boolean).join(" ").toLowerCase();
+      return q.toLowerCase().split(/\s+/).filter(Boolean).every(tok => hay.includes(tok));
+    }
 
     function esc(s) {
       return String(s).replace(/[&<>"']/g, (c) =>
@@ -109,14 +125,36 @@
     function render() {
       const catalog = document.getElementById("catalog");
       const empty = document.getElementById("empty");
-      const items = state.active === "all"
+      const inCat = state.active === "all"
         ? state.items
         : state.items.filter(i => i.category === state.active);
+      const items = inCat.filter(i => matches(i, state.query));
       catalog.innerHTML = "";
       empty.hidden = items.length !== 0;
+      empty.textContent = state.query ? I18N.t("searchEmpty") : I18N.t("emptyCat");
       for (const item of items) {
         catalog.appendChild(card(item));
       }
+    }
+
+    function setupSearch() {
+      const search = document.getElementById("search");
+      const clear = document.getElementById("search-clear");
+      search.placeholder = I18N.t("searchPlaceholder");
+      search.setAttribute("aria-label", I18N.t("searchPlaceholder"));
+      clear.setAttribute("aria-label", I18N.t("clearSearch"));
+      search.addEventListener("input", () => {
+        state.query = search.value.trim();
+        clear.hidden = !search.value;
+        render();
+      });
+      clear.addEventListener("click", () => {
+        search.value = "";
+        state.query = "";
+        clear.hidden = true;
+        search.focus();
+        render();
+      });
     }
 
     function catLabel(id) {
@@ -185,6 +223,7 @@
       return el;
     }
 
+    setupSearch();
     load().catch(err => {
       document.getElementById("catalog").innerHTML =
         `<p class="empty">Failed to load catalog: ${err.message}</p>`;

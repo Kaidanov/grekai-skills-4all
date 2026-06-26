@@ -52,6 +52,40 @@ body {
 
 main { max-width: 1080px; margin: 0 auto; padding: 16px 20px 48px; }
 
+.searchbar { position: relative; max-width: 520px; margin: 0 auto 22px; }
+.search__input {
+  width: 100%;
+  box-sizing: border-box;
+  background: var(--panel);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 11px 18px;
+  padding-inline-end: 40px;
+  font-size: 15px;
+  outline: none;
+  transition: border-color .15s ease;
+}
+.search__input:focus { border-color: var(--accent); }
+.search__input::placeholder { color: var(--muted); }
+/* Hide the native search clear control; we render our own. */
+.search__input::-webkit-search-cancel-button { -webkit-appearance: none; appearance: none; }
+.search__clear {
+  position: absolute;
+  inset-inline-end: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 26px; height: 26px;
+  border: none; border-radius: 50%;
+  background: var(--panel-2); color: var(--muted);
+  cursor: pointer; font-size: 18px; line-height: 1;
+  display: flex; align-items: center; justify-content: center;
+  transition: color .15s ease;
+}
+.search__clear:hover { color: var(--text); }
+/* display:flex above would override the UA [hidden] rule, so restore it. */
+.search__clear[hidden] { display: none; }
+
 .catalog {
   display: grid;
   /* min(280px, 100%) keeps cards from overflowing narrow phones */
