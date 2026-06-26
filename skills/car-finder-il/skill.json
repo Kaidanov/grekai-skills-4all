@@ -1,0 +1,16 @@
+{
+  "id": "car-finder-il",
+  "category": "skills",
+  "title": "Car Finder IL — Smart Used-Car Alerts (Yad2)",
+  "title_he": "מאתר רכב — התראות חכמות לרכב יד שנייה (יד2)",
+  "description": "Find a good second-hand car in Israel (Yad2) and get pinged on your phone only when something genuinely worth it shows up. Reads listings via an Apify actor (no login, no browser, reads-only), scores each car against its OWN peer cohort (price vs comparable listings, hand/יד, owner type, km-per-year, photos), and on a schedule pushes ONLY new matches and real price drops to WhatsApp (wa-ai), Telegram or ntfy. Stdlib-only Python, no dependencies. Reads-only — it finds and ranks, it never posts, bumps, or buys.",
+  "description_he": "מציאת רכב יד שנייה טוב בישראל (יד2) עם התראה לטלפון רק כשבאמת מופיע משהו ששווה. מושך מודעות דרך אקטור של Apify (בלי התחברות, בלי דפדפן, קריאה בלבד), נותן ציון לכל רכב מול קבוצת ההשוואה שלו (מחיר מול מודעות דומות, יד, סוג בעלות, ק\"מ-לשנה, תמונות), ולפי לוח-זמנים שולח רק התאמות חדשות וירידות-מחיר אמיתיות לוואטסאפ (wa-ai), טלגרם או ntfy. פייתון ספרייה-סטנדרטית בלבד, בלי תלויות. קריאה בלבד — מוצא ומדרג, לא מפרסם, לא מקפיץ ולא קונה.",
+  "tags": ["israel", "cars", "yad2", "used-cars", "alerts", "apify", "supabase", "whatsapp", "telegram", "ntfy", "scoring", "hebrew", "reads-only"],
+  "status": "live",
+  "install": "npx degit Kaidanov/grekai-skills-4all/skills/car-finder-il .claude/skills/car-finder-il",
+  "usage": "Try it with zero setup: python3 scripts/carfinder.py search examples/criteria.example.json --source mock --lang en — a ranked shortlist with a reason per car. For real data, set APIFY_TOKEN + APIFY_ACTOR_ID (a Yad2 vehicles actor from apify.com/store) and run search on your own criteria.json. For hands-off phone alerts, add Supabase (dedupe) + a push channel (wa-ai / Telegram / ntfy) and schedule carfinder.py run via the bundled .github/workflows template. Or just describe what you want ('family SUV, private owner, under 90k') and the assistant writes the criteria JSON for you. Reads-only — never posts, bumps, or buys.",
+  "usage_he": "אפשר לנסות בלי שום הגדרה: python3 scripts/carfinder.py search examples/criteria.example.json --source mock --lang he — רשימה מדורגת עם נימוק לכל רכב. לנתונים אמיתיים: הגדירו APIFY_TOKEN + APIFY_ACTOR_ID (אקטור רכבי יד2 מ-apify.com/store) והריצו search על criteria.json משלכם. להתראות אוטומטיות לטלפון: הוסיפו Supabase (למניעת כפילויות) וערוץ דחיפה (wa-ai / טלגרם / ntfy) ותזמנו את carfinder.py run דרך תבנית ה-.github/workflows המצורפת. או פשוט תארו מה אתם מחפשים ('רכב פנאי משפחתי, בעלות פרטית, עד 90 אלף') והעוזר יכתוב לכם את ה-JSON. קריאה בלבד — לא מפרסם, לא מקפיץ ולא קונה.",
+  "links": {
+    "docs": "./skills/car-finder-il/"
+  }
+}
