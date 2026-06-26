@@ -4,25 +4,29 @@ description: >
   Record narrated, themeable product tutorials by driving any web app with Playwright and
   voicing every step with a neural TTS voice (Jenny by default). Use when the user types
   "/tutorial-create", "/tutorial-update", or "/tutorial-status", or asks to "record a tutorial",
-  "make a walkthrough video", "narrated demo", "screen walkthrough with voiceover", "update the
-  tutorial", "refresh the tutorials index", or "tutorial status". Runs a human-gated flow:
-  draft & APPROVE a scenario, record it with Playwright, render a narrated MP4 + WebVTT captions,
-  show the output for APPROVAL and fix issues in a loop, then regenerate a light/dark, logo-branded
-  index.html that switches between every tutorial. Project-agnostic — reads ./tutorial.config.json
-  for brand, paths and voice.
+  "make a walkthrough video", "narrated demo", "real video with voiceover", "screen recording with
+  narration", "update the tutorial", "refresh the tutorials index", or "tutorial status". Outputs a
+  REAL motion video of the app moving with narration (MP4), or a screenshot slideshow, or a
+  no-ffmpeg HTML player — all with WebVTT captions. Runs a human-gated flow: draft & APPROVE a
+  scenario, record it with Playwright, render, show the output for APPROVAL and fix issues in a
+  loop, then regenerate a light/dark, logo-branded index.html that switches between every tutorial.
+  Project-agnostic — reads ./tutorial.config.json for brand, paths and voice.
 ---
 
 # Tutorial — narrated Playwright walkthroughs
 
-Turn a plain-English goal into a **narrated, themeable tutorial**: Playwright drives the app and
-captures a screenshot per step; a neural voice (Jenny) narrates each step; the renderer produces a
-**drift-free** MP4 + captions; and a branded `index.html` switches between all tutorials.
+Turn a plain-English goal into a **narrated, themeable tutorial**. Playwright drives the app while
+**recording the live session to video** and capturing a screenshot per step; a neural voice (Jenny)
+narrates each step; then you render one of three **drift-free** outputs — a **real motion video** of
+the app in motion, a screenshot slideshow MP4, or a no-ffmpeg HTML player — each with captions, and a
+branded `index.html` switches between all tutorials.
 
 The flow is **gated** — never record before the scenario is approved, never publish before the
 tutorial is approved. Honor **done = proven**: show real output (a played video / a screenshot), and
 never fabricate results.
 
-> Prerequisites (Node 18+, ffmpeg/ffprobe, `edge-tts`, Playwright) and full setup are in `README.md`.
+> Prerequisites (Node 18+, `edge-tts`, Playwright; **ffmpeg** for the motion/slideshow MP4 — a full
+> build, not Playwright's webm-only bundled one) and full setup are in `README.md`.
 > All paths below are relative to the **skill folder** (`scripts/…`, `templates/…`) and the **project
 > root** (`tutorial.config.json`, `public/tutorials/…`). Adjust to wherever the skill is installed.
 
@@ -81,32 +85,47 @@ Keep narration sentences short and spoken-plain; one cue per step.
 record until approved.** Loop on edits.
 
 **3. Generate / extend the Playwright spec** `<specsDir>/<slug>.spec.ts` from the approved steps,
-reusing `templates/test-helpers.ts` (`showIntro`, `showStep`, `publishManifest`) and
-`templates/example.spec.ts` as the pattern. Each step: drive the UI → on-camera caption → screenshot
-into `<outputDir>/<slug>-NN.png`. At the end, `publishManifest()` writes
-`<outputDir>/<slug>-steps.json` (the renderer's input).
+reusing `templates/test-helpers.ts` (`showIntro`, `showStep`, `Timeline`, `saveVideo`,
+`publishManifest`) and `templates/example.spec.ts` as the pattern. Create a context with
+`recordVideo` (the config template already sets `video: { mode: 'on' }`), and for each step: drive the
+UI → on-camera caption → screenshot into `<outputDir>/<slug>-NN.png` → `timeline.mark()` to record when
+the step starts. At the end, `saveVideo()` writes `<outputDir>/<slug>.webm` and `publishManifest()`
+writes `<outputDir>/<slug>-steps.json` (with the `video` path + per-step `atMs` for the motion renderer).
 
 **4. Record.** Start the app (config `devCommand`/`baseUrl`, or the project's start script), then:
 ```bash
 npx playwright test <specsDir>/<slug>.spec.ts
 ```
-The spec must go green and emit the per-step PNGs + `<slug>-steps.json`.
+The spec must go green and emit `<slug>.webm` + the per-step PNGs + `<slug>-steps.json`.
 
-**5. Render the narration (Jenny).** Two output formats — pick by what's installed:
+**5. Render.** Three formats — **a real motion video is the headline output**; pick by what's installed:
 
-- **A · HTML player (no ffmpeg, recommended)** — needs only `edge-tts`:
+- **A · Real motion MP4 (the app actually moving + Jenny narration)** — needs `edge-tts` + `ffmpeg`.
+  Synthesize the narration first (gives per-step durations), then mux it over the recorded session video:
   ```bash
-  node <skill>/scripts/synthesize-audio.mjs   --manifest <outputDir>/<slug>-steps.json --out <outputDir>
+  node <skill>/scripts/synthesize-audio.mjs    --manifest <outputDir>/<slug>-steps.json --out <outputDir>
+  node <skill>/scripts/render-motion-video.mjs --manifest <outputDir>/<slug>-steps.json \
+       --audio <outputDir>/<slug>-audio.json   --out <outputDir>
+  ```
+  Produces `<slug>-motion.mp4` + `<slug>-narration.vtt`. **Drift-free:** each step shows real motion for
+  its window, and if a step's narration is longer than its clip the last frame is frozen to fit — so the
+  voice is always fully audible and never desyncs. Add `--dry-run --video-dur <sec>` to preview the plan
+  without rendering. **Fails hard if the output has no audio stream.** No system ffmpeg? Point at any
+  binary with `FFMPEG_BIN=…` (NOTE: Playwright's *bundled* ffmpeg is webm-only — use a full ffmpeg, e.g.
+  `node_modules/ffmpeg-static/ffmpeg`).
+- **B · HTML player (no ffmpeg)** — needs only `edge-tts`:
+  ```bash
+  node <skill>/scripts/synthesize-audio.mjs    --manifest <outputDir>/<slug>-steps.json --out <outputDir>
   node <skill>/scripts/build-tutorial-page.mjs --steps    <outputDir>/<slug>-steps.json --out <outputDir>/<slug>.html
   ```
-  Produces per-step `audio/*.mp3`, `<slug>-narration.vtt`, `<slug>-audio.json`, and a self-contained,
-  themeable `<slug>.html` that plays the screenshots in sync with the audio (captions + light/dark toggle).
-- **B · Downloadable MP4 (needs ffmpeg)**:
+  A self-contained, themeable `<slug>.html` that plays the screenshots in sync with the audio
+  (captions + light/dark toggle). Good when ffmpeg isn't available.
+- **C · Slideshow MP4 (screenshots → video)** — needs `edge-tts` + `ffmpeg`:
   ```bash
   node <skill>/scripts/render-tutorial-video.mjs --manifest <outputDir>/<slug>-steps.json --out <outputDir>
   ```
-  Produces `<slug>-jenny.mp4` + `<slug>-narration.vtt`. **Fails hard if the output has no audio stream** —
-  never ship a silent or wrong-voice video.
+  Produces `<slug>-jenny.mp4` — static screenshots held under narration. Use when there's no recorded
+  session video (e.g. a re-render from screenshots only).
 
 **6. ⛔ GATE 2 — show & approve the tutorial.** Open the MP4 (or capture a Playwright screenshot of it
 playing) and present it. Review honestly against the acceptance criteria; fix issues (re-narrate,
@@ -137,8 +156,10 @@ Output a tight table. Never start a recording in this mode.
 - **done = proven** — show the rendered video / a screenshot; state what passed and what didn't.
 - **Honesty in narration** — if the UI can't do a step, say so on camera; don't hide it.
 - **No fabrication** — never claim a render/test passed without the artifact.
-- **KISS** — the HTML audio player (screenshots + voice, no ffmpeg) is the default; the downloadable
-  MP4 (ffmpeg) is an option, not the baseline.
+- **Real video is the headline** — when ffmpeg is available, render the motion MP4 (the app actually
+  moving + narration). The no-ffmpeg HTML player and the screenshot slideshow are the graceful
+  fallbacks when ffmpeg or the recorded session video isn't available — never silently downgrade
+  without saying so.
 
 ---
 
