@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 758" font-family="Segoe UI, Helvetica, Arial, sans-serif" role="img" aria-label="Family Budget IL flow: Phase 1 setup interview to build .xlsx workbook to open in Google Sheets and share with the family; Phase 2 log expenses in plain Hebrew or English, Claude parses and categorizes into clean Transactions rows, and the dashboard, Goals and Recommendations update.">
+  <rect x="1" y="1" width="478" height="756" rx="18" fill="#f6f8fc" stroke="#dbe2ee"/>
+  <text x="240" y="44" text-anchor="middle" font-size="23" font-weight="700" fill="#16181d">Family Budget IL</text>
+  <text x="240" y="68" text-anchor="middle" font-size="13" fill="#5b6371">Set up once, then log in plain Hebrew or English</text>
+
+  <!-- Phase 1 -->
+  <rect x="28" y="86" width="424" height="66" rx="12" fill="#f0ebfe" stroke="#d9ccfb"/>
+  <text x="240" y="114" text-anchor="middle" font-size="16" font-weight="700" fill="#16181d">Setup interview (once)</text>
+  <text x="240" y="135" text-anchor="middle" font-size="12.5" fill="#5b6371">Members, income, cycle, categories, goals</text>
+  <line x1="240" y1="152" x2="240" y2="180" stroke="#9aa3b5" stroke-width="2"/>
+  <polygon points="233,173 247,173 240,181" fill="#9aa3b5"/>
+
+  <rect x="28" y="182" width="424" height="66" rx="12" fill="#eaf1fb" stroke="#cfe0f7"/>
+  <text x="240" y="210" text-anchor="middle" font-size="16" font-weight="700" fill="#16181d">Build .xlsx workbook</text>
+  <text x="240" y="231" text-anchor="middle" font-size="12.5" fill="#5b6371">Live SUMIFS formulas, dashboard + tabs</text>
+  <line x1="240" y1="248" x2="240" y2="276" stroke="#9aa3b5" stroke-width="2"/>
+  <polygon points="233,269 247,269 240,277" fill="#9aa3b5"/>
+
+  <rect x="28" y="278" width="424" height="66" rx="12" fill="#e7f8f0" stroke="#bfe9d4" stroke-width="2"/>
+  <text x="240" y="306" text-anchor="middle" font-size="16" font-weight="700" fill="#16181d">Open in Google Sheets &amp; share</text>
+  <text x="240" y="327" text-anchor="middle" font-size="12.5" fill="#5b6371">Your live, shared family budget</text>
+
+  <text x="240" y="364" text-anchor="middle" font-size="12" font-weight="700" fill="#5b6371">— then, every day —</text>
+
+  <!-- Phase 2 -->
+  <rect x="28" y="374" width="424" height="66" rx="12" fill="#fff2dd" stroke="#f3c884" stroke-width="2"/>
+  <text x="240" y="402" text-anchor="middle" font-size="16" font-weight="700" fill="#16181d">Type it in plain Hebrew / English</text>
+  <text x="240" y="423" text-anchor="middle" font-size="12.5" fill="#5b6371">"שילמתי 250 בשופרסל"</text>
+  <line x1="240" y1="440" x2="240" y2="468" stroke="#9aa3b5" stroke-width="2"/>
+  <polygon points="233,461 247,461 240,469" fill="#9aa3b5"/>
+
+  <rect x="28" y="470" width="424" height="66" rx="12" fill="#eaf1fb" stroke="#cfe0f7"/>
+  <text x="240" y="498" text-anchor="middle" font-size="16" font-weight="700" fill="#16181d">Claude parses &amp; categorizes</text>
+  <text x="240" y="519" text-anchor="middle" font-size="12.5" fill="#5b6371">Amount, merchant, type, category group</text>
+  <line x1="240" y1="536" x2="240" y2="564" stroke="#9aa3b5" stroke-width="2"/>
+  <polygon points="233,557 247,557 240,565" fill="#9aa3b5"/>
+
+  <rect x="28" y="566" width="424" height="66" rx="12" fill="#eaf1fb" stroke="#cfe0f7"/>
+  <text x="240" y="594" text-anchor="middle" font-size="16" font-weight="700" fill="#16181d">Clean Transactions rows</text>
+  <text x="240" y="615" text-anchor="middle" font-size="12.5" fill="#5b6371">Ready to paste into תנועות / Transactions</text>
+  <line x1="240" y1="632" x2="240" y2="660" stroke="#9aa3b5" stroke-width="2"/>
+  <polygon points="233,653 247,653 240,661" fill="#9aa3b5"/>
+
+  <rect x="28" y="662" width="424" height="66" rx="12" fill="#e7f8f0" stroke="#bfe9d4" stroke-width="2"/>
+  <text x="240" y="690" text-anchor="middle" font-size="16" font-weight="700" fill="#16181d">Dashboard, Goals &amp; Recommendations</text>
+  <text x="240" y="711" text-anchor="middle" font-size="12.5" fill="#5b6371">Recalculate themselves automatically</text>
+</svg>

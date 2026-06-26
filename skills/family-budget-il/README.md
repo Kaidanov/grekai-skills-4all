@@ -10,6 +10,8 @@ benefit clubs) but adapts to any country.
 
 ## How it works — two phases
 
+![Family Budget IL flow — setup interview → build .xlsx → open in Google Sheets → share; then log expenses in plain Hebrew/English → categorized rows → dashboard, goals & recommendations update](../../assets/images/family-budget-il-flow.svg)
+
 1. **Setup (once).** Claude interviews the family and generates one `.xlsx`
    workbook with live formulas. You upload it to Google Drive → *Open with
    Google Sheets* → *Share* with the family. That sheet is now your live,
@@ -24,6 +26,24 @@ benefit clubs) but adapts to any country.
 Plus: a **Goals** tab (required ₪/month, gap vs. surplus), a
 **"where do we stand?"** cycle summary, and a **Recommendations** action board
 that maps your benefit-club memberships to concrete savings.
+
+## Example output
+
+You type one line; Claude hands back paste-ready rows in the exact
+**Transactions** column order, plus a one-line confirmation.
+
+```text
+You: שילמתי 250 בשופרסל ועוד 40 בארומה
+
+Rows to paste into תנועות / Transactions:
+Date | Member | Account | Type | Group | Category | Description | Amount | ExcludeFromBudget | Notes
+2026-06-26 |  |  | expense | מזון וסופרמרקט | סופרמרקט | שופרסל | 250 | FALSE |
+2026-06-26 |  |  | expense | מזון וסופרמרקט | קפה | ארומה | 40 | FALSE |
+
+Logged ₪290 in food this cycle. Cycle balance so far: ₪7,910 of ₪18,500 spent.
+
+Where do we stand? מזון וסופרמרקט: ₪3,460 / ₪4,000 — ₪540 left until the 15th.
+```
 
 ## What's in here
 
