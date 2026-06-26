@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 880" font-family="Segoe UI, Helvetica, Arial, sans-serif" role="img" aria-label="Exit Strategist pipeline, top to bottom: you ask in any language; intake of interview and uploaded reports; a data-quality audit that runs before any number; map the household balance sheet; pick the model; localize and late-life layers; stress-test; output a scenario-banded plan and one-page PDF.">
+  <rect x="1" y="1" width="478" height="878" rx="18" fill="#f6f8fc" stroke="#dbe2ee"/>
+  <text x="240" y="44" text-anchor="middle" font-size="23" font-weight="700" fill="#16181d">How Exit Strategist runs</text>
+  <text x="240" y="68" text-anchor="middle" font-size="13" fill="#5b6371">The data-quality gate runs before any number reaches you</text>
+
+  <!-- 1 input -->
+  <rect x="28" y="86" width="424" height="66" rx="12" fill="#f0ebfe" stroke="#d9ccfb"/>
+  <text x="240" y="114" text-anchor="middle" font-size="16" font-weight="700" fill="#16181d">You ask — in any language</text>
+  <text x="240" y="135" text-anchor="middle" font-size="12.5" fill="#5b6371">“map where we stand” · “can we retire at 55?”</text>
+  <line x1="240" y1="152" x2="240" y2="180" stroke="#9aa3b5" stroke-width="2"/>
+  <polygon points="233,173 247,173 240,182" fill="#9aa3b5"/>
+
+  <!-- 2 intake -->
+  <rect x="28" y="182" width="424" height="66" rx="12" fill="#eaf1fb" stroke="#cfe0f7"/>
+  <text x="240" y="210" text-anchor="middle" font-size="16" font-weight="700" fill="#16181d">Intake</text>
+  <text x="240" y="231" text-anchor="middle" font-size="12.5" fill="#5b6371">interview + your uploaded reports / exports</text>
+  <line x1="240" y1="248" x2="240" y2="276" stroke="#9aa3b5" stroke-width="2"/>
+  <polygon points="233,269 247,269 240,278" fill="#9aa3b5"/>
+
+  <!-- 3 data-quality gate (amber) -->
+  <rect x="28" y="278" width="424" height="66" rx="12" fill="#fff2dd" stroke="#f3c884" stroke-width="2"/>
+  <text x="240" y="306" text-anchor="middle" font-size="16" font-weight="700" fill="#9a6400">🚦 Data-quality audit · hard gate</text>
+  <text x="240" y="327" text-anchor="middle" font-size="12.5" fill="#6b5326">dedup · missing months · transfers ≠ spending · fix categories</text>
+  <line x1="240" y1="344" x2="240" y2="372" stroke="#9aa3b5" stroke-width="2"/>
+  <polygon points="233,365 247,365 240,374" fill="#9aa3b5"/>
+
+  <!-- 4 map -->
+  <rect x="28" y="374" width="424" height="66" rx="12" fill="#eaf1fb" stroke="#cfe0f7"/>
+  <text x="240" y="402" text-anchor="middle" font-size="16" font-weight="700" fill="#16181d">Map the household balance sheet</text>
+  <text x="240" y="423" text-anchor="middle" font-size="12.5" fill="#5b6371">net worth · cash flow · runway · savings rate</text>
+  <line x1="240" y1="440" x2="240" y2="468" stroke="#9aa3b5" stroke-width="2"/>
+  <polygon points="233,461 247,461 240,470" fill="#9aa3b5"/>
+
+  <!-- 5 model -->
+  <rect x="28" y="470" width="424" height="66" rx="12" fill="#eaf1fb" stroke="#cfe0f7"/>
+  <text x="240" y="498" text-anchor="middle" font-size="16" font-weight="700" fill="#16181d">Pick the model</text>
+  <text x="240" y="519" text-anchor="middle" font-size="12.5" fill="#5b6371">income-replacement · capital-FI · blend</text>
+  <line x1="240" y1="536" x2="240" y2="564" stroke="#9aa3b5" stroke-width="2"/>
+  <polygon points="233,557 247,557 240,566" fill="#9aa3b5"/>
+
+  <!-- 6 localize + late-life -->
+  <rect x="28" y="566" width="424" height="66" rx="12" fill="#eaf1fb" stroke="#cfe0f7"/>
+  <text x="240" y="594" text-anchor="middle" font-size="16" font-weight="700" fill="#16181d">Localize + late-life layers</text>
+  <text x="240" y="615" text-anchor="middle" font-size="12.5" fill="#5b6371">tax · pension · Section 14 · eldercare · medical (multi-pot)</text>
+  <line x1="240" y1="632" x2="240" y2="660" stroke="#9aa3b5" stroke-width="2"/>
+  <polygon points="233,653 247,653 240,662" fill="#9aa3b5"/>
+
+  <!-- 7 stress test (red) -->
+  <rect x="28" y="662" width="424" height="66" rx="12" fill="#fdeaea" stroke="#f3c1c1"/>
+  <text x="240" y="690" text-anchor="middle" font-size="16" font-weight="700" fill="#9a2b2b">Stress-test</text>
+  <text x="240" y="711" text-anchor="middle" font-size="12.5" fill="#7a3a3a">AI job loss · war / reserve duty · currency</text>
+  <line x1="240" y1="728" x2="240" y2="756" stroke="#9aa3b5" stroke-width="2"/>
+  <polygon points="233,749 247,749 240,758" fill="#9aa3b5"/>
+
+  <!-- 8 output (green) -->
+  <rect x="28" y="758" width="424" height="74" rx="12" fill="#e7f8f0" stroke="#bfe9d4" stroke-width="2"/>
+  <text x="240" y="788" text-anchor="middle" font-size="16" font-weight="700" fill="#14704a">📄 Output</text>
+  <text x="240" y="809" text-anchor="middle" font-size="12.5" fill="#2f6b51">scenario-banded plan + one-page snapshot PDF</text>
+  <text x="240" y="826" text-anchor="middle" font-size="11.5" fill="#5b6371">every assumption tagged · not financial advice</text>
+</svg>

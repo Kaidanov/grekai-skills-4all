@@ -39,15 +39,7 @@ price-dropped ones get pushed to your phone.
 
 ## How it works
 
-```mermaid
-flowchart LR
-    A["criteria.json<br/>(your hard filters + weights)"] --> B["source<br/>Apify Yad2 read actor"]
-    B --> C["score<br/>cohort-relative: price vs peers,<br/>hand · owner · km/yr · photos"]
-    C --> D{"store (dedupe)<br/>new match or real price drop?"}
-    D -- "yes" --> E["notify<br/>wa-ai · Telegram · ntfy"]
-    D -- "already seen" --> F["skip (no ping)"]
-    E --> G["📱 your phone"]
-```
+![Car Finder IL pipeline — criteria.json → source (Apify Yad2 read actor) → score against peer cohort → dedupe in Supabase (only new matches or real price drops) → notify → ping to your phone; already-seen listings are skipped](../../assets/images/car-finder-pipeline.svg)
 
 Same flow in one line: `criteria → source → score → dedupe → only-new → phone`.
 

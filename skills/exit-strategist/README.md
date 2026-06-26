@@ -34,58 +34,22 @@ figure).
 Whatever you ask, the skill routes through the same honest pipeline — the data-quality gate comes
 **before** any number reaches you:
 
-```mermaid
-flowchart TD
-    A["You ask, in any language<br/>('map where we stand', 'can we retire at 55?',<br/>'where do we cut?', 'I'm losing my job')"] --> B{Route to use case}
-    B --> C["Intake: interview +<br/>uploaded reports/exports"]
-    C --> D{"Export included?"}
-    D -- yes --> E["DATA-QUALITY AUDIT (hard gate)<br/>dedup · missing months · transfers≠spending ·<br/>rebuild mislabeled categories"]
-    D -- no --> F
-    E --> F["Map the household balance sheet<br/>net worth · cash flow · runway · savings rate"]
-    F --> G["Pick the model<br/>income-replacement · capital-FI · blend"]
-    G --> H["Localize<br/>tax · safety-net · pension · Section 14"]
-    H --> I["Add late-life layers (multi-pot)<br/>pension now-vs-projected · eldercare ·<br/>medical · child support"]
-    I --> J["Stress-test<br/>AI displacement · war / reserve duty · currency"]
-    J --> K["Output<br/>scenario-banded plan + one-page snapshot PDF<br/>every assumption tagged · not advice"]
-```
+![Exit Strategist pipeline — you ask → intake → data-quality audit (hard gate) → map the household balance sheet → pick the model → localize + late-life layers → stress-test → output a scenario-banded plan and one-page PDF](../../assets/images/exit-strategist-pipeline.svg)
 
-## How it fits together (concept map)
+In words: **you ask → intake (interview + reports) → 🚦 data-quality audit → map the balance sheet →
+pick the model → localize + late-life layers → stress-test → output.** The audit is a hard gate:
+no number is used until the export is cleaned.
 
-```mermaid
-mindmap
-  root((Exit Strategist))
-    Honesty contract
-      No fabricated certainty
-      Base rates beat vibes
-      Downside before upside
-      Not financial advice
-    Current-state map
-      Interview
-      Document ingestion
-      Data-quality audit
-      One-page PDF
-    Models
-      Income replacement
-      Early retirement
-        Full FI
-        Coast-FI
-        Barista-FI
-      Blend
-    Stress tests
-      AI displacement
-      War / reserve duty
-      Currency / relocation
-    Late-life layers
-      Pension current vs projected
-      Eldercare from home equity
-      Medical and dental
-      Child support timing
-    Localize
-      Tax and self-employment
-      Safety net and severance
-      Section 14
-      Pension continuity
-```
+## How it fits together (what's inside)
+
+| Area | What it covers |
+|---|---|
+| **Honesty contract** | No fabricated certainty · base rates beat vibes · downside before upside · not financial advice |
+| **Current-state map** | Interview · document ingestion · data-quality audit · one-page PDF |
+| **Models** | Income replacement · early retirement (full FI / Coast-FI / Barista-FI) · blend |
+| **Stress tests** | AI displacement · war / reserve duty · currency / relocation |
+| **Late-life layers** | Pension current-vs-projected · eldercare from home equity · medical & dental · child support |
+| **Localize** | Tax & self-employment · safety net & severance · Section 14 · pension continuity |
 
 ## Short version
 
@@ -163,12 +127,6 @@ Confidence: MEDIUM. Spouse's pension export not provided; entertainment looks un
   Not financial/tax/legal advice. Assumes 3.5% SWR, 2.5% inflation, employment to plan date.
   Confirm pension, tax registration, and Section 14 with a licensed professional in Israel.
 ```
-
-## How the diagrams render
-
-GitHub and the catalog site render the ` ```mermaid ` blocks above as diagrams automatically — no
-tooling needed. If you're reading this in a plain-text viewer, the fenced source is still readable
-top-to-bottom.
 
 ## Install
 
