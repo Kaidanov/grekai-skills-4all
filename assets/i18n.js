@@ -25,6 +25,8 @@
       // community buttons
       fork: "Fork", star: "Star", proposePr: "Propose a PR", discuss: "Discuss", comment: "Comment",
       contribute: "Contribute",
+      // status badges
+      status_live: "live", status_soon: "soon", status_beta: "beta", status_wip: "wip",
       // skill page
       backAll: "← All skills",
       loading: "Loading…",
@@ -62,6 +64,7 @@
         '· <a href="https://set4u.biz" target="_blank" rel="noopener">💖 חסות</a>',
       fork: "פיצול", star: "כוכב", proposePr: "הציעו PR", discuss: "דיון", comment: "תגובה",
       contribute: "תרומה",
+      status_live: "פעיל", status_soon: "בקרוב", status_beta: "בטא", status_wip: "בעבודה",
       backAll: "כל הכישורים →",
       loading: "טוען…",
       skillPrefix: "כישור",
@@ -101,6 +104,12 @@
     var v = obj[field + "_" + lang()];
     return (v != null && v !== "") ? v : (obj[field] != null ? obj[field] : "");
   }
+  // Translate a status value (e.g. "live"); unknown values pass through unchanged.
+  function status(v) {
+    if (!v) return "";
+    var k = "status_" + v, s = t(k);
+    return s === k ? v : s;
+  }
   function set(l) {
     try { localStorage.setItem("lang", l); } catch (e) {}
     location.reload();
@@ -128,7 +137,7 @@
     });
   }
 
-  window.I18N = { lang: lang, dir: dir, t: t, loc: loc, set: set, applyDoc: applyDoc, applyStatic: applyStatic, mountToggle: mountToggle };
+  window.I18N = { lang: lang, dir: dir, t: t, loc: loc, status: status, set: set, applyDoc: applyDoc, applyStatic: applyStatic, mountToggle: mountToggle };
 
   function init() { applyDoc(); mountToggle(); applyStatic(); }
   if (document.readyState !== "loading") init();

@@ -23,7 +23,7 @@
   <header class="hero hero--detail">
     <div id="lang-switch" class="langswitch" aria-label="Language"></div>
     <a class="back" href="./" data-i18n="backAll">&larr; All skills</a>
-    <h1 id="skill-title" data-i18n="loading">Loading…</h1>
+    <h1 id="skill-title" dir="auto" data-i18n="loading">Loading…</h1>
     <p id="skill-tagline" class="tagline"></p>
   </header>
 
@@ -33,7 +33,7 @@
         <span id="d-cat" class="card__cat"></span>
         <span id="d-status"></span>
       </div>
-      <p id="d-desc" class="detail__desc"></p>
+      <p id="d-desc" class="detail__desc" dir="auto"></p>
       <div id="d-tags" class="tags"></div>
 
       <div id="d-actions" class="detail__actions"></div>
@@ -60,12 +60,12 @@
 
       <section class="panel" id="usage-panel" hidden>
         <h2 data-i18n="howToUse">How to use</h2>
-        <div id="d-usage" class="panel__usage"></div>
+        <div id="d-usage" class="panel__usage" dir="auto"></div>
       </section>
 
       <section class="panel readme" id="readme-panel">
         <h2 data-i18n="readme">README</h2>
-        <div id="readme" class="markdown" data-i18n="readmeLoading">Loading README…</div>
+        <div id="readme" class="markdown" dir="auto" data-i18n="readmeLoading">Loading README…</div>
       </section>
     </article>
 
@@ -200,9 +200,10 @@
       document.title = title + " · GrekAI Skills 4 All";
       $("skill-title").textContent = title;
       $("skill-tagline").textContent = I18N.t("skillPrefix") + " · " + slug + "/skills/" + folder;
-      $("d-cat").textContent = item.category || "skill";
+      const cat = (data.categories || []).find((c) => c.id === item.category);
+      $("d-cat").textContent = cat ? I18N.loc(cat, "label") : (item.category || "skill");
       $("d-status").innerHTML = item.status
-        ? '<span class="status status--' + esc(item.status) + '">' + esc(item.status) + "</span>" : "";
+        ? '<span class="status status--' + esc(item.status) + '">' + esc(I18N.status(item.status)) + "</span>" : "";
       $("d-desc").textContent = I18N.loc(item, "description");
       $("d-tags").innerHTML = (item.tags || [])
         .map((t) => '<span class="tag">' + esc(t) + "</span>").join("");
