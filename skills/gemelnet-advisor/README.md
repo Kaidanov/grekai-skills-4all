@@ -10,6 +10,8 @@ portfolio checkup, and estimate the shekel cost of management fees.
 > data and frames it as analysis — never buy/sell/switch recommendations. It uses
 > no personal data and ships no secrets.
 
+![GemelNet Advisor flow — ask → fetch GemelNet open data → compare / rank vs peers / statement checkup → fee & revenue analysis → data-grounded answer, not advice](../../assets/images/gemelnet-advisor-flow.svg)
+
 ## What it does
 
 - **Search** funds by name or managing company (Hebrew or English).
@@ -96,6 +98,40 @@ python3 scripts/gemelnet.py revenue 9012 --balance 250000
 
 Or just talk to your assistant — *"compare my study fund 9012 with its peers and
 tell me what I'm paying in fees"* — and let it drive `SKILL.md`.
+
+## Example output
+
+Each command prints a compact table and closes with a "not advice" reminder.
+A like-for-like comparison plus a fee-cost estimate looks like this (figures
+illustrative; live numbers come from GemelNet):
+
+```text
+$ python3 scripts/gemelnet.py compare 9012 512 1234
+
+       ID  Fund                                Company                     YTD          3yr         Fee
+     9012  קרן השתלמות כללי                     אלטשולר שחם          YTD   6.84%   3yr   5.12%   fee  0.62%
+      512  קרן השתלמות כללי                     מיטב                YTD   7.21%   3yr   5.47%   fee  0.70%
+     1234  קרן השתלמות כללי                     הראל                YTD   6.30%   3yr   4.88%   fee  0.55%
+
+  Highest 3yr return : 512 (5.47%)
+  Lowest mgmt fee    : 1234 (0.55%)
+
+Like-for-like comparison only matters within the same fund class. Not advice.
+
+$ python3 scripts/gemelnet.py revenue 9012 --balance 250000
+
+Fund 9012 — קרן השתלמות כללי
+  Annual mgmt fee  : 0.62%
+  On balance       : 250,000 ₪
+  Estimated cost   : 1,550 ₪ / year (~129 ₪ / month)
+
+Estimate from the published fee on a flat balance; ignores deposits, deposit fees and compounding. Not advice.
+```
+
+Takeaway (analysis, not advice): all three are the same study-fund class, so the
+comparison is fair — fund 512 led on 3yr average-annual return while 1234 charged
+the lowest fee; on a 250,000 ₪ balance the 0.62% fee on 9012 works out to roughly
+1,550 ₪ a year. Past performance does not predict future results.
 
 ## Files
 
