@@ -16,6 +16,8 @@
       soonSuffix: "soon",
       viewSkill: "View skill",
       demo: "Demo",
+      showMore: "more",
+      showLess: "less",
       emptyCat: "No items in this category yet.",
       contributeHtml: "Open source — <strong>fork it, build your own skill, open a PR.</strong> " +
         "Copy <code>skills/_template/</code>, add an entry to <code>skills.json</code>, and send it back.",
@@ -56,6 +58,8 @@
       soonSuffix: "בקרוב",
       viewSkill: "צפו בכישור",
       demo: "דמו",
+      showMore: "עוד",
+      showLess: "פחות",
       emptyCat: "אין עדיין פריטים בקטגוריה זו.",
       contributeHtml: "קוד פתוח — <strong>עשו פיצול, בנו כישור משלכם, פתחו PR.</strong> " +
         "העתיקו את <code>skills/_template/</code>, הוסיפו רשומה ל-<code>skills.json</code> ושִלחו בחזרה.",

@@ -90,8 +90,12 @@
 
     function renderFilters() {
       const nav = document.getElementById("filters");
-      const cats = [{ id: "all", label: I18N.t("filterAll") }, ...state.categories];
       nav.innerHTML = "";
+      // With a single category the "All / Skills" chips are redundant — hide the
+      // whole filter bar until a second category exists (it returns automatically).
+      if (state.categories.length < 2) { nav.hidden = true; return; }
+      nav.hidden = false;
+      const cats = [{ id: "all", label: I18N.t("filterAll") }, ...state.categories];
       for (const c of cats) {
         const btn = document.createElement("button");
         btn.className = "chip" + (c.id === state.active ? " chip--active" : "");
@@ -125,8 +129,12 @@
       el.className = "card";
       const detailHref = `./skill?id=${encodeURIComponent(item.id)}`;
       const title = I18N.loc(item, "title");
-      // Catalog cards show a short summary; fall back to the full description.
-      const desc = I18N.loc(item, "summary") || I18N.loc(item, "description");
+      // Catalog cards show a short summary; a "more/less" toggle reveals the full
+      // description in place (works on desktop and mobile alike).
+      const full = I18N.loc(item, "description");
+      const short = I18N.loc(item, "summary") || full;
+      const hasToggle = !!full && !!short && full !== short;
+      const desc = short;
       // The whole card is a click target; inner links/buttons keep their own behavior.
       el.tabIndex = 0;
       el.setAttribute("role", "link");
@@ -146,15 +154,34 @@
         links.push(`<a class="btn btn--ghost" href="${item.links.demo}">${I18N.t("demo")}</a>`);
       }
       const status = item.status ? `<span class="status status--${item.status}">${I18N.status(item.status)}</span>` : "";
+      const moreBtn = hasToggle
+        ? `<button class="card__more" type="button" aria-expanded="false">${I18N.t("showMore")}</button>`
+        : "";
       el.innerHTML = `
         <div class="card__top">
           <span class="card__cat">${catLabel(item.category)}</span>
           ${status}
         </div>
         <h2 class="card__title"><a class="card__titlelink" dir="auto" href="${detailHref}">${title}</a></h2>
-        <p class="card__desc" dir="auto">${desc}</p>
+        <div class="card__body">
+          <p class="card__desc" dir="auto">${desc}</p>
+          ${moreBtn}
+        </div>
         <div class="tags">${tags}</div>
         <div class="card__links">${links.join("")}</div>`;
+
+      if (hasToggle) {
+        const descEl = el.querySelector(".card__desc");
+        const btn = el.querySelector(".card__more");
+        let expanded = false;
+        btn.addEventListener("click", (ev) => {
+          ev.stopPropagation();            // don't navigate the card
+          expanded = !expanded;
+          descEl.textContent = expanded ? full : short;
+          btn.textContent = I18N.t(expanded ? "showLess" : "showMore");
+          btn.setAttribute("aria-expanded", String(expanded));
+        });
+      }
       return el;
     }
 
