@@ -16,6 +16,22 @@
   ],
   "items": [
     {
+      "id": "exam-creator",
+      "summary": "Generate single-file, gamified HTML exam/study apps for kids — XP, badges, localStorage, 4 question types, Hebrew RTL + TTS. Runs offline by double-click or Netlify Drop.",
+      "summary_he": "מחולל אפליקציות מבחן/לימוד בקובץ HTML יחיד לילדים — נקודות, תגים, שמירה מקומית, 4 סוגי שאלות, עברית RTL והקראה. רץ אופליין בדאבל-קליק או ב-Netlify Drop.",
+      "category": "skills",
+      "title": "Exam Creator — Single-File Gamified Study Apps",
+      "description": "Generate single-file, self-contained HTML exam / study / quiz apps for kids and general study. Gamified (XP, levels, badges) with localStorage progress and continue-where-you-left-off, four question types (multiple choice, true/false, numeric with tolerance, short fill-in), immediate feedback + explanations, and optional Hebrew TTS readout that degrades silently. Hebrew RTL by default (LTR/other languages supported), mobile-first, accessible, and renders formulas without MathJax/KaTeX. Runs offline by double-click or Netlify Drop with zero dependencies — the packaged version of the apps in exam-hub-grekai.netlify.app. Never fabricates graded answers without flagging them for review.",
+      "tags": ["education", "exams", "quiz", "study", "gamification", "hebrew", "rtl", "single-file-html", "offline", "localstorage", "tts", "kids", "netlify-drop"],
+      "status": "live",
+      "install": "npx degit Kaidanov/grekai-skills-4all/skills/exam-creator .claude/skills/exam-creator",
+      "usage": "Just ask — \"create a grade-8 Hebrew math exam app on fractions\" / \"תכין לי תרגול בכימיה לכיתה ח׳ מהספר של מטח\" / \"make an English tenses quiz for my kid\". The skill gathers the spec (subject, grade, language, topics, source material, question count & mix), generates the questions (using your source material when supplied and flagging AI-generated content for review otherwise), fills the bundled single-file template (XP/badge engine, localStorage, TTS fallback, all 4 question types), and hands back one HTML file ready for Netlify Drop plus how to add it to the exam hub. No dependencies — output is plain offline HTML.",
+      "links": {
+        "docs": "./skills/exam-creator/",
+        "demo": "./skills/exam-creator/examples/grade8-math-he.html"
+      }
+    },
+    {
       "id": "tutorial",
       "summary": "Narrated, themeable product walkthroughs — Playwright drives the app, neural TTS narrates; output is an MP4 or a no-ffmpeg HTML player.",
       "summary_he": "הדרכות מוצר מוקלטות עם קריינות וערכת-נושא — Playwright מפעיל את האפליקציה ו-TTS מקריא; הפלט הוא MP4 או נגן HTML ללא ffmpeg.",

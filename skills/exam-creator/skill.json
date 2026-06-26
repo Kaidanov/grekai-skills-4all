@@ -1,0 +1,13 @@
+{
+  "id": "exam-creator",
+  "category": "skills",
+  "title": "Exam Creator — Single-File Gamified Study Apps",
+  "description": "Generate single-file, self-contained HTML exam / study / quiz apps for kids and general study. Gamified (XP, levels, badges) with localStorage progress and continue-where-you-left-off, four question types (multiple choice, true/false, numeric with tolerance, short fill-in), immediate feedback + explanations, and optional Hebrew TTS readout that degrades silently. Hebrew RTL by default (LTR/other languages supported), mobile-first, accessible, formulas without MathJax/KaTeX. Runs offline by double-click or Netlify Drop with zero dependencies — the packaged version of the apps in exam-hub-grekai.netlify.app. Never fabricates graded answers without flagging them for review.",
+  "tags": ["education", "exams", "quiz", "study", "gamification", "hebrew", "rtl", "single-file-html", "offline", "localstorage", "tts", "kids", "netlify-drop"],
+  "status": "live",
+  "install": "npx degit Kaidanov/grekai-skills-4all/skills/exam-creator .claude/skills/exam-creator",
+  "links": {
+    "docs": "./skills/exam-creator/",
+    "demo": "./skills/exam-creator/examples/grade8-math-he.html"
+  }
+}
