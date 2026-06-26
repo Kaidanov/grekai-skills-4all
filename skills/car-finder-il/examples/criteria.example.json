@@ -1,0 +1,22 @@
+{
+  "id": "family-suv",
+  "label": "Family SUV under 90k",
+  "lang": "he",
+  "make": ["Kia", "Hyundai", "Toyota"],
+  "model": [],
+  "year_min": 2019,
+  "price_max": 90000,
+  "km_max": 120000,
+  "hand_max": 2,
+  "owner_type": ["private"],
+  "max_items": 120,
+  "min_score": 60,
+  "weights": {
+    "price_value": 0.40,
+    "hand": 0.15,
+    "owner": 0.15,
+    "km": 0.15,
+    "photos": 0.05,
+    "fresh": 0.10
+  }
+}
