@@ -125,7 +125,8 @@
       el.className = "card";
       const detailHref = `./skill?id=${encodeURIComponent(item.id)}`;
       const title = I18N.loc(item, "title");
-      const desc = I18N.loc(item, "description");
+      // Catalog cards show a short summary; fall back to the full description.
+      const desc = I18N.loc(item, "summary") || I18N.loc(item, "description");
       // The whole card is a click target; inner links/buttons keep their own behavior.
       el.tabIndex = 0;
       el.setAttribute("role", "link");
