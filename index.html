@@ -115,6 +115,11 @@
       }
     }
 
+    function catLabel(id) {
+      const c = state.categories.find((c) => c.id === id);
+      return c ? I18N.loc(c, "label") : id;
+    }
+
     function card(item) {
       const el = document.createElement("article");
       el.className = "card";
@@ -139,14 +144,14 @@
       if (item.links && item.links.demo) {
         links.push(`<a class="btn btn--ghost" href="${item.links.demo}">${I18N.t("demo")}</a>`);
       }
-      const status = item.status ? `<span class="status status--${item.status}">${item.status}</span>` : "";
+      const status = item.status ? `<span class="status status--${item.status}">${I18N.status(item.status)}</span>` : "";
       el.innerHTML = `
         <div class="card__top">
-          <span class="card__cat">${item.category}</span>
+          <span class="card__cat">${catLabel(item.category)}</span>
           ${status}
         </div>
-        <h2 class="card__title"><a class="card__titlelink" href="${detailHref}">${title}</a></h2>
-        <p class="card__desc">${desc}</p>
+        <h2 class="card__title"><a class="card__titlelink" dir="auto" href="${detailHref}">${title}</a></h2>
+        <p class="card__desc" dir="auto">${desc}</p>
         <div class="tags">${tags}</div>
         <div class="card__links">${links.join("")}</div>`;
       return el;

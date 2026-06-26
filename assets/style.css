@@ -243,16 +243,18 @@ main { max-width: 1080px; margin: 0 auto; padding: 16px 20px 48px; }
 .langbtn--active { background: var(--accent); color: #fff; }
 
 /* ---------- RTL (Hebrew) ---------- */
-[dir="rtl"] .markdown { text-align: right; }
-[dir="rtl"] .markdown ul, [dir="rtl"] .markdown ol { padding-left: 0; padding-right: 1.4em; }
-[dir="rtl"] .markdown blockquote {
+/* Markdown follows its own content direction (dir="auto"): an English README
+   stays LTR even in Hebrew mode, a Hebrew one mirrors. */
+.markdown:dir(rtl) { text-align: right; }
+.markdown:dir(rtl) ul, .markdown:dir(rtl) ol { padding-left: 0; padding-right: 1.4em; }
+.markdown:dir(rtl) blockquote {
   border-left: none; border-right: 3px solid var(--accent);
   border-radius: 8px 0 0 8px;
 }
-[dir="rtl"] .markdown th, [dir="rtl"] .markdown td { text-align: right; }
-/* Code / commands stay left-to-right regardless of UI direction */
-[dir="rtl"] .codeblock pre, [dir="rtl"] .markdown pre { direction: ltr; text-align: left; }
-[dir="rtl"] .codeblock code, [dir="rtl"] .markdown code { unicode-bidi: isolate; }
+.markdown:dir(rtl) th, .markdown:dir(rtl) td { text-align: right; }
+/* Code / commands always read left-to-right */
+[dir="rtl"] .codeblock pre, .markdown pre { direction: ltr; text-align: left; }
+[dir="rtl"] .codeblock code, .markdown code { unicode-bidi: isolate; }
 
 /* ---------- Responsive ---------- */
 @media (max-width: 720px) {
