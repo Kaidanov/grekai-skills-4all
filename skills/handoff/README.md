@@ -56,6 +56,8 @@ repo; it's project-agnostic.
 
 ## How it works (the pipeline)
 
+![Session Handoff flow — working session nearly out of context → 'hand off' → handoff doc + resume prompt + session-log row → next session resumes with zero re-research](../../assets/images/handoff-flow.svg)
+
 1. **Gather** (read-only, fast) — current branch + recent commits, working-tree
    status, active trackers/plan/coordination docs, the todo list, the last known
    build/test result, memory files touched this session, and exact per-subagent
@@ -82,5 +84,60 @@ repo; it's project-agnostic.
   than pasting large code.
 - **Concurrent-safe.** Appends to the shared coordination file and commits small
   and often.
+
+## Example output
+
+A run writes three files under `docs/handoffs/` and commits them:
+
+- `docs/handoffs/2026-06-26-auth-refactor-handoff.md`
+- `docs/handoffs/2026-06-26-auth-refactor-resume-prompt.md`
+- `docs/handoffs/session-log.csv` (one row **appended**)
+
+Abridged handoff doc:
+
+```text
+# 2026-06-26 — auth-refactor — handoff
+
+## TL;DR state
+Mid-refactor of session handling onto the new token store. Branch green,
+2 of 4 call sites migrated.
+
+## Done (proven)
+- Extracted TokenStore, behavior preserved — a1b2c3d
+- Migrated login + refresh paths; typecheck+test+build green — d4e5f6a
+
+## In progress / locked
+- middleware/session.ts:42 still reads the legacy cookie (uncommitted).
+
+## Next (prioritized)
+1. Migrate logout path — src/auth/logout.ts:18
+   Safe approach: mirror the refresh-path change; keep the old export until
+   all callers move. Proof gate: npm test auth + npm run build green.
+2. Delete legacy cookie reader once all 4 sites use TokenStore.
+
+## Key facts / gotchas
+- TokenStore is async — never call it in the sync config loader (config.ts:7).
+- Build is the real gate; the typecheck cache lies after the file move.
+
+## How to verify
+  npm run typecheck && npm test auth && npm run build   # green baseline
+
+## Session metrics
+completed 2 / left 2 · commits 2 · subagent_tokens 41,330 (exact)
+total tokens + time: n/a (estimate) · memory saved: memories/repo/auth.md
+```
+
+Standalone resume prompt (the block you paste into the next session):
+
+```text
+Resume the auth-refactor. Read first:
+- docs/handoffs/2026-06-26-auth-refactor-handoff.md
+- docs/handoffs/session-log.csv  ·  memories/repo/auth.md
+Next task: migrate the logout path (src/auth/logout.ts:18) onto TokenStore.
+Safe approach: mirror the refresh-path change; keep the old export until all
+callers move. Proof gate: `npm test auth && npm run build` must be green.
+Hard rules: behavior-preserving refactors, verify-before-merge, one commit
+per item, coordinate via the shared file.
+```
 
 See `SKILL.md` for the exact step-by-step instructions and field formats.

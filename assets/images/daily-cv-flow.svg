@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 694" font-family="Segoe UI, Helvetica, Arial, sans-serif" role="img" aria-label="Daily CV flow, top to bottom: your profile in PROFILE.json, local and gitignored; find one live role that is actively accepting; validate it is real and accepting via rules R1 to R31, a gate; tailor an ATS-optimised CV and cover letter from verified facts only; output DOCX and PDF; log the run so it never repeats the same company and role.">
+  <rect x="1" y="1" width="478" height="692" rx="18" fill="#f6f8fc" stroke="#dbe2ee"/>
+  <text x="240" y="44" text-anchor="middle" font-size="23" font-weight="700" fill="#16181d">How Daily CV works</text>
+  <text x="240" y="68" text-anchor="middle" font-size="13" fill="#5b6371">Verified facts only — one new role per run, never repeated</text>
+
+  <!-- 1 profile (purple, start) -->
+  <rect x="28" y="86" width="424" height="66" rx="12" fill="#f0ebfe" stroke="#d9ccfb"/>
+  <text x="240" y="114" text-anchor="middle" font-size="16" font-weight="700" fill="#16181d">your profile · PROFILE.json</text>
+  <text x="240" y="135" text-anchor="middle" font-size="12.5" fill="#5b6371">local &amp; gitignored · the only source of facts</text>
+  <line x1="240" y1="152" x2="240" y2="180" stroke="#9aa3b5" stroke-width="2"/>
+  <polygon points="233,173 247,173 240,182" fill="#9aa3b5"/>
+
+  <!-- 2 find role -->
+  <rect x="28" y="182" width="424" height="66" rx="12" fill="#eaf1fb" stroke="#cfe0f7"/>
+  <text x="240" y="210" text-anchor="middle" font-size="16" font-weight="700" fill="#16181d">find ONE live role</text>
+  <text x="240" y="231" text-anchor="middle" font-size="12.5" fill="#5b6371">techmap · LinkedIn · Greenhouse · watchlist</text>
+  <line x1="240" y1="248" x2="240" y2="276" stroke="#9aa3b5" stroke-width="2"/>
+  <polygon points="233,269 247,269 240,278" fill="#9aa3b5"/>
+
+  <!-- 3 validate gate (amber) -->
+  <rect x="28" y="278" width="424" height="74" rx="12" fill="#fff2dd" stroke="#f3c884" stroke-width="2"/>
+  <text x="240" y="306" text-anchor="middle" font-size="16" font-weight="700" fill="#9a6400">validate · rules R1–R31</text>
+  <text x="240" y="327" text-anchor="middle" font-size="12.5" fill="#6b5326">real, open &amp; actively accepting?</text>
+  <text x="240" y="344" text-anchor="middle" font-size="11.5" fill="#8a7a4a">closed or already-seen company+role = discarded</text>
+  <line x1="240" y1="352" x2="240" y2="380" stroke="#9aa3b5" stroke-width="2"/>
+  <text x="252" y="371" font-size="11.5" fill="#5b6371">yes</text>
+  <polygon points="233,373 247,373 240,382" fill="#9aa3b5"/>
+
+  <!-- 4 tailor -->
+  <rect x="28" y="382" width="424" height="74" rx="12" fill="#eaf1fb" stroke="#cfe0f7"/>
+  <text x="240" y="410" text-anchor="middle" font-size="16" font-weight="700" fill="#16181d">tailor · ATS CV + cover letter</text>
+  <text x="240" y="431" text-anchor="middle" font-size="12.5" fill="#5b6371">keywords matched to the job description</text>
+  <text x="240" y="448" text-anchor="middle" font-size="11.5" fill="#5b6371">verified facts only — no invented metrics</text>
+  <line x1="240" y1="456" x2="240" y2="484" stroke="#9aa3b5" stroke-width="2"/>
+  <polygon points="233,477 247,477 240,486" fill="#9aa3b5"/>
+
+  <!-- 5 output (green) -->
+  <rect x="28" y="486" width="424" height="74" rx="12" fill="#e7f8f0" stroke="#bfe9d4" stroke-width="2"/>
+  <text x="240" y="514" text-anchor="middle" font-size="16" font-weight="700" fill="#14704a">output · DOCX + PDF</text>
+  <text x="240" y="535" text-anchor="middle" font-size="12.5" fill="#2f6b51">1-page CV + cover letter, ready to apply</text>
+  <text x="240" y="552" text-anchor="middle" font-size="11.5" fill="#5b6371">ATS-checked ≥ 85% · no PII committed</text>
+  <line x1="240" y1="560" x2="240" y2="588" stroke="#9aa3b5" stroke-width="2"/>
+  <polygon points="233,581 247,581 240,590" fill="#9aa3b5"/>
+
+  <!-- 6 log -->
+  <rect x="28" y="590" width="424" height="74" rx="12" fill="#eaf1fb" stroke="#cfe0f7"/>
+  <text x="240" y="618" text-anchor="middle" font-size="16" font-weight="700" fill="#16181d">log the run · learn</text>
+  <text x="240" y="639" text-anchor="middle" font-size="12.5" fill="#5b6371">tracker + learnings + new rules</text>
+  <text x="240" y="656" text-anchor="middle" font-size="11.5" fill="#5b6371">never repeats the same company+role</text>
+</svg>
