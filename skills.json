@@ -200,11 +200,11 @@
     },
     {
       "id": "tutorial",
-      "summary": "Narrated, themeable product walkthroughs — Playwright drives the app, neural TTS narrates; output is an MP4 or a no-ffmpeg HTML player.",
-      "summary_he": "הדרכות מוצר מוקלטות עם קריינות וערכת-נושא — Playwright מפעיל את האפליקציה ו-TTS מקריא; הפלט הוא MP4 או נגן HTML ללא ffmpeg.",
+      "summary": "Narrated, themeable product walkthroughs — Playwright drives & records the app, neural TTS narrates; output is a REAL motion video (MP4), a slideshow, or a no-ffmpeg HTML player.",
+      "summary_he": "הדרכות מוצר מוקלטות עם קריינות וערכת-נושא — Playwright מפעיל ומקליט את האפליקציה ו-TTS מקריא; הפלט הוא וידאו אמיתי בתנועה (MP4), מצגת שקופיות, או נגן HTML ללא ffmpeg.",
       "category": "skills",
       "title": "Tutorial — Narrated Playwright Walkthroughs",
-      "description": "Record narrated, themeable product tutorials by driving any web app with Playwright and voicing every step with a neural TTS voice (Jenny by default). One plain-English goal becomes a drift-free MP4 + WebVTT captions plus a light/dark, logo-branded index.html that switches between all your tutorials. Human-gated: approve the scenario before recording, approve the video before publishing. Ships /tutorial-create, /tutorial-update and /tutorial-status, a config-driven theme, and runnable Playwright + render scripts.",
+      "description": "Record narrated, themeable product tutorials by driving any web app with Playwright and voicing every step with a neural TTS voice (Jenny by default). One plain-English goal becomes a drift-free, narrated output: a REAL motion video of the app moving (MP4) by recording the live Playwright session and muxing narration over it, or a screenshot slideshow MP4, or a no-ffmpeg HTML player — each with WebVTT captions — plus a light/dark, logo-branded index.html that switches between all your tutorials. Human-gated: approve the scenario before recording, approve the video before publishing. Ships /tutorial-create, /tutorial-update and /tutorial-status, a config-driven theme, and runnable Playwright + render scripts.",
       "tags": [
         "playwright",
         "tutorials",
@@ -217,7 +217,7 @@
       ],
       "status": "live",
       "install": "npx degit Kaidanov/grekai-skills-4all/skills/tutorial .claude/skills/tutorial",
-      "usage": "Run /tutorial-init once (it asks a few questions and writes tutorial.config.json), then say \"/tutorial-create show a new user how to create their first record\". The skill drafts a scenario for your approval, records it with Playwright, narrates each step with edge-tts (Jenny), and builds either a no-ffmpeg HTML audio-slideshow player or a downloadable MP4 — then a themeable light/dark index.html switching between every tutorial. /tutorial-update <slug> re-records one; /tutorial-status reports stale/missing. HTML path needs only Node + Playwright + edge-tts (ffmpeg optional, for MP4).",
+      "usage": "Run /tutorial-init once (it asks a few questions and writes tutorial.config.json), then say \"/tutorial-create show a new user how to create their first record\". The skill drafts a scenario for your approval, records the live session with Playwright (video + screenshots), narrates each step with edge-tts (Jenny), then renders a REAL motion video (render-motion-video.mjs muxes narration over the recorded app, drift-free) — or a no-ffmpeg HTML player, or a screenshot slideshow MP4 — plus a themeable light/dark index.html switching between every tutorial. /tutorial-update <slug> re-records one; /tutorial-status reports stale/missing. The motion/slideshow MP4 needs a full ffmpeg (not Playwright's webm-only bundled one, or set FFMPEG_BIN); the HTML player needs only Node + Playwright + edge-tts.",
       "links": {
         "docs": "./skills/tutorial/",
         "demo": "./skills/tutorial/examples/grekai-catalog-tour/"
