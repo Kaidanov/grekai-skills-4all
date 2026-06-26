@@ -17,6 +17,8 @@
   "items": [
     {
       "id": "tutorial",
+      "summary": "Narrated, themeable product walkthroughs — Playwright drives the app, neural TTS narrates; output is an MP4 or a no-ffmpeg HTML player.",
+      "summary_he": "הדרכות מוצר מוקלטות עם קריינות וערכת-נושא — Playwright מפעיל את האפליקציה ו-TTS מקריא; הפלט הוא MP4 או נגן HTML ללא ffmpeg.",
       "category": "skills",
       "title": "Tutorial — Narrated Playwright Walkthroughs",
       "description": "Record narrated, themeable product tutorials by driving any web app with Playwright and voicing every step with a neural TTS voice (Jenny by default). One plain-English goal becomes a drift-free MP4 + WebVTT captions plus a light/dark, logo-branded index.html that switches between all your tutorials. Human-gated: approve the scenario before recording, approve the video before publishing. Ships /tutorial-create, /tutorial-update and /tutorial-status, a config-driven theme, and runnable Playwright + render scripts.",
@@ -31,6 +33,8 @@
     },
     {
       "id": "gemelnet-advisor",
+      "summary": "Compare and rank Israeli pension / study / provident funds from the official GemelNet open data. Analysis, not advice.",
+      "summary_he": "השוואה ודירוג של קרנות פנסיה / השתלמות / גמל ישראליות מנתוני GemelNet הפתוחים. ניתוח, לא ייעוץ.",
       "category": "skills",
       "title": "GemelNet Advisor — Israeli Pension Funds",
       "description": "Query and analyze Israeli provident, study (קרן השתלמות) and investment-provident (גמל להשקעה) funds via the official GemelNet open dataset. Compare funds, rank one against its like-for-like peers, scan a statement into a portfolio checkup, and estimate shekel revenue — public fund-level data only, framed as data-grounded analysis, not financial advice. Ships with a UserPromptSubmit hook that auto-triggers on Hebrew/English fund keywords.",
@@ -44,6 +48,8 @@
     },
     {
       "id": "share-presentation",
+      "summary": "Collaborate on a presentation over a shared org folder — no server, no repo. Comment pins + AI edits sync via OneDrive / Drive / Dropbox.",
+      "summary_he": "שיתוף פעולה על מצגת דרך תיקייה ארגונית משותפת — בלי שרת, בלי ריפו. פתקי תגובות ועריכות AI מסתנכרנים דרך OneDrive / Drive / Dropbox.",
       "category": "skills",
       "title": "Share Presentation — Collaborate Over Shared Org Folders",
       "description": "Collaborate on a presentation across your organization with no server and no repo. Persistence rides on a shared org folder (OneDrive / SharePoint / Google Drive / Dropbox) that every teammate already syncs: stateful HTML reads/writes a sidecar state.json, and an MCP agent rewrites the deck from approved changes. Figma-style comment pins, AI prompt drafts and approvals.",
@@ -57,6 +63,8 @@
     },
     {
       "id": "handoff",
+      "summary": "Package the current session so the next one resumes with zero re-research — a handoff doc, a resume prompt, and a metrics row.",
+      "summary_he": "אורז את הסשן הנוכחי כך שהבא ימשיך בלי מחקר מחדש — מסמך מסירה, פרומפט המשך ושורת מדדים.",
       "category": "skills",
       "title": "Session Handoff",
       "description": "Package the current working session so the NEXT session resumes with ZERO re-research. Produces a dated handoff doc, a standalone resume-prompt, and a session-log metrics row. Works in any repo — run it when context is nearly exhausted or you say \"hand off\".",
@@ -69,6 +77,8 @@
     },
     {
       "id": "setup-memory",
+      "summary": "Move Claude's per-project memory into the repo and auto-load it — committed, team-shared, token-efficient.",
+      "summary_he": "מעביר את זיכרון הפרויקט של Claude לתוך הריפו וטוען אותו אוטומטית — מתועד, משותף לצוות וחסכוני בטוקנים.",
       "category": "skills",
       "title": "Setup Memory — Memory-in-Repo",
       "description": "Move Claude's per-project memory INTO the repo (memories/repo/) and auto-load it via a filesystem junction. Memory becomes committed, team-shared, and token-efficient: pay once to write it, save tokens every future session. Generic and publishable — no secrets, no per-user content.",
@@ -81,6 +91,8 @@
     },
     {
       "id": "dev-rules-and-agents",
+      "summary": "Portable engineering rules + a reusable 13-agent specialist roster to bootstrap CLAUDE.md / AGENTS.md / subagents in any repo.",
+      "summary_he": "חוקי הנדסה ניידים + מערך של 13 סוכנים מומחים לאתחול CLAUDE.md / AGENTS.md / תת-סוכנים בכל ריפו.",
       "category": "skills",
       "title": "Dev Rules & 13-Agent Roster",
       "description": "A portable bundle of general engineering rules (coding, refactoring, working-style) plus a reusable 13-agent specialist roster and a routing standard. Drop it into any codebase to bootstrap CLAUDE.md / AGENTS.md / .cursor rules and stand up frontend, backend, refactor, QA, security, devops and orchestration subagents.",
@@ -93,6 +105,8 @@
     },
     {
       "id": "daily-cv",
+      "summary": "Self-learning job-hunt agent: validates live roles, then writes an ATS-optimized CV + cover letter (DOCX + PDF) from verified facts.",
+      "summary_he": "סוכן חיפוש-עבודה לומד: מאמת משרות פעילות וכותב קורות-חיים ומכתב מקדים מותאמי-ATS (DOCX + PDF) מעובדות מאומתות.",
       "category": "skills",
       "title": "Daily CV — Automated Job Hunt",
       "description": "Config-driven, self-learning job-search agent. Reads your profile, validates that roles are actively accepting applications, and generates an ATS-optimised CV + cover letter (DOCX + PDF) from verified facts only — never repeating a company+role. Your real profile stays local and gitignored; only sanitized templates ship here.",
@@ -105,6 +119,8 @@
     },
     {
       "id": "my-claude-toolkit",
+      "summary": "A portable Claude Code setup — helper scripts, hooks, a token/cost usage monitor, and a sparse-worktree engine. Secrets stripped.",
+      "summary_he": "הגדרת Claude Code ניידת — סקריפטים, הוקים, מוניטור עלות/טוקנים ומנוע worktree דליל. הסודות הוסרו.",
       "category": "skills",
       "title": "My Claude Toolkit",
       "description": "A portable, hand-authored Claude Code setup: reusable helper command-scripts (commit-and-PR, verify), hooks, a token/cost usage monitor + dashboard, a sparse-worktree engine, and a sanitized MCP-server inventory. Use to bootstrap or restore your Claude Code setup on a new machine. All secrets stripped to env-var placeholders.",
@@ -117,6 +133,8 @@
     },
     {
       "id": "tldr",
+      "summary": "/tldr emits an end-of-turn status memo — tokens, time, done / to-do / issues — and logs a daily trail. Never fabricates numbers.",
+      "summary_he": "/tldr מפיק תזכיר סטטוס לסוף תור — טוקנים, זמן, בוצע / לביצוע / בעיות — ושומר יומן יומי. לעולם לא ממציא מספרים.",
       "category": "skills",
       "title": "TLDR — End-of-Turn Status Report",
       "description": "One-command status memo for the batch of work just finished: tokens (total estimate + exact per-subagent), time, rounds, tools activated, a reasoning + Q&A summary, done, to-do, issues, options, and a fresh-session recommendation. Bundles a concurrency-safe daily trail log (one file per day, shared across all windows) plus an optional Stop hook that auto-captures a per-turn heartbeat with no /tldr needed. Never fabricates numbers — exact where measurable, estimates labelled, n/a otherwise.",
@@ -130,6 +148,8 @@
     },
     {
       "id": "token-audit",
+      "summary": "/token-audit ranks your biggest per-session token sinks (MCP, hooks, CLAUDE.md, skills) and hands back a reduction plan. Read-only.",
+      "summary_he": "/token-audit מדרג את צרכני-הטוקנים הגדולים שלך (MCP, הוקים, CLAUDE.md, כישורים) ומחזיר תוכנית קיצוץ. קריאה בלבד.",
       "category": "skills",
       "title": "Token Audit — Cut Context Cost",
       "description": "Audit your agent setup for token waste and get a prioritized, quality-preserving reduction plan. Inventories and estimates the per-session cost of CLAUDE.md files, MCP servers, SessionStart hooks, skills, agents, plugins and the memory index, ranks the biggest sinks, and proposes safe cuts. Read-only by default — proposes, never changes config without approval.",
@@ -143,6 +163,8 @@
     },
     {
       "id": "family-budget-il",
+      "summary": "Build a shared, Sheets-ready family budget workbook, then log expenses in plain Hebrew/English. Israel-first, works anywhere.",
+      "summary_he": "בונה חוברת תקציב משפחתי משותפת ומוכנה ל-Sheets, ואז רושמים הוצאות בעברית/אנגלית פשוטה. ישראל-first, עובד בכל מקום.",
       "category": "skills",
       "title": "Family Budget Planner (Israel-first)",
       "description": "Build a shared, Google-Sheets-ready family budget workbook, then keep it current by typing expenses in plain Hebrew or English — no bank connections, no app, no data uploads. A setup wizard generates one .xlsx with live SUMIFS formulas (upload to Drive → Open with Sheets → Share); ongoing chat logging returns clean categorized rows to paste. Israel defaults (₪, HMOs, ארנונה, 15th-to-15th salary cycle, provident/pension funds, benefit clubs) but works for any country. Adds a Goals tab, a where-do-we-stand cycle summary, and a Recommendations board that maps your benefit clubs to concrete savings.",
@@ -156,6 +178,8 @@
     },
     {
       "id": "exit-strategist",
+      "summary": "Honest money-independence & early-retirement planning — audits your real exports first, then maps, models, and stress-tests. Not advice.",
+      "summary_he": "תכנון כן לעצמאות כלכלית ולפרישה מוקדמת — מבקר תחילה את הייצוא האמיתי שלך, ואז ממפה, מודל ומבחני-עומס. לא ייעוץ.",
       "category": "skills",
       "title": "Exit Strategist — Money-Independence, Early-Retirement & Financial Current-State Mapping",
       "title_he": "אסטרטג היציאה — עצמאות כלכלית, פרישה מוקדמת ומיפוי מצב פיננסי נוכחי",
@@ -172,6 +196,8 @@
     },
     {
       "id": "car-finder-il",
+      "summary": "Smart used-car alerts for Israel — scores each Yad2 car against its peers and pings your phone only on genuinely good finds. Reads-only.",
+      "summary_he": "התראות חכמות לרכב יד שנייה בישראל — נותן ציון לכל רכב ביד2 מול דומיו ושולח לטלפון רק מציאות ששוות באמת. קריאה בלבד.",
       "category": "skills",
       "title": "Car Finder IL — Smart Used-Car Alerts (Yad2)",
       "title_he": "מאתר רכב — התראות חכמות לרכב יד שנייה (יד2)",
