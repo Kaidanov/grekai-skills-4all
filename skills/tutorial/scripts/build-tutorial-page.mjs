@@ -191,17 +191,22 @@ const html = `<!DOCTYPE html>
   if (modebar && videoEl) {
     const ctrlsEl = document.querySelector('.ctrls');
     const MKEY = 'tutorial-mode';
-    function setMode(m) {
+    function setMode(m, userInitiated) {
       const isVideo = m === 'video';
       frame.hidden = isVideo; videoEl.hidden = !isVideo;
       cc.style.display = isVideo ? 'none' : '';
       bar.style.display = isVideo ? 'none' : '';
       if (ctrlsEl) ctrlsEl.style.display = isVideo ? 'none' : '';
-      if (isVideo) { audio.pause(); setPlay(false); } else { videoEl.pause(); }
+      if (isVideo) {
+        audio.pause(); setPlay(false);
+        // The tab click is a user gesture → start playback (with sound) instead of
+        // parking on the poster. Restoring the saved mode on load is not a gesture.
+        if (userInitiated) { const r = videoEl.play(); if (r && r.catch) r.catch(() => {}); }
+      } else { videoEl.pause(); }
       [...modebar.children].forEach((b) => b.classList.toggle('active', b.dataset.mode === m));
       localStorage.setItem(MKEY, m);
     }
-    [...modebar.children].forEach((b) => { b.onclick = () => setMode(b.dataset.mode); });
+    [...modebar.children].forEach((b) => { b.onclick = () => setMode(b.dataset.mode, true); });
     setMode(localStorage.getItem(MKEY) || 'pics');
   }
 </script>
