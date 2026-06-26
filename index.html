@@ -7,14 +7,26 @@
   <meta name="description" content="A catalog of agent skills, hooks & connectors." />
   <link rel="icon" href="./logo.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="./assets/style.css" />
+  <script>
+    // Set direction before paint to avoid an RTL flash.
+    (function () {
+      try {
+        var l = localStorage.getItem("lang") === "he" ? "he" : "en";
+        document.documentElement.lang = l;
+        document.documentElement.dir = l === "he" ? "rtl" : "ltr";
+      } catch (e) {}
+    })();
+  </script>
+  <script src="./assets/i18n.js"></script>
 </head>
 <body>
   <header class="hero">
+    <div id="lang-switch" class="langswitch" aria-label="Language"></div>
     <img class="hero-logo" src="./logo.svg" alt="" width="56" height="56" />
     <h1 id="site-title">GrekAI Skills 4 All</h1>
     <p id="site-tagline" class="tagline">A catalog of agent skills, hooks &amp; connectors</p>
     <div id="community" class="community community--hero"></div>
-    <p class="contribute">
+    <p class="contribute" data-i18n-html="contributeHtml">
       Open source — <strong>fork it, build your own skill, open a PR.</strong>
       Copy <code>skills/_template/</code>, add an entry to <code>skills.json</code>, and send it back.
     </p>
@@ -23,11 +35,11 @@
 
   <main>
     <section id="catalog" class="catalog" aria-live="polite"></section>
-    <p id="empty" class="empty" hidden>No items in this category yet.</p>
+    <p id="empty" class="empty" hidden data-i18n="emptyCat">No items in this category yet.</p>
   </main>
 
   <footer class="footer">
-    <span>Manifest-driven &middot; add a folder + an entry in <code>skills.json</code> to register a new item. &middot; by <a href="https://set4u.biz" target="_blank" rel="noopener">Set4u</a> &middot; <a href="https://set4u.biz" target="_blank" rel="noopener">💖 Sponsor</a></span>
+    <span data-i18n-html="footerCatalogHtml">Manifest-driven &middot; add a folder + an entry in <code>skills.json</code> to register a new item. &middot; by <a href="https://set4u.biz" target="_blank" rel="noopener">Set4u</a> &middot; <a href="https://set4u.biz" target="_blank" rel="noopener">💖 Sponsor</a></span>
   </footer>
 
   <script>
@@ -54,10 +66,10 @@
     function renderCommunity(site) {
       const repo = (site && site.repo) || "https://github.com/Kaidanov/grekai-skills-4all";
       document.getElementById("community").innerHTML = [
-        ghbtn(repo + "/fork", "Fork", "fork", true),
-        ghbtn(repo, "Star", "star", false),
-        ghbtn(repo + "/compare", "Propose a PR", "pr", false),
-        ghbtn(repo + "/issues", "Discuss", "comment", false)
+        ghbtn(repo + "/fork", I18N.t("fork"), "fork", true),
+        ghbtn(repo, I18N.t("star"), "star", false),
+        ghbtn(repo + "/compare", I18N.t("proposePr"), "pr", false),
+        ghbtn(repo + "/issues", I18N.t("discuss"), "comment", false)
       ].join("");
     }
 
@@ -66,7 +78,7 @@
       const data = await res.json();
       if (data.site) {
         document.getElementById("site-title").textContent = data.site.title || "Catalog";
-        document.getElementById("site-tagline").textContent = data.site.tagline || "";
+        document.getElementById("site-tagline").textContent = I18N.loc(data.site, "tagline");
         document.title = data.site.title || document.title;
       }
       renderCommunity(data.site);
@@ -78,12 +90,13 @@
 
     function renderFilters() {
       const nav = document.getElementById("filters");
-      const cats = [{ id: "all", label: "All" }, ...state.categories];
+      const cats = [{ id: "all", label: I18N.t("filterAll") }, ...state.categories];
       nav.innerHTML = "";
       for (const c of cats) {
         const btn = document.createElement("button");
         btn.className = "chip" + (c.id === state.active ? " chip--active" : "");
-        btn.textContent = c.label + (c.comingSoon ? " ·soon" : "");
+        const label = c.id === "all" ? c.label : I18N.loc(c, "label");
+        btn.textContent = label + (c.comingSoon ? " ·" + I18N.t("soonSuffix") : "");
         btn.onclick = () => { state.active = c.id; renderFilters(); render(); };
         nav.appendChild(btn);
       }
@@ -106,10 +119,12 @@
       const el = document.createElement("article");
       el.className = "card";
       const detailHref = `./skill?id=${encodeURIComponent(item.id)}`;
+      const title = I18N.loc(item, "title");
+      const desc = I18N.loc(item, "description");
       // The whole card is a click target; inner links/buttons keep their own behavior.
       el.tabIndex = 0;
       el.setAttribute("role", "link");
-      el.setAttribute("aria-label", item.title);
+      el.setAttribute("aria-label", title);
       const go = (ev) => {
         if (ev.target.closest("a, button")) return; // let real links handle themselves
         window.location.href = detailHref;
@@ -120,9 +135,9 @@
       });
       const tags = (item.tags || []).map(t => `<span class="tag">${t}</span>`).join("");
       // Primary CTA opens the skill's own page; demo (if any) is a secondary link.
-      const links = [`<a class="btn" href="${detailHref}">View skill</a>`];
+      const links = [`<a class="btn" href="${detailHref}">${I18N.t("viewSkill")}</a>`];
       if (item.links && item.links.demo) {
-        links.push(`<a class="btn btn--ghost" href="${item.links.demo}">Demo</a>`);
+        links.push(`<a class="btn btn--ghost" href="${item.links.demo}">${I18N.t("demo")}</a>`);
       }
       const status = item.status ? `<span class="status status--${item.status}">${item.status}</span>` : "";
       el.innerHTML = `
@@ -130,8 +145,8 @@
           <span class="card__cat">${item.category}</span>
           ${status}
         </div>
-        <h2 class="card__title"><a class="card__titlelink" href="${detailHref}">${item.title}</a></h2>
-        <p class="card__desc">${item.description || ""}</p>
+        <h2 class="card__title"><a class="card__titlelink" href="${detailHref}">${title}</a></h2>
+        <p class="card__desc">${desc}</p>
         <div class="tags">${tags}</div>
         <div class="card__links">${links.join("")}</div>`;
       return el;
