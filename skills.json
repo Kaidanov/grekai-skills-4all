@@ -16,6 +16,25 @@
   ],
   "items": [
     {
+      "id": "stock-mapper",
+      "summary": "Turn a market catalyst into a sourced map of the stocks that fit it, or paste your holdings for per-name research, 1D–5Y trends, and a decision analysis. A decision aid, not advice.",
+      "summary_he": "הופך קטליזטור שוק למפה מתועדת של המניות שמתאימות לו, או הדביקו אחזקות למחקר לכל מניה, מגמות 1D–5Y וניתוח החלטה. כלי החלטה, לא ייעוץ.",
+      "category": "skills",
+      "title": "Stock Mapper — Catalyst → Stocks & Portfolio Research",
+      "title_he": "ממפה מניות — קטליזטור ← מניות ומחקר תיק",
+      "description": "Turn a market-moving catalyst (a speech, executive order, policy, earnings/M&A headline, product launch, viral clip, macro shift, or a named theme like AI power / GLP-1 / rare earths) into a sourced map of the public stocks that fit it — OR paste your holdings and get full per-name research, multi-timeframe trend charts, and a decision analysis. Buckets names into pure-play / large-cap / picks-and-shovels / can't-buy-it, covers 1D–5Y trends, splits short- vs long-term factors, lists red flags and sources, and can emit a deployable single-file HTML research dashboard. Searches before it states every moving fact and never fabricates a price curve. A decision aid — NOT licensed financial advice or personalized buy/sell directives.",
+      "description_he": "הופך קטליזטור משפיע-שוק (נאום, צו נשיאותי, מדיניות, כותרת רווחים/מיזוג, השקת מוצר, קליפ ויראלי, שינוי מאקרו או תמה כמו AI / GLP-1 / מתכות נדירות) למפה מתועדת של המניות הציבוריות שמתאימות לו — או הדביקו את האחזקות שלכם וקבלו מחקר לכל מניה, גרפי מגמה במספר טווחי-זמן וניתוח החלטה. ממיין למניות-טהורות / לארג'-קאפ / ספקי-תשתית / לא-ניתן-לקנייה, מכסה מגמות 1D–5Y, מפצל גורמים לטווח קצר מול ארוך, מפרט דגלים אדומים ומקורות, ויכול להפיק דשבורד מחקר בקובץ HTML יחיד. מחפש לפני שהוא קובע כל עובדה משתנה ולעולם לא ממציא עקומת מחיר. כלי החלטה — לא ייעוץ פיננסי מורשה ולא הוראות קנייה/מכירה אישיות.",
+      "tags": ["finance", "stocks", "investing", "research", "catalyst", "portfolio", "market", "trends", "dashboard", "single-file-html", "hebrew", "rtl", "not-advice"],
+      "status": "live",
+      "install": "npx degit Kaidanov/grekai-skills-4all/skills/stock-mapper .claude/skills/stock-mapper",
+      "usage": "Just share the trigger — paste a link/screenshot/quote, name a theme (\"AI power\", \"rare earths\"), drop a ticker, or paste your holdings (\"NVDA 30%, PLTR 20%, ...\") and ask which stock fits, who benefits, what to buy, or \"analyze my portfolio / should I hold\". Mode A maps a catalyst to bucketed names (pure-play / large-cap / picks-and-shovels / can't-buy-it); Mode B analyzes exposure, overlap, concentration and gaps. It searches to ground every moving fact, reports 1D–5Y trends, splits short- vs long-term factors, lists red flags + sources, and can generate a deployable single-file HTML dashboard (assets/research-dashboard.html) with the run's data embedded. Optional 3-question interview tunes framing/horizon/depth. A decision aid, not advice — DYOR.",
+      "usage_he": "פשוט שתפו את הטריגר — הדביקו קישור/צילום-מסך/ציטוט, נקבו בתמה (\"AI power\", \"מתכות נדירות\"), שלחו טיקר, או הדביקו את האחזקות שלכם (\"NVDA 30%, PLTR 20%, ...\") ושאלו איזו מניה מתאימה, מי מרוויח, מה לקנות, או \"נתח לי את התיק / כדאי להחזיק\". מצב A ממפה קטליזטור לשמות ממוינים (טהורות / לארג'-קאפ / ספקי-תשתית / לא-ניתן-לקנייה); מצב B מנתח חשיפה, חפיפה, ריכוזיות ופערים. מחפש כדי לבסס כל עובדה משתנה, מדווח מגמות 1D–5Y, מפצל גורמים לטווח קצר מול ארוך, מפרט דגלים אדומים ומקורות, ויכול להפיק דשבורד HTML בקובץ יחיד עם נתוני הריצה מוטמעים. ראיון אופציונלי בן 3 שאלות מכוונן מסגור/אופק/עומק. כלי החלטה, לא ייעוץ — בדקו בעצמכם.",
+      "links": {
+        "docs": "./skills/stock-mapper/",
+        "demo": "./skills/stock-mapper/assets/research-dashboard.html"
+      }
+    },
+    {
       "id": "exam-creator",
       "summary": "Generate single-file, gamified HTML exam/study apps for kids — XP, badges, localStorage, 4 question types, Hebrew RTL + TTS. Runs offline by double-click or Netlify Drop.",
       "summary_he": "מחולל אפליקציות מבחן/לימוד בקובץ HTML יחיד לילדים — נקודות, תגים, שמירה מקומית, 4 סוגי שאלות, עברית RTL והקראה. רץ אופליין בדאבל-קליק או ב-Netlify Drop.",
