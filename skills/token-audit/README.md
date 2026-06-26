@@ -51,6 +51,10 @@ You get back:
 3. **An estimated total reclaim/session** vs your current baseline.
 4. A prompt to **confirm before any change is applied**.
 
+## How it works
+
+![Token Audit flow — run /token-audit → inventory MCP, hooks, CLAUDE.md, skills, agents, memory → estimate tokens → rank biggest sinks → Top-3 quick wins + reduction plan (read-only)](../../assets/images/token-audit-flow.svg)
+
 ## What it looks at
 
 - **MCP servers** — eager servers inject *all* their tool schemas; this is usually the #1 sink.
@@ -60,6 +64,40 @@ You get back:
 - **Skills & plugins** — every description sits in the always-on list.
 - **Agents** and the **memory index**.
 - **The transcript** — long sessions are the single biggest sink; it will tell you when to start fresh.
+
+## Example output
+
+Abridged, illustrative — your numbers depend on your own setup. All figures are
+`bytes ÷ 4` **estimates** for ranking, not billing. Nothing below is changed: this is
+the read-only report you'd see *before* approving anything.
+
+```text
+/token-audit — always-on baseline for this project
+
+Ranked sinks (biggest first)
+  Source                          est. tokens   % of context
+  ------------------------------  -----------   ------------
+  MCP: airtable (eager, unused)       ~4,200          34%
+  SessionStart hook: platform dump    ~2,600          21%
+  CLAUDE.md (global + project)         ~1,900          15%
+  skill: descript (never used here)      ~520           4%
+  + 11 smaller sources                 ~3,180          26%
+  ------------------------------  -----------   ------------
+  TOTAL est. always-on baseline      ~12,400         100%
+
+Top 3 quick wins  (highest reclaim, lowest quality risk)
+  1. Disable eager MCP "airtable" — not called in this repo.
+     → reclaim ~4,200 tok/session · risk: none here · `claude mcp disable airtable`
+  2. Gate the SessionStart "platform dump" hook to repos that use it.
+     → reclaim ~2,600 tok/session · risk: low · edit settings.json matcher
+  3. Dedup global vs project CLAUDE.md (~6 overlapping lines).
+     → reclaim ~700 tok/session · risk: none · keep global lean
+
+  Estimated total reclaim: ~7,500 tok/session (~60% of baseline).
+
+Read-only — nothing changed. Reply "apply 1,2" to action specific wins
+(MCP servers are disabled, not deleted; CLAUDE.md is backed up first).
+```
 
 ## Notes
 
