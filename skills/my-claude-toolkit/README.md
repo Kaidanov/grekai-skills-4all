@@ -37,6 +37,8 @@ All secrets are stripped to env-var placeholders — fill in your own local valu
 
 ## Contents & provenance
 
+![My Claude Toolkit components — helper command-scripts, hooks, a token/cost usage monitor + dashboard, a sparse-worktree engine, and a sanitized MCP inventory, copied into ~/.claude](../../assets/images/my-claude-toolkit-map.svg)
+
 Source paths below are shown generically — they point at where each item
 **type** lives on a typical machine, not at any one person's folders.
 
@@ -67,6 +69,39 @@ Source paths below are shown generically — they point at where each item
 `ralph-loop`, `skill-creator`, `frontend-design`, `claude-md-management`,
 `claude-code-setup`, `code-review`, `context7`, `csharp-lsp` — these are enabled
 plugins under `~/.claude/plugins/` and reinstall from their marketplaces.
+
+## Example output
+
+What the usage monitor surfaces. The Stop-hook footer (`monitor/usage-report.ps1`)
+appends one line per session, priced at the Opus/Sonnet/Haiku tiers and
+de-duplicated by message id:
+
+```text
+model opus-4.8 | session 1.2M tok ~ $0.87 (API-equiv) | context 184.3K/1M (82% free) | /usage for plan limits
+```
+
+The ranker (`monitor/usage-rank.ps1`) rolls the counter CSV up into a top-list —
+no secrets, just tool names and counts:
+
+```text
+Usage ranking from C:\Users\${env:USERNAME}\.claude\usage-log.csv
+Rows: 412  |  Range: 2026-05-01 .. 2026-06-26
+
+=== skill (top 10) ===
+   58  my-claude-toolkit
+   41  handoff
+   23  subset-worktree
+
+=== command (top 10) ===
+   77  commit-and-pr
+   46  verify
+
+=== agent (top 10) ===
+   31  qa-testing-agent
+```
+
+(Token counts and costs are illustrative; your real numbers come from your own
+transcripts, and the dashboard adds the cross-tool `ccusage` totals.)
 
 ## Redactions
 
