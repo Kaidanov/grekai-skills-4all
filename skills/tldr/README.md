@@ -44,6 +44,8 @@ npx degit Kaidanov/grekai-skills-4all/skills/tldr .claude/skills/tldr
 
 ## Use it
 
+![TLDR flow — end of batch → /tldr (or Stop-hook heartbeat) → gather token/time/tool stats → status memo (done / to-do / issues / options) → appended to a daily trail](../../assets/images/tldr-flow.svg)
+
 Type `/tldr` — or just ask for a "status", "wrap-up", or "TLDR". You get:
 
 - **Work statistics** — total tokens `(est)`, exact per-subagent token + duration breakdown, the
@@ -57,6 +59,43 @@ Type `/tldr` — or just ask for a "status", "wrap-up", or "TLDR". You get:
 - **Issues** — blockers / problems found.
 - **Options** — concrete next choices.
 - **New session?** — an explicit YES/NO recommendation (long transcripts are the biggest token sink).
+
+## Example output
+
+An abridged `/tldr` after a small refactor batch. Note the contract: per-subagent
+tokens/durations are **exact** (from each `usage` block); total tokens, wall-clock, and
+per-round time are **`(est)`**; per-tool/-skill counts are **`n/a`** — never invented.
+
+```text
+TLDR — split the auth middleware into guard + session modules and wired up the tests
+
+Work statistics
+- Tokens — ~38k total (est); per-subagent breakdown below (exact).
+- Time — ~12 min (est) total; subagent durations exact (see table). Real per-round
+  wall-clock is stamped in today's trail.
+- Rounds — 3 rounds (user turns) this batch · ~4 min/round (est).
+- Tools activated — Read, Edit, Bash, Grep, test-runner (subagent).
+
+| Component     | Type     | What for                          | Tokens          | Duration |
+|---------------|----------|-----------------------------------|-----------------|----------|
+| test-runner   | subagent | ran the auth suite, reported pass | 6,420 (exact)   | 41.3s    |
+| Edit, Read    | tools    | split + rewire middleware         | n/a (total only)| n/a      |
+| Grep, Bash    | tools    | find call sites, run lint         | n/a (total only)| n/a      |
+
+Reasoning (summary) — kept one public entry point, extracted the session lookup so the
+guard stays pure; ran the suite via a subagent to avoid bloating this transcript.
+
+Q&A (self + user)
+Q: keep the old middleware export for back-compat? → A: yes, re-export from index [self]
+Q: rename `verify()` → `assertSession()`? → A: deferred, out of scope [user]
+
+Done — auth/guard.ts + auth/session.ts split; index re-exports; 24/24 tests green.
+To do — migrate the 3 remaining direct importers; delete the shim once they move.
+Issues — none blocking; the shim is a temporary back-compat layer.
+Options — (a) I migrate the 3 importers now, or (b) leave the shim and stop here.
+New session? — YES. The split is committed and the plan is captured above; a fresh
+session can pick up "migrate the 3 importers, then drop the shim" with a clean context.
+```
 
 ## Daily trail log (every window → one file per day)
 
