@@ -3,15 +3,16 @@
   "site": {
     "title": "GrekAI Skills 4 All",
     "tagline": "A catalog of agent skills, hooks & connectors",
+    "tagline_he": "קטלוג של כישורי סוכן, הוקים ומחברים",
     "owner": "Kaidanov",
     "repo": "https://github.com/Kaidanov/grekai-skills-4all",
     "repoSlug": "Kaidanov/grekai-skills-4all",
     "defaultBranch": "main"
   },
   "categories": [
-    { "id": "skills", "label": "Skills", "description": "Reusable agent / Claude skills." },
-    { "id": "hooks", "label": "Hooks", "description": "Automation hooks (SessionStart, pre/post events).", "comingSoon": true },
-    { "id": "connectors", "label": "Connectors", "description": "Integrations (OneDrive, Vercel, GitHub, …).", "comingSoon": true }
+    { "id": "skills", "label": "Skills", "label_he": "כישורים", "description": "Reusable agent / Claude skills." },
+    { "id": "hooks", "label": "Hooks", "label_he": "הוקים", "description": "Automation hooks (SessionStart, pre/post events).", "comingSoon": true },
+    { "id": "connectors", "label": "Connectors", "label_he": "מחברים", "description": "Integrations (OneDrive, Vercel, GitHub, …).", "comingSoon": true }
   ],
   "items": [
     {

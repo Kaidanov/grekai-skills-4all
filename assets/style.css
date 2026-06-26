@@ -23,6 +23,7 @@ body {
 .hero {
   text-align: center;
   padding: 64px 20px 28px;
+  position: relative;
 }
 .hero h1 {
   margin: 0;
@@ -53,7 +54,8 @@ main { max-width: 1080px; margin: 0 auto; padding: 16px 20px 48px; }
 
 .catalog {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  /* min(280px, 100%) keeps cards from overflowing narrow phones */
+  grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr));
   gap: 18px;
 }
 
@@ -170,7 +172,7 @@ main { max-width: 1080px; margin: 0 auto; padding: 16px 20px 48px; }
   font-size: 13.5px; color: #d6e0ff; white-space: pre;
 }
 .copy {
-  position: absolute; top: 10px; right: 10px;
+  position: absolute; top: 10px; inset-inline-end: 10px;
   background: var(--panel-2); color: var(--text);
   border: 1px solid var(--border); border-radius: 7px;
   padding: 5px 11px; font-size: 12px; cursor: pointer;
@@ -224,3 +226,60 @@ main { max-width: 1080px; margin: 0 auto; padding: 16px 20px 48px; }
 .markdown hr { border: none; border-top: 1px solid var(--border); margin: 1.6em 0; }
 
 .hero-logo{display:block;margin:0 auto 8px;border-radius:14px}
+
+/* ---------- Language switch ---------- */
+.langswitch {
+  position: absolute; top: 14px; inset-inline-end: 16px;
+  display: inline-flex; gap: 2px; z-index: 5;
+  background: var(--panel); border: 1px solid var(--border);
+  border-radius: 999px; padding: 3px;
+}
+.langbtn {
+  background: transparent; color: var(--muted); border: none;
+  border-radius: 999px; padding: 5px 11px; font-size: 13px; line-height: 1;
+  cursor: pointer; transition: background .15s ease, color .15s ease;
+}
+.langbtn:hover { color: var(--text); }
+.langbtn--active { background: var(--accent); color: #fff; }
+
+/* ---------- RTL (Hebrew) ---------- */
+[dir="rtl"] .markdown { text-align: right; }
+[dir="rtl"] .markdown ul, [dir="rtl"] .markdown ol { padding-left: 0; padding-right: 1.4em; }
+[dir="rtl"] .markdown blockquote {
+  border-left: none; border-right: 3px solid var(--accent);
+  border-radius: 8px 0 0 8px;
+}
+[dir="rtl"] .markdown th, [dir="rtl"] .markdown td { text-align: right; }
+/* Code / commands stay left-to-right regardless of UI direction */
+[dir="rtl"] .codeblock pre, [dir="rtl"] .markdown pre { direction: ltr; text-align: left; }
+[dir="rtl"] .codeblock code, [dir="rtl"] .markdown code { unicode-bidi: isolate; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 720px) {
+  .hero { padding: 54px 16px 22px; }
+  .hero--detail { padding: 30px 16px 16px; }
+  main { padding: 14px 16px 40px; }
+}
+@media (max-width: 560px) {
+  .hero { padding: 56px 14px 18px; }
+  .tagline { font-size: 15px; margin: 8px 0 18px; }
+  .catalog { grid-template-columns: 1fr; gap: 14px; }
+  .card { padding: 16px; }
+  .panel { padding: 16px; margin-top: 16px; }
+  .contribute { font-size: 13px; }
+  .community--hero { gap: 8px; margin: 16px auto 8px; }
+  .ghbtn { padding: 8px 12px; font-size: 13px; }
+  .chip { padding: 7px 14px; }
+  /* Comfortable tap targets, full-width primary actions */
+  .card__links .btn, .detail__actions .btn { flex: 1 1 auto; text-align: center; padding: 10px 14px; }
+  .markdown { font-size: 14.5px; }
+  .markdown h1 { font-size: 22px; }
+  .markdown h2 { font-size: 19px; }
+  .codeblock pre, .markdown pre { padding: 12px; }
+  .copy { top: 8px; inset-inline-end: 8px; padding: 4px 9px; }
+  .footer { padding: 24px 16px 40px; }
+}
+@media (max-width: 380px) {
+  .hero h1 { font-size: 25px; }
+  .langswitch { top: 10px; inset-inline-end: 12px; }
+}
