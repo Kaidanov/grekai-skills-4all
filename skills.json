@@ -140,6 +140,19 @@
       "links": {
         "docs": "./skills/token-audit/"
       }
+    },
+    {
+      "id": "family-budget-il",
+      "category": "skills",
+      "title": "Family Budget Planner (Israel-first)",
+      "description": "Build a shared, Google-Sheets-ready family budget workbook, then keep it current by typing expenses in plain Hebrew or English — no bank connections, no app, no data uploads. A setup wizard generates one .xlsx with live SUMIFS formulas (upload to Drive → Open with Sheets → Share); ongoing chat logging returns clean categorized rows to paste. Israel defaults (₪, HMOs, ארנונה, 15th-to-15th salary cycle, provident/pension funds, benefit clubs) but works for any country. Adds a Goals tab, a where-do-we-stand cycle summary, and a Recommendations board that maps your benefit clubs to concrete savings.",
+      "tags": ["israel", "budget", "family", "finance", "google-sheets", "hebrew", "rtl", "natural-language", "xlsx"],
+      "status": "live",
+      "install": "npx degit Kaidanov/grekai-skills-4all/skills/family-budget-il .claude/skills/family-budget-il",
+      "usage": "Just ask — \"בוא נקים תקציב משפחתי\" / \"set up a family budget\". The skill runs a short setup interview, writes a config JSON, then builds the workbook: python scripts/build_workbook.py --config budget_config.json --out family_budget.xlsx (then scripts/recalc.py to verify zero formula errors). Upload the .xlsx to Google Drive → Open with Google Sheets → Share. After that, log expenses in plain Hebrew/English (\"שילמתי 250 בשופרסל\", \"arnona 1247\", \"salary 18,500 net\") and Claude returns categorized rows for the Transactions tab. Needs Python + openpyxl; recalc additionally needs LibreOffice (soffice).",
+      "links": {
+        "docs": "./skills/family-budget-il/"
+      }
     }
   ]
 }
