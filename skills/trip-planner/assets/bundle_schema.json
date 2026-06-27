@@ -1,0 +1,16 @@
+{
+  "trip": { "name": "", "currency": "EUR", "travelers": {"adults":0,"children":0},
+            "date_start": "", "date_end": "" },
+  "itinerary": [ { "date":"","day":1,"location":"","activities":"","accommodation":"","notes":"" } ],
+  "attractions": [ { "name":"","type":"","location":"","highlights":"","accessibility":"",
+      "cost":"","popularity":"","reviews":"","suitable_for":"","special":"","notes":"",
+      "importer_flag": null, "links": {"maps":"","tripadvisor":"","google_reviews":""} } ],
+  "foodies": [ { "name":"","price":"","location":"","popularity":"","dishes":"",
+      "specialty":"","ambiance":"","notes":"","links":{"maps":"","tripadvisor":"","google_reviews":""} } ],
+  "budget": { "contingency_pct": 10, "sections": [
+      { "title":"1. Flights", "items":[ {"item":"","qty":0,"unit":0,"total":0,"note":""} ] } ] },
+  "costs_remarks": [ ["Heading","h"], "Paragraph text" ],
+  "notes": [ ["Heading","h"], "Tip text" ],
+  "prompt": [ "The prompt used to generate this plan" ],
+  "warnings": [ {"code":"","msg":""} ]
+}

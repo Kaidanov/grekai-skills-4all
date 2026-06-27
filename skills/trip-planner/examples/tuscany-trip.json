@@ -1,0 +1,63 @@
+{
+  "name": "Tuscany Family Summer",
+  "home": "TLV",
+  "currency": "EUR",
+  "date_start": "2026-07-22",
+  "date_end": "2026-07-29",
+  "travelers": { "adults": 2, "children": 2, "child_ages": [10, 13] },
+  "flights": [
+    { "no": "AZ807", "from": "TLV", "to": "FLR", "dir": "out",
+      "depart": "2026-07-22T10:55", "arrive": "2026-07-22T14:45" },
+    { "no": "AZ808", "from": "FLR", "to": "TLV", "dir": "in",
+      "depart": "2026-07-29T17:30", "arrive": "2026-07-29T21:55" }
+  ],
+  "stays": [
+    { "name": "Agriturismo Chianti (Greve)", "place_id": "stay_chianti",
+      "lat": 43.5836, "lng": 11.3145,
+      "check_in": "2026-07-22", "check_out": "2026-07-26" },
+    { "name": "Val d'Orcia Farmhouse (Pienza)", "place_id": "stay_pienza",
+      "lat": 43.0792, "lng": 11.6790,
+      "check_in": "2026-07-26", "check_out": "2026-07-29" }
+  ],
+  "car": { "pickup": "2026-07-22T15:30", "return": "2026-07-29T15:30",
+           "place_id": "hertz_flr", "lat": 43.8100, "lng": 11.2051 },
+  "prefs": {
+    "pace": "balanced",
+    "interests": ["history", "art", "food", "wine", "scenery", "shopping"],
+    "with_kids": true, "heat_aware": true, "pool_days": true,
+    "budget_level": "mid", "max_radius_min": 120, "max_drive_min_per_day": 120,
+    "must_see": ["Piazza del Campo, Siena"], "wine_importer": null
+  },
+  "targets": [
+    { "name": "Piazza del Campo, Siena", "category": "attraction", "location": "Siena",
+      "lat": 43.3188, "lng": 11.3308, "tags": ["must_see"], "state": "embraced",
+      "stars": 4.8, "review_count": 41200, "typical_duration_min": 150,
+      "links": { "maps": "https://www.google.com/maps/search/?api=1&query=Piazza%20del%20Campo%20Siena" } },
+    { "name": "Duomo di Siena", "category": "attraction", "location": "Siena",
+      "lat": 43.3176, "lng": 11.3286, "tags": ["needs_booking"], "booked": false,
+      "state": "suggested", "stars": 4.7, "review_count": 28900, "typical_duration_min": 90,
+      "opening_hours": { "sun": "13:30-18:00" } },
+    { "name": "San Gimignano Towers", "category": "attraction", "location": "San Gimignano",
+      "lat": 43.4677, "lng": 11.0431, "tags": [], "state": "suggested",
+      "stars": 4.7, "review_count": 19800, "typical_duration_min": 150 },
+    { "name": "Greve in Chianti Market", "category": "shopping", "location": "Greve in Chianti",
+      "lat": 43.5836, "lng": 11.3145, "tags": [], "state": "suggested",
+      "stars": 4.5, "review_count": 3400, "typical_duration_min": 90,
+      "opening_hours": { "sat": "08:00-13:00", "sun": "closed" } },
+    { "name": "Castello di Verrazzano (winery)", "category": "winery", "location": "Greve in Chianti",
+      "lat": 43.5625, "lng": 11.3192, "tags": ["needs_booking"], "booked": true,
+      "state": "embraced", "stars": 4.8, "review_count": 5200, "typical_duration_min": 120 },
+    { "name": "Val d'Orcia Panorama (Pienza)", "category": "nature", "location": "Pienza",
+      "lat": 43.0792, "lng": 11.6790, "tags": [], "state": "suggested",
+      "stars": 4.9, "review_count": 12100, "typical_duration_min": 75 },
+    { "name": "Bagno Vignoni Thermal Village", "category": "nature", "location": "Bagno Vignoni",
+      "lat": 43.0286, "lng": 11.6181, "tags": [], "state": "suggested",
+      "stars": 4.6, "review_count": 8700, "typical_duration_min": 90 },
+    { "name": "Montepulciano Old Town", "category": "attraction", "location": "Montepulciano",
+      "lat": 43.0925, "lng": 11.7807, "tags": [], "state": "suggested",
+      "stars": 4.7, "review_count": 14600, "typical_duration_min": 120 },
+    { "name": "Pienza Pecorino Tasting", "category": "foodie", "location": "Pienza",
+      "lat": 43.0784, "lng": 11.6786, "tags": [], "state": "suggested",
+      "stars": 4.6, "review_count": 2100, "typical_duration_min": 60 }
+  ]
+}
