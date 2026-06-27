@@ -87,38 +87,6 @@
       }
     },
     {
-      "id": "exit-strategist",
-      "summary": "Honest money-independence & early-retirement planning — audits your real exports first, then maps, models, and stress-tests. Not advice.",
-      "summary_he": "תכנון כן לעצמאות כלכלית ולפרישה מוקדמת — מבקר תחילה את הייצוא האמיתי שלך, ואז ממפה, מודל ומבחני-עומס. לא ייעוץ.",
-      "category": "skills",
-      "title": "Exit Strategist — Money-Independence, Early-Retirement & Financial Current-State Mapping",
-      "title_he": "אסטרטג היציאה — עצמאות כלכלית, פרישה מוקדמת ומיפוי מצב פיננסי נוכחי",
-      "description": "Honest planning across the whole money-independence surface: salary-exit / quit-the-9-5, FI & early retirement (Coast-FI, Barista-FI), job-loss resilience, current-state financial mapping (interview + uploaded reports → one-page PDF), spending optimization, and macro/relocation resilience. Strips the hustle-culture fantasy and rebuilds around realism, a full household balance sheet, local tax/pension/safety-net reality (Israel + US/UK/EU/India), late-life layers (pension current-vs-projected, eldercare, medical, child support), and stress tests for AI job loss and macro shocks (war, reserve duty, currency). A hard-gate DATA-QUALITY audit corrects real exports (mislabeled categories, transfers tagged as spending, missing months, duplicates) before any number is used. Never stores national ID numbers. Any language. Not financial advice.",
-      "description_he": "תכנון כן לכל מרחב העצמאות הכלכלית: יציאה מהשכר / לעזוב את ה-9-5, עצמאות כלכלית ופרישה מוקדמת (Coast-FI, Barista-FI), חוסן מול אובדן עבודה, מיפוי מצב פיננסי נוכחי (ראיון + דוחות שהועלו ← PDF בעמוד אחד), ייעול הוצאות וחוסן מאקרו/רילוקיישן. מסיר את אשליית 'תרבות ההאסל' ובונה מחדש סביב ריאליזם, מאזן משק-בית מלא, מציאות מס/פנסיה/רשת-ביטחון מקומית (ישראל + ארה\"ב/בריטניה/אירופה/הודו), שכבות אורך-חיים (פנסיה נוכחית מול תחזית, סיעוד, רפואה, מזונות) ומבחני-עומס לאובדן עבודה ל-AI וזעזועי מאקרו (מלחמה, מילואים, מטבע). ביקורת איכות-נתונים כשער-חובה מתקנת ייצוא אמיתי (קטגוריות שגויות, העברות המסומנות כהוצאה, חודשים חסרים, כפילויות) לפני שמשתמשים במספר כלשהו. לעולם לא שומר מספרי תעודת-זהות. בכל שפה. לא ייעוץ פיננסי.",
-      "tags": [
-        "finance",
-        "career",
-        "financial-independence",
-        "early-retirement",
-        "fire",
-        "current-state-mapping",
-        "data-quality",
-        "spending-optimization",
-        "ai-displacement",
-        "relocation",
-        "israel",
-        "any-language",
-        "not-advice"
-      ],
-      "status": "live",
-      "install": "npx degit Kaidanov/grekai-skills-4all/skills/exit-strategist .claude/skills/exit-strategist",
-      "usage": "Ask your assistant in any language: \"map where we stand\", \"can we retire early?\", \"where can we cut?\", \"I'm about to lose my job\", or paste a viral 7-prompt thread. It picks the use case, runs a data-quality audit on any uploaded export FIRST, maps the household balance sheet (interview + reports), localizes tax/pension/safety-net (incl. Israel Section 14), adds late-life layers via a multi-pot model, stress-tests AI/macro risk, and outputs a scenario-banded plan or a one-page snapshot PDF with required immediate-savings recommendations. Never share national ID numbers — run Har Habituach / Har Hakesef yourself and paste only the numbers. Structured analysis, not financial/tax/legal advice.",
-      "usage_he": "פנו לעוזר בכל שפה: \"תמפה איפה אנחנו עומדים\", \"אפשר לפרוש מוקדם?\", \"איפה כדאי לקצץ?\", \"אני עומד לאבד את העבודה\", או הדביקו שרשור 7-הפרומפטים הוויראלי. הכישור בוחר את התרחיש, מריץ ביקורת איכות-נתונים על כל ייצוא שהועלה תחילה, ממפה את מאזן משק-הבית (ראיון + דוחות), מתאים לוקלית מס/פנסיה/רשת-ביטחון (כולל סעיף 14 בישראל), מוסיף שכבות אורך-חיים במודל 'סירים נפרדים', מבצע מבחני-עומס לסיכוני AI/מאקרו, ומפיק תוכנית עם טווחי-תרחיש או תמונת-מצב בעמוד אחד עם המלצות חיסכון מיידיות. לעולם אל תשתפו מספר תעודת-זהות — הריצו בעצמכם את הר הביטוח / הר הכסף והדביקו רק את המספרים. ניתוח מובנה, לא ייעוץ פיננסי/מס/משפטי.",
-      "links": {
-        "docs": "./skills/exit-strategist/"
-      }
-    },
-    {
       "id": "family-budget-il",
       "summary": "Build a shared, Sheets-ready family budget workbook, then log expenses in plain Hebrew/English. Israel-first, works anywhere.",
       "summary_he": "בונה חוברת תקציב משפחתי משותפת ומוכנה ל-Sheets, ואז רושמים הוצאות בעברית/אנגלית פשוטה. ישראל-first, עובד בכל מקום.",
@@ -173,6 +141,38 @@
       "usage_he": "אפשר לנסות בלי שום הגדרה: python3 scripts/carfinder.py search examples/criteria.example.json --source mock --lang he — רשימה מדורגת עם נימוק לכל רכב. לנתונים אמיתיים: הגדירו APIFY_TOKEN + APIFY_ACTOR_ID (אקטור רכבי יד2 מ-apify.com/store) והריצו search על criteria.json משלכם. להתראות אוטומטיות לטלפון: הוסיפו Supabase (למניעת כפילויות) וערוץ דחיפה (wa-ai / טלגרם / ntfy) ותזמנו את carfinder.py run דרך תבנית ה-.github/workflows המצורפת. או פשוט תארו מה אתם מחפשים ('רכב פנאי משפחתי, בעלות פרטית, עד 90 אלף') והעוזר יכתוב לכם את ה-JSON. קריאה בלבד — לא מפרסם, לא מקפיץ ולא קונה.",
       "links": {
         "docs": "./skills/car-finder-il/"
+      }
+    },
+    {
+      "id": "exit-strategist",
+      "summary": "Honest money-independence & early-retirement planning — audits your real exports first, then maps, models, and stress-tests. Not advice.",
+      "summary_he": "תכנון כן לעצמאות כלכלית ולפרישה מוקדמת — מבקר תחילה את הייצוא האמיתי שלך, ואז ממפה, מודל ומבחני-עומס. לא ייעוץ.",
+      "category": "skills",
+      "title": "Exit Strategist — Money-Independence, Early-Retirement & Financial Current-State Mapping",
+      "title_he": "אסטרטג היציאה — עצמאות כלכלית, פרישה מוקדמת ומיפוי מצב פיננסי נוכחי",
+      "description": "Honest planning across the whole money-independence surface: salary-exit / quit-the-9-5, FI & early retirement (Coast-FI, Barista-FI), job-loss resilience, current-state financial mapping (interview + uploaded reports → one-page PDF), spending optimization, and macro/relocation resilience. Strips the hustle-culture fantasy and rebuilds around realism, a full household balance sheet, local tax/pension/safety-net reality (Israel + US/UK/EU/India), late-life layers (pension current-vs-projected, eldercare, medical, child support), and stress tests for AI job loss and macro shocks (war, reserve duty, currency). A hard-gate DATA-QUALITY audit corrects real exports (mislabeled categories, transfers tagged as spending, missing months, duplicates) before any number is used. Never stores national ID numbers. Any language. Not financial advice.",
+      "description_he": "תכנון כן לכל מרחב העצמאות הכלכלית: יציאה מהשכר / לעזוב את ה-9-5, עצמאות כלכלית ופרישה מוקדמת (Coast-FI, Barista-FI), חוסן מול אובדן עבודה, מיפוי מצב פיננסי נוכחי (ראיון + דוחות שהועלו ← PDF בעמוד אחד), ייעול הוצאות וחוסן מאקרו/רילוקיישן. מסיר את אשליית 'תרבות ההאסל' ובונה מחדש סביב ריאליזם, מאזן משק-בית מלא, מציאות מס/פנסיה/רשת-ביטחון מקומית (ישראל + ארה\"ב/בריטניה/אירופה/הודו), שכבות אורך-חיים (פנסיה נוכחית מול תחזית, סיעוד, רפואה, מזונות) ומבחני-עומס לאובדן עבודה ל-AI וזעזועי מאקרו (מלחמה, מילואים, מטבע). ביקורת איכות-נתונים כשער-חובה מתקנת ייצוא אמיתי (קטגוריות שגויות, העברות המסומנות כהוצאה, חודשים חסרים, כפילויות) לפני שמשתמשים במספר כלשהו. לעולם לא שומר מספרי תעודת-זהות. בכל שפה. לא ייעוץ פיננסי.",
+      "tags": [
+        "finance",
+        "career",
+        "financial-independence",
+        "early-retirement",
+        "fire",
+        "current-state-mapping",
+        "data-quality",
+        "spending-optimization",
+        "ai-displacement",
+        "relocation",
+        "israel",
+        "any-language",
+        "not-advice"
+      ],
+      "status": "live",
+      "install": "npx degit Kaidanov/grekai-skills-4all/skills/exit-strategist .claude/skills/exit-strategist",
+      "usage": "Ask your assistant in any language: \"map where we stand\", \"can we retire early?\", \"where can we cut?\", \"I'm about to lose my job\", or paste a viral 7-prompt thread. It picks the use case, runs a data-quality audit on any uploaded export FIRST, maps the household balance sheet (interview + reports), localizes tax/pension/safety-net (incl. Israel Section 14), adds late-life layers via a multi-pot model, stress-tests AI/macro risk, and outputs a scenario-banded plan or a one-page snapshot PDF with required immediate-savings recommendations. Never share national ID numbers — run Har Habituach / Har Hakesef yourself and paste only the numbers. Structured analysis, not financial/tax/legal advice.",
+      "usage_he": "פנו לעוזר בכל שפה: \"תמפה איפה אנחנו עומדים\", \"אפשר לפרוש מוקדם?\", \"איפה כדאי לקצץ?\", \"אני עומד לאבד את העבודה\", או הדביקו שרשור 7-הפרומפטים הוויראלי. הכישור בוחר את התרחיש, מריץ ביקורת איכות-נתונים על כל ייצוא שהועלה תחילה, ממפה את מאזן משק-הבית (ראיון + דוחות), מתאים לוקלית מס/פנסיה/רשת-ביטחון (כולל סעיף 14 בישראל), מוסיף שכבות אורך-חיים במודל 'סירים נפרדים', מבצע מבחני-עומס לסיכוני AI/מאקרו, ומפיק תוכנית עם טווחי-תרחיש או תמונת-מצב בעמוד אחד עם המלצות חיסכון מיידיות. לעולם אל תשתפו מספר תעודת-זהות — הריצו בעצמכם את הר הביטוח / הר הכסף והדביקו רק את המספרים. ניתוח מובנה, לא ייעוץ פיננסי/מס/משפטי.",
+      "links": {
+        "docs": "./skills/exit-strategist/"
       }
     },
     {

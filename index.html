@@ -21,14 +21,17 @@
 </head>
 <body>
   <header class="hero">
-    <div id="lang-switch" class="langswitch" aria-label="Language"></div>
-    <img class="hero-logo" src="./logo.svg" alt="" width="56" height="56" />
-    <h1 id="site-title">GrekAI Skills 4 All</h1>
+    <div class="hero__bar">
+      <div class="hero__brand">
+        <img class="hero-logo" src="./logo.svg" alt="" width="40" height="40" />
+        <h1 id="site-title" class="hero__wordmark">GrekAI Skills 4 All</h1>
+      </div>
+      <div id="lang-switch" class="langswitch" aria-label="Language"></div>
+    </div>
     <p id="site-tagline" class="tagline">A catalog of agent skills, hooks &amp; connectors</p>
     <div id="community" class="community community--hero"></div>
     <p class="contribute" data-i18n-html="contributeHtml">
-      Open source — <strong>fork it, build your own skill, open a PR.</strong>
-      Copy <code>skills/_template/</code>, add an entry to <code>skills.json</code>, and send it back.
+      Open source — <strong>fork it, build a skill, open a PR.</strong>
     </p>
     <nav id="filters" class="filters" aria-label="Categories"></nav>
   </header>
@@ -37,6 +40,9 @@
     <div class="searchbar">
       <input id="search" type="search" class="search__input" autocomplete="off" spellcheck="false" />
       <button id="search-clear" class="search__clear" type="button" hidden>&times;</button>
+    </div>
+    <div class="catalog-controls">
+      <div id="layout-toggle" class="segmented" role="group" aria-label="Layout"></div>
     </div>
     <section id="catalog" class="catalog" aria-live="polite"></section>
     <p id="empty" class="empty" hidden data-i18n="emptyCat">No items in this category yet.</p>
@@ -47,7 +53,19 @@
   </footer>
 
   <script>
-    const state = { items: [], categories: [], active: "all", query: "" };
+    const state = { items: [], categories: [], active: "all", query: "", layout: getLayout() };
+
+    // Layout: "condensed" (default — name + one line) or "spacious" (full cards).
+    function getLayout() {
+      try { const l = localStorage.getItem("layout"); if (l === "condensed" || l === "spacious") return l; } catch (e) {}
+      return "condensed";
+    }
+
+    // The short display name — the part before the "—" / "–" / " - " separator,
+    // with any trailing "(…)" stripped. "Trip Planner — Deterministic…" → "Trip Planner".
+    function shortTitle(t) {
+      return String(t).split(/\s[—–-]\s/)[0].replace(/\s*\(.*?\)\s*$/, "").trim();
+    }
 
     // Free-text match across id, title, summary, description and tags — both
     // languages — so search works regardless of the active UI language. All
@@ -76,7 +94,7 @@
     function ghbtn(href, label, icon, accent) {
       const svg = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="' + ICONS[icon] + '"/></svg>';
       return '<a class="ghbtn' + (accent ? " ghbtn--accent" : "") + '" href="' + esc(href) +
-        '" target="_blank" rel="noopener">' + svg + esc(label) + "</a>";
+        '" target="_blank" rel="noopener">' + svg + '<span class="ghbtn__label">' + esc(label) + "</span></a>";
     }
 
     function renderCommunity(site) {
@@ -101,7 +119,27 @@
       state.categories = data.categories || [];
       state.items = data.items || [];
       renderFilters();
+      renderLayoutToggle();
       render();
+    }
+
+    function renderLayoutToggle() {
+      const el = document.getElementById("layout-toggle");
+      if (!el) return;
+      const opts = [["condensed", I18N.t("layoutCondensed")], ["spacious", I18N.t("layoutSpacious")]];
+      el.innerHTML = opts.map(([k, label]) =>
+        '<button type="button" class="seg' + (state.layout === k ? " seg--active" : "") +
+        '" data-layout="' + k + '">' + esc(label) + "</button>").join("");
+      el.querySelectorAll(".seg").forEach((b) => {
+        b.addEventListener("click", () => {
+          const l = b.getAttribute("data-layout");
+          if (l === state.layout) return;
+          state.layout = l;
+          try { localStorage.setItem("layout", l); } catch (e) {}
+          renderLayoutToggle();
+          render();
+        });
+      });
     }
 
     function renderFilters() {
@@ -129,11 +167,12 @@
         ? state.items
         : state.items.filter(i => i.category === state.active);
       const items = inCat.filter(i => matches(i, state.query));
+      catalog.className = "catalog catalog--" + state.layout;
       catalog.innerHTML = "";
       empty.hidden = items.length !== 0;
       empty.textContent = state.query ? I18N.t("searchEmpty") : I18N.t("emptyCat");
       for (const item of items) {
-        catalog.appendChild(card(item));
+        catalog.appendChild(card(item, state.layout));
       }
     }
 
@@ -162,7 +201,7 @@
       return c ? I18N.loc(c, "label") : id;
     }
 
-    function card(item) {
+    function card(item, layout) {
       const el = document.createElement("article");
       el.className = "card";
       const detailHref = `./skill?id=${encodeURIComponent(item.id)}`;
@@ -185,6 +224,21 @@
       el.addEventListener("keydown", (ev) => {
         if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); window.location.href = detailHref; }
       });
+
+      // Condensed (default): just the short name + one sentence, fully clickable.
+      // No tag chips / category / status badges — the whole card is the link.
+      if (layout === "condensed") {
+        el.classList.add("card--condensed");
+        const dot = item.status === "live" ? '<span class="dot" title="live"></span>' : "";
+        el.innerHTML = `
+          <div class="card__row">
+            <h2 class="card__title"><a class="card__titlelink" dir="auto" href="${detailHref}">${dot}${esc(shortTitle(title))}</a></h2>
+            <span class="card__chev" aria-hidden="true">›</span>
+          </div>
+          <p class="card__desc" dir="auto">${esc(short)}</p>`;
+        return el;
+      }
+
       const tags = (item.tags || []).map(t => `<span class="tag">${t}</span>`).join("");
       // Primary CTA opens the skill's own page; demo (if any) is a secondary link.
       const links = [`<a class="btn" href="${detailHref}">${I18N.t("viewSkill")}</a>`];

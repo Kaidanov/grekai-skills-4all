@@ -18,12 +18,13 @@
       demo: "Demo",
       showMore: "more",
       showLess: "less",
+      layoutCondensed: "Condensed",
+      layoutSpacious: "Spacious",
       searchPlaceholder: "Search skills…",
       clearSearch: "Clear search",
       searchEmpty: "No skills match your search.",
       emptyCat: "No items in this category yet.",
-      contributeHtml: "Open source — <strong>fork it, build your own skill, open a PR.</strong> " +
-        "Copy <code>skills/_template/</code>, add an entry to <code>skills.json</code>, and send it back.",
+      contributeHtml: "Open source — <strong>fork it, build a skill, open a PR.</strong>",
       footerCatalogHtml: "Manifest-driven · add a folder + an entry in <code>skills.json</code> to register a new item. " +
         '· by <a href="https://set4u.biz" target="_blank" rel="noopener">Set4u</a> ' +
         '· <a href="https://set4u.biz" target="_blank" rel="noopener">💖 Sponsor</a>',
@@ -63,12 +64,13 @@
       demo: "דמו",
       showMore: "עוד",
       showLess: "פחות",
+      layoutCondensed: "מצומצם",
+      layoutSpacious: "מרווח",
       searchPlaceholder: "חיפוש כישורים…",
       clearSearch: "ניקוי חיפוש",
       searchEmpty: "אין כישורים שתואמים את החיפוש.",
       emptyCat: "אין עדיין פריטים בקטגוריה זו.",
-      contributeHtml: "קוד פתוח — <strong>עשו פיצול, בנו כישור משלכם, פתחו PR.</strong> " +
-        "העתיקו את <code>skills/_template/</code>, הוסיפו רשומה ל-<code>skills.json</code> ושִלחו בחזרה.",
+      contributeHtml: "קוד פתוח — <strong>עשו פיצול, בנו כישור, פתחו PR.</strong>",
       footerCatalogHtml: "מבוסס מניפסט · הוסיפו תיקייה + רשומה ב-<code>skills.json</code> כדי לרשום פריט חדש. " +
         '· מאת <a href="https://set4u.biz" target="_blank" rel="noopener">Set4u</a> ' +
         '· <a href="https://set4u.biz" target="_blank" rel="noopener">💖 חסות</a>',
