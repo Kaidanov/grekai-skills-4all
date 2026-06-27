@@ -19,6 +19,25 @@
   ],
   "items": [
     {
+      "id": "trip-planner",
+      "summary": "Destination-agnostic trip planner. Initial trip data → day-by-day itinerary, a scored target bank, a 7-sheet Excel workbook (live budget) and a printable HTML brochure. Deterministic core = 0 tokens.",
+      "summary_he": "מתכנן טיולים בלתי-תלוי-יעד. נתוני טיול ראשוניים ← מסלול יומי, בנק יעדים מדורג, חוברת Excel בת 7 גיליונות (תקציב חי) וברושור HTML להדפסה. ליבה דטרמיניסטית = 0 טוקנים.",
+      "category": "skills",
+      "title": "Trip Planner — Deterministic Itinerary, Workbook & Brochure",
+      "title_he": "מתכנן טיולים — מסלול דטרמיניסטי, חוברת עבודה וברושור",
+      "description": "Generic, destination-agnostic trip planner. Turns initial trip data (flight dates, accommodation stays, preferences) into a full plan: a day-by-day itinerary, a scored target bank of attractions / restaurants / wineries / shopping (stars, reviews, photos, map links, distance-from-base), a 7-sheet Excel workbook with live budget formulas, and a printable HTML brochure. The core is deterministic — anchors, clustering, day allocation, NN+2-opt routing, scheduling and conflict checks (car-after-flight, no-lodging, book-ahead) are pure algorithm + cached Google Places / Distance Matrix calls = 0 tokens. The model runs at most twice per trip: parse booking docs into events, and write a few short blurbs. Ships as a Claude skill, an MCP server (same engine as tools) and Claude Code hooks. Works for any destination.",
+      "description_he": "מתכנן טיולים גנרי, בלתי-תלוי-יעד. הופך נתוני טיול ראשוניים (תאריכי טיסה, לינות, העדפות) לתוכנית מלאה: מסלול יומי, בנק יעדים מדורג של אטרקציות / מסעדות / יקבים / קניות (כוכבים, ביקורות, תמונות, קישורי מפה, מרחק-מהבסיס), חוברת Excel בת 7 גיליונות עם נוסחאות תקציב חיות, וברושור HTML להדפסה. הליבה דטרמיניסטית — עוגנים, אשכולות, חלוקה ליום, ניתוב NN+2-opt, תזמון ובדיקות התנגשות (החזרת רכב אחרי טיסה, לילה ללא לינה, צורך בהזמנה מראש) הם אלגוריתם טהור + קריאות Google Places / Distance Matrix במטמון = 0 טוקנים. המודל רץ לכל היותר פעמיים לטיול: ניתוח מסמכי הזמנה לאירועים, וכתיבת כמה משפטי תיאור קצרים. מגיע ככישור Claude, שרת MCP (אותו מנוע ככלים) והוקים. מתאים לכל יעד.",
+      "tags": ["travel", "trip", "itinerary", "vacation", "planner", "excel", "xlsx", "brochure", "budget", "maps", "google-places", "mcp", "hooks", "deterministic", "0-tokens", "routing", "hebrew"],
+      "status": "live",
+      "install": "npx degit Kaidanov/grekai-skills-4all/skills/trip-planner .claude/skills/trip-planner",
+      "usage": "Just ask — \"plan a 8-day Tuscany family trip\" / \"build me an itinerary and travel workbook\" / \"shortlist and score restaurants near my hotel\". The skill collects the minimum (flights, stays, a prefs block, optional candidate places), enriches each place with Maps / Tripadvisor / Google Reviews links (plus stars + real drive-times when GOOGLE_MAPS_API_KEY is set, cached on disk), then runs the deterministic engine: derive bases from stays, cluster targets to the nearest base, allocate across days (respecting pace, opening days, pool/light days, max drive), route each day (nearest-neighbour + 2-opt), schedule clock times, and run conflict checks. It always offers all three outputs — a 7-sheet Excel workbook (live budget formulas), a self-contained print-to-PDF HTML brochure, and an inline itinerary. Try the worked example with zero setup: pip install openpyxl && python examples/build_example.py.",
+      "usage_he": "פשוט בקשו — \"תכנן טיול משפחתי לטוסקנה ל-8 ימים\" / \"בנה לי מסלול וחוברת טיול\" / \"דרג לי מסעדות ליד המלון\". הכישור אוסף את המינימום (טיסות, לינות, בלוק העדפות, ורשימת מקומות אופציונלית), מעשיר כל מקום בקישורי Maps / Tripadvisor / Google Reviews (וגם כוכבים וזמני-נסיעה אמיתיים כשמוגדר GOOGLE_MAPS_API_KEY, במטמון על הדיסק), ואז מריץ את המנוע הדטרמיניסטי: גזירת בסיסים מהלינות, אשכול יעדים לבסיס הקרוב, חלוקה לימים (לפי קצב, ימי פתיחה, ימי בריכה, נסיעה מרבית), ניתוב כל יום (NN + 2-opt), תזמון שעות ובדיקות התנגשות. תמיד מציע את שלושת הפלטים — חוברת Excel בת 7 גיליונות (נוסחאות תקציב חיות), ברושור HTML עצמאי להדפסה, ומסלול בתוך השיחה. נסו את הדוגמה המוגמרת בלי שום הגדרה: pip install openpyxl && python examples/build_example.py.",
+      "links": {
+        "docs": "./skills/trip-planner/",
+        "demo": "./skills/trip-planner/examples/tuscany-brochure.html"
+      }
+    },
+    {
       "id": "stock-mapper",
       "summary": "Turn a market catalyst into a sourced map of the stocks that fit it, or paste your holdings for per-name research, 1D–5Y trends, and a decision analysis. A decision aid, not advice.",
       "summary_he": "הופך קטליזטור שוק למפה מתועדת של המניות שמתאימות לו, או הדביקו אחזקות למחקר לכל מניה, מגמות 1D–5Y וניתוח החלטה. כלי החלטה, לא ייעוץ.",

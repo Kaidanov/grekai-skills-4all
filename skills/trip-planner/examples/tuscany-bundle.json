@@ -1,0 +1,420 @@
+{
+  "trip": {
+    "name": "Tuscany Family Summer",
+    "currency": "EUR",
+    "travelers": {
+      "adults": 2,
+      "children": 2,
+      "child_ages": [
+        10,
+        13
+      ]
+    },
+    "date_start": "2026-07-22",
+    "date_end": "2026-07-29"
+  },
+  "itinerary": [
+    {
+      "date": "2026-07-22",
+      "day": 1,
+      "location": "Agriturismo Chianti (Greve)",
+      "activities": "09:21 San Gimignano Towers; 12:31 Piazza del Campo, Siena",
+      "accommodation": "Agriturismo Chianti (Greve)",
+      "notes": ""
+    },
+    {
+      "date": "2026-07-23",
+      "day": 2,
+      "location": "Agriturismo Chianti (Greve)",
+      "activities": "09:00 Greve in Chianti Market; 10:47 Castello di Verrazzano (winery)",
+      "accommodation": "Agriturismo Chianti (Greve)",
+      "notes": ""
+    },
+    {
+      "date": "2026-07-24",
+      "day": 3,
+      "location": "Agriturismo Chianti (Greve)",
+      "activities": "Open / travel day",
+      "accommodation": "Agriturismo Chianti (Greve)",
+      "notes": ""
+    },
+    {
+      "date": "2026-07-25",
+      "day": 4,
+      "location": "Agriturismo Chianti (Greve)",
+      "activities": "09:25 Duomo di Siena",
+      "accommodation": "Agriturismo Chianti (Greve)",
+      "notes": ""
+    },
+    {
+      "date": "2026-07-26",
+      "day": 5,
+      "location": "Val d'Orcia Farmhouse (Pienza)",
+      "activities": "09:00 Val d'Orcia Panorama (Pienza); 10:30 Pienza Pecorino Tasting",
+      "accommodation": "Val d'Orcia Farmhouse (Pienza)",
+      "notes": ""
+    },
+    {
+      "date": "2026-07-27",
+      "day": 6,
+      "location": "Val d'Orcia Farmhouse (Pienza)",
+      "activities": "09:07 Montepulciano Old Town",
+      "accommodation": "Val d'Orcia Farmhouse (Pienza)",
+      "notes": ""
+    },
+    {
+      "date": "2026-07-28",
+      "day": 7,
+      "location": "Val d'Orcia Farmhouse (Pienza)",
+      "activities": "09:06 Bagno Vignoni Thermal Village",
+      "accommodation": "Val d'Orcia Farmhouse (Pienza)",
+      "notes": ""
+    },
+    {
+      "date": "2026-07-29",
+      "day": 8,
+      "location": "\u2014",
+      "activities": "Open / travel day",
+      "accommodation": "\u2014",
+      "notes": ""
+    }
+  ],
+  "attractions": [
+    {
+      "name": "Piazza del Campo, Siena",
+      "type": "Attraction",
+      "location": "Siena",
+      "highlights": "Shell-shaped medieval square, the heart of Siena.",
+      "accessibility": "Stroller-friendly main routes",
+      "cost": "\u20ac",
+      "popularity": "4.8/5",
+      "reviews": "41200 reviews",
+      "suitable_for": "Families",
+      "special": "\u2b50 embraced",
+      "notes": "Go early \u2014 shade is scarce by midday in July.",
+      "importer_flag": true,
+      "links": {
+        "maps": "https://www.google.com/maps/search/?api=1&query=Piazza%20del%20Campo%2C%20Siena%20Siena",
+        "tripadvisor": "https://www.tripadvisor.com/Search?q=Piazza%20del%20Campo%2C%20Siena%20Siena",
+        "google_reviews": "https://www.google.com/search?q=Piazza%20del%20Campo%2C%20Siena%20Siena%20reviews",
+        "directions": "https://www.google.com/maps/dir/?api=1&destination=43.3188,11.3308"
+      },
+      "_drive_from_base": 25
+    },
+    {
+      "name": "Duomo di Siena",
+      "type": "Attraction",
+      "location": "Siena",
+      "highlights": "Striped marble cathedral with a mosaic floor.",
+      "accessibility": "Stroller-friendly main routes",
+      "cost": "\u20ac",
+      "popularity": "4.7/5",
+      "reviews": "28900 reviews",
+      "suitable_for": "Families",
+      "special": "",
+      "notes": "Timed entry \u2014 book the slot online the night before.",
+      "importer_flag": false,
+      "links": {
+        "maps": "https://www.google.com/maps/search/?api=1&query=Duomo%20di%20Siena%20Siena",
+        "tripadvisor": "https://www.tripadvisor.com/Search?q=Duomo%20di%20Siena%20Siena",
+        "google_reviews": "https://www.google.com/search?q=Duomo%20di%20Siena%20Siena%20reviews",
+        "directions": "https://www.google.com/maps/dir/?api=1&destination=43.3176,11.3286"
+      },
+      "_drive_from_base": 25
+    },
+    {
+      "name": "San Gimignano Towers",
+      "type": "Attraction",
+      "location": "San Gimignano",
+      "highlights": "Skyline of medieval stone towers; world-famous gelato below.",
+      "accessibility": "Stroller-friendly main routes",
+      "cost": "\u20ac",
+      "popularity": "4.7/5",
+      "reviews": "19800 reviews",
+      "suitable_for": "Families",
+      "special": "",
+      "notes": "Gelateria Dondoli on the main square is worth the queue.",
+      "importer_flag": false,
+      "links": {
+        "maps": "https://www.google.com/maps/search/?api=1&query=San%20Gimignano%20Towers%20San%20Gimignano",
+        "tripadvisor": "https://www.tripadvisor.com/Search?q=San%20Gimignano%20Towers%20San%20Gimignano",
+        "google_reviews": "https://www.google.com/search?q=San%20Gimignano%20Towers%20San%20Gimignano%20reviews",
+        "directions": "https://www.google.com/maps/dir/?api=1&destination=43.4677,11.0431"
+      },
+      "_drive_from_base": 22
+    },
+    {
+      "name": "Greve in Chianti Market",
+      "type": "Shopping",
+      "location": "Greve in Chianti",
+      "highlights": "Saturday-morning produce, cheese and leather stalls.",
+      "accessibility": "Stroller-friendly main routes",
+      "cost": "\u20ac",
+      "popularity": "4.5/5",
+      "reviews": "3400 reviews",
+      "suitable_for": "Families",
+      "special": "",
+      "notes": "Saturdays only \u2014 closed Sundays.",
+      "importer_flag": false,
+      "links": {
+        "maps": "https://www.google.com/maps/search/?api=1&query=Greve%20in%20Chianti%20Market%20Greve%20in%20Chianti",
+        "tripadvisor": "https://www.tripadvisor.com/Search?q=Greve%20in%20Chianti%20Market%20Greve%20in%20Chianti",
+        "google_reviews": "https://www.google.com/search?q=Greve%20in%20Chianti%20Market%20Greve%20in%20Chianti%20reviews",
+        "directions": "https://www.google.com/maps/dir/?api=1&destination=43.5836,11.3145"
+      },
+      "_drive_from_base": 0
+    },
+    {
+      "name": "Castello di Verrazzano (winery)",
+      "type": "Winery",
+      "location": "Greve in Chianti",
+      "highlights": "Hilltop Chianti Classico estate with cellar tours.",
+      "accessibility": "Stroller-friendly main routes",
+      "cost": "\u20ac",
+      "popularity": "4.8/5",
+      "reviews": "5200 reviews",
+      "suitable_for": "Families",
+      "special": "\u2b50 embraced",
+      "notes": "Booked: 11:00 tour + tasting, kids get grape juice.",
+      "importer_flag": true,
+      "links": {
+        "maps": "https://www.google.com/maps/search/?api=1&query=Castello%20di%20Verrazzano%20%28winery%29%20Greve%20in%20Chianti",
+        "tripadvisor": "https://www.tripadvisor.com/Search?q=Castello%20di%20Verrazzano%20%28winery%29%20Greve%20in%20Chianti",
+        "google_reviews": "https://www.google.com/search?q=Castello%20di%20Verrazzano%20%28winery%29%20Greve%20in%20Chianti%20reviews",
+        "directions": "https://www.google.com/maps/dir/?api=1&destination=43.5625,11.3192"
+      },
+      "_drive_from_base": 2
+    },
+    {
+      "name": "Val d'Orcia Panorama (Pienza)",
+      "type": "Nature",
+      "location": "Pienza",
+      "highlights": "The postcard rolling hills and cypress lines.",
+      "accessibility": "Stroller-friendly main routes",
+      "cost": "\u20ac",
+      "popularity": "4.9/5",
+      "reviews": "12100 reviews",
+      "suitable_for": "Families",
+      "special": "",
+      "notes": "Golden hour from the Pienza town walls is unbeatable.",
+      "importer_flag": false,
+      "links": {
+        "maps": "https://www.google.com/maps/search/?api=1&query=Val%20d%27Orcia%20Panorama%20%28Pienza%29%20Pienza",
+        "tripadvisor": "https://www.tripadvisor.com/Search?q=Val%20d%27Orcia%20Panorama%20%28Pienza%29%20Pienza",
+        "google_reviews": "https://www.google.com/search?q=Val%20d%27Orcia%20Panorama%20%28Pienza%29%20Pienza%20reviews",
+        "directions": "https://www.google.com/maps/dir/?api=1&destination=43.0792,11.679"
+      },
+      "_drive_from_base": 0
+    },
+    {
+      "name": "Bagno Vignoni Thermal Village",
+      "type": "Nature",
+      "location": "Bagno Vignoni",
+      "highlights": "A piazza that is a steaming thermal pool.",
+      "accessibility": "Stroller-friendly main routes",
+      "cost": "\u20ac",
+      "popularity": "4.6/5",
+      "reviews": "8700 reviews",
+      "suitable_for": "Families",
+      "special": "",
+      "notes": "Free to look; nearby pools for a warm soak.",
+      "importer_flag": false,
+      "links": {
+        "maps": "https://www.google.com/maps/search/?api=1&query=Bagno%20Vignoni%20Thermal%20Village%20Bagno%20Vignoni",
+        "tripadvisor": "https://www.tripadvisor.com/Search?q=Bagno%20Vignoni%20Thermal%20Village%20Bagno%20Vignoni",
+        "google_reviews": "https://www.google.com/search?q=Bagno%20Vignoni%20Thermal%20Village%20Bagno%20Vignoni%20reviews",
+        "directions": "https://www.google.com/maps/dir/?api=1&destination=43.0286,11.6181"
+      },
+      "_drive_from_base": 6
+    },
+    {
+      "name": "Montepulciano Old Town",
+      "type": "Attraction",
+      "location": "Montepulciano",
+      "highlights": "Renaissance hill town famous for Vino Nobile.",
+      "accessibility": "Stroller-friendly main routes",
+      "cost": "\u20ac",
+      "popularity": "4.7/5",
+      "reviews": "14600 reviews",
+      "suitable_for": "Families",
+      "special": "",
+      "notes": "Steep lanes \u2014 comfortable shoes; great sunset wine bars.",
+      "importer_flag": false,
+      "links": {
+        "maps": "https://www.google.com/maps/search/?api=1&query=Montepulciano%20Old%20Town%20Montepulciano",
+        "tripadvisor": "https://www.tripadvisor.com/Search?q=Montepulciano%20Old%20Town%20Montepulciano",
+        "google_reviews": "https://www.google.com/search?q=Montepulciano%20Old%20Town%20Montepulciano%20reviews",
+        "directions": "https://www.google.com/maps/dir/?api=1&destination=43.0925,11.7807"
+      },
+      "_drive_from_base": 7
+    }
+  ],
+  "foodies": [
+    {
+      "name": "Pienza Pecorino Tasting",
+      "price": "\u20ac\u20ac",
+      "location": "Pienza",
+      "popularity": "4.6/5",
+      "dishes": "Aged pecorino, honey, cured meats",
+      "specialty": "DOP Pecorino di Pienza",
+      "ambiance": "Family-run tasting room",
+      "notes": "Pair with local honey and a glass of Vino Nobile.",
+      "links": {
+        "maps": "https://www.google.com/maps/search/?api=1&query=Pienza%20Pecorino%20Tasting%20Pienza",
+        "tripadvisor": "https://www.tripadvisor.com/Search?q=Pienza%20Pecorino%20Tasting%20Pienza",
+        "google_reviews": "https://www.google.com/search?q=Pienza%20Pecorino%20Tasting%20Pienza%20reviews",
+        "directions": "https://www.google.com/maps/dir/?api=1&destination=43.0784,11.6786"
+      },
+      "_drive_from_base": 0
+    }
+  ],
+  "budget": {
+    "contingency_pct": 10,
+    "sections": [
+      {
+        "title": "1. Flights",
+        "items": [
+          {
+            "item": "TLV\u2192FLR\u2192TLV (family of 4)",
+            "qty": 4,
+            "unit": 320,
+            "note": "Round-trip economy estimate"
+          }
+        ]
+      },
+      {
+        "title": "2. Accommodation",
+        "items": [
+          {
+            "item": "Agriturismo Chianti (Greve)",
+            "qty": 4,
+            "unit": 180,
+            "note": "4 nights"
+          },
+          {
+            "item": "Val d'Orcia Farmhouse (Pienza)",
+            "qty": 3,
+            "unit": 195,
+            "note": "3 nights"
+          }
+        ]
+      },
+      {
+        "title": "3. Car & fuel",
+        "items": [
+          {
+            "item": "Compact SUV rental",
+            "qty": 7,
+            "unit": 55,
+            "note": "7 days"
+          },
+          {
+            "item": "Fuel + tolls",
+            "qty": 1,
+            "unit": 140,
+            "note": "Chianti \u2194 Val d'Orcia loop"
+          },
+          {
+            "item": "ZTL/parking",
+            "qty": 7,
+            "unit": 12,
+            "note": "Town parking + ZTL care"
+          }
+        ]
+      },
+      {
+        "title": "4. Food",
+        "items": [
+          {
+            "item": "Breakfasts (in stays)",
+            "qty": 8,
+            "unit": 0,
+            "note": "Included"
+          },
+          {
+            "item": "Lunches",
+            "qty": 8,
+            "unit": 60,
+            "note": "Family, casual"
+          },
+          {
+            "item": "Dinners",
+            "qty": 8,
+            "unit": 95,
+            "note": "Trattoria avg"
+          }
+        ]
+      },
+      {
+        "title": "5. Activities",
+        "items": [
+          {
+            "item": "Verrazzano winery tour + tasting",
+            "qty": 2,
+            "unit": 35,
+            "note": "Adults; kids free"
+          },
+          {
+            "item": "Siena Duomo timed entry",
+            "qty": 4,
+            "unit": 16,
+            "note": "Book ahead"
+          },
+          {
+            "item": "Pecorino tasting",
+            "qty": 4,
+            "unit": 12,
+            "note": "Pienza"
+          }
+        ]
+      }
+    ]
+  },
+  "costs_remarks": [
+    [
+      "How to read this budget",
+      "h"
+    ],
+    "All figures are planning estimates in EUR for a family of 4 (2 adults, 2 children). Totals are live formulas \u2014 change any Quantity or Unit Cost and the sheet recomputes.",
+    [
+      "Where the money goes",
+      "h"
+    ],
+    "Accommodation and food dominate a Tuscany week; the car is unavoidable for the hill towns but a single compact SUV covers the whole loop. A 10% contingency is added at the bottom.",
+    [
+      "Easy savings",
+      "h"
+    ],
+    "Agriturismo breakfasts are included, lunches at enotecas are cheaper than dinners, and most panoramas (Val d'Orcia, Bagno Vignoni piazza) are free."
+  ],
+  "notes": [
+    [
+      "Heat & kids",
+      "h"
+    ],
+    "July midday tops 34\u201337 \u00b0C. Front-load sightseeing to the morning, reserve the afternoon for the agriturismo pool, and carry water \u2014 the engine already reserved a mid-stay pool day.",
+    [
+      "Driving in Tuscany",
+      "h"
+    ],
+    "Hill-town centres are ZTL (limited-traffic) zones \u2014 park outside the walls and walk in. Return the car with a full tank near the airport.",
+    [
+      "Book ahead",
+      "h"
+    ],
+    "Siena Duomo uses timed entry and the Verrazzano winery requires a reservation \u2014 both flagged in the warnings below."
+  ],
+  "prompt": [
+    "Plan a balanced 8-day Tuscany family trip (2 adults + 2 kids, ages 10 & 13), 22\u201329 Jul 2026, flying TLV\u2192Florence, two bases (Chianti then Val d'Orcia), interests history/art/food/wine/scenery/shopping, heat-aware with pool days, max ~120 min drive/day. Build the itinerary, a scored target bank, a budget workbook and a printable brochure."
+  ],
+  "warnings": [
+    {
+      "code": "CAR_AFTER_FLIGHT",
+      "msg": "Car return 2026-07-29 15:30 is too close to homebound flight 2026-07-29 17:30 (need 3h buffer)."
+    },
+    {
+      "code": "BOOK_AHEAD",
+      "msg": "Duomo di Siena needs advance booking."
+    }
+  ]
+}

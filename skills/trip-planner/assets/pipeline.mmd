@@ -1,0 +1,30 @@
+%% Trip Planner — deterministic pipeline (render with mermaid-cli: mmdc -i pipeline.mmd -o pipeline.svg)
+flowchart TD
+    A["📥 Inputs<br/>flights · stays · prefs · targets"] --> B
+
+    subgraph AI0["AI · cached · optional"]
+      direction TB
+      DOC["📄 Booking emails / PDFs"] -->|parse once| EV["events"]
+    end
+    EV -.-> A
+
+    B["🔎 Enrich target bank<br/>Maps / Tripadvisor links · stars · geo"]:::api --> C
+    M["📍 Distance Matrix<br/>(cached per pair)"]:::api -. drive-times .-> C
+
+    subgraph CORE["⚙️ generate_plan() — 0 tokens"]
+      direction TB
+      C["S1 anchors from stays"]:::algo --> D["S3 cluster → nearest base"]:::algo
+      D --> E["S4 allocate to days<br/>pace · opening days · pool day"]:::algo
+      E --> F["S5 route day<br/>nearest-neighbour + 2-opt"]:::algo
+      F --> G["S6 schedule clock times"]:::algo
+      G --> H["S7 conflict checks<br/>car-after-flight · no-lodging · book-ahead"]:::algo
+    end
+
+    H --> I["🧩 Assemble bundle<br/>itinerary · target bank · live budget"]
+    I --> X["📊 Excel workbook<br/>7 sheets · live formulas"]:::out
+    I --> Y["🖨️ HTML brochure<br/>print → PDF"]:::out
+    I --> Z["🗒️ Inline itinerary"]:::out
+
+    classDef algo fill:#fef3e9,stroke:#f3cda0,color:#16181d;
+    classDef api fill:#e7f8f0,stroke:#bfe9d4,color:#16181d;
+    classDef out fill:#f0ebfe,stroke:#d9ccfb,color:#3b2f6b;

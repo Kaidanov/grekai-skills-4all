@@ -1,0 +1,29 @@
+{
+  "//": "Claude Code hooks. Auto-regenerates the workbook + brochure whenever a trip.json is written, and reminds the engine to run conflict checks. Place under .claude/ or merge into your settings.json 'hooks' block.",
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/skills/trip-planner/hooks/on_trip_change.sh\"",
+            "description": "If a trip.json changed, rebuild outputs (xlsx + brochure)."
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "matcher": ".*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "grep -qiE 'trip|itinerary|vacation|brochure|plan .* (days|trip)' <<< \"$CLAUDE_USER_PROMPT\" && echo '[hint] trip-planner skill is available (deterministic engine, 0-token core).' || true",
+            "description": "Nudge the planner skill when the prompt looks travel-related."
+          }
+        ]
+      }
+    ]
+  }
+}
