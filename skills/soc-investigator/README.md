@@ -75,11 +75,61 @@ Phase 4  Enrich (script)       unify + VirusTotal + Sentinel prep
 Phase 5  Pivot & close (browser, you confirm)  affected machines/users → close
 ```
 
-## Install
+## Install & load into Claude Code
+
+A skill is loaded from a `SKILL.md` inside a `.claude/skills/<name>/` folder.
+Pick **personal** (available in every project) or **project** (this repo only).
+
+> ⚠️ **Use an absolute path for a personal/global install.** The destination in
+> the command is where the files go. A *relative* path like
+> `.claude/skills/...` installs into the folder you're standing in — which is why
+> a global `C:\Users\<you>\.claude\skills` can end up empty. For the global
+> location, give the absolute path:
+
+**Personal / global — all projects**
+
+```powershell
+# Windows PowerShell
+npx degit Kaidanov/grekai-skills-4all/skills/soc-investigator "$env:USERPROFILE\.claude\skills\soc-investigator"
+```
+```bat
+:: Windows cmd.exe
+npx degit Kaidanov/grekai-skills-4all/skills/soc-investigator "%USERPROFILE%\.claude\skills\soc-investigator"
+```
+```bash
+# macOS / Linux
+npx degit Kaidanov/grekai-skills-4all/skills/soc-investigator ~/.claude/skills/soc-investigator
+```
+
+**Project — this repo only** (run from the project root):
 
 ```bash
 npx degit Kaidanov/grekai-skills-4all/skills/soc-investigator .claude/skills/soc-investigator
 ```
+
+### Make Claude Code see it
+
+1. **Restart Claude Code** if the `.claude/skills/` folder did *not* exist when
+   your session started — Claude watches existing skill folders live, but a
+   brand-new top-level skills directory is only picked up on restart. (This is
+   the #1 reason a fresh install "won't import".)
+2. **Verify the path** — `SKILL.md` must sit *directly* in the skill folder:
+   ```bash
+   # should print the file, not "No such file"
+   ls ~/.claude/skills/soc-investigator/SKILL.md          # macOS/Linux
+   dir "%USERPROFILE%\.claude\skills\soc-investigator\SKILL.md"   # Windows cmd
+   ```
+   If it's nested one level deeper (e.g. `…/soc-investigator/soc-investigator/`),
+   move the inner contents up so `SKILL.md` is at the top of the folder.
+3. **Invoke it** — type `/soc-investigator`, or just ask in plain language
+   ("run the SOC investigation", "hunt these IOCs") and Claude loads it
+   automatically from the description.
+
+**Still not showing?** Restart Claude Code · confirm the `SKILL.md` path above ·
+make sure you launched `claude` from the project that holds the `.claude/` folder
+(for a project install) · confirm `SKILL.md` starts with a `---` YAML frontmatter
+block. `degit` also needs Node + network and an empty destination (add `--force`
+to overwrite).
 
 ## Quick start
 
