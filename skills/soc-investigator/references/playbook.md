@@ -13,11 +13,15 @@ leave your machine.
  Phase 5  Pivot & close (browser)  affected machines/users → close (you confirm)
 ```
 
-## Phase 0 — Discovery (optional but recommended)
-If you don't already have a known IOC list, start by *finding* anomalies. Run the
-discovery queries in `kql-defender.md` (D1: new base domains seen yesterday but
-not in 90d; D2: new executables created yesterday, unseen before). Eyeball the
-output and lift suspicious `BaseDomain` / `SHA256` values into your config.
+## Phase 0 — Discovery / intel-in (optional but recommended)
+If you don't already have a known IOC list, get one two ways:
+- **Threat Sentinel (soc-update.com):** export its IOC CSV and point
+  `config.ioc_file` at it (any `BaseDomain` / `IOC` column is picked up). See
+  `integration-threat-sentinel.md`.
+- **Defender discovery:** run the queries in `kql-defender.md` (D1: new base
+  domains seen yesterday but not in 90d; D2: new executables created yesterday,
+  unseen before). Eyeball the output and lift suspicious `BaseDomain` / `SHA256`
+  values into your config.
 
 ## Phase 1 — Config
 ```bash
@@ -47,7 +51,8 @@ export VT_API_KEY=...        # your key, your machine; optional (VT skipped if u
 python3 scripts/enrich.py --config config.json
 ```
 Outputs in `out/`: `suspects.csv`, `suspects.json`, `report.md`,
-`sentinel_entities.txt`, `sentinel_filled.kql`.
+`sentinel_entities.txt`, `sentinel_filled.kql`, and `soc_report.csv` (Threat
+Sentinel schema — upload back to soc-update.com to close the loop).
 
 Verdict rule: `malicious` when VT detections ≥ `malicious_threshold`;
 `suspicious` when ≥ `suspicious_min` **and** reputation < 0. Detections dominate;

@@ -44,5 +44,11 @@
     "classification": "TruePositive",
     "classification_reason": "SuspiciousActivity",
     "comment_template": "Validated via Defender hunting + VirusTotal ({malicious}/{total} engines) and Sentinel blast-radius correlation. Confidence {confidence}/100. Closed by SOC cowork playbook."
+  },
+
+  "soc_report": {
+    "default_status": "Open",
+    "extra_tags": [],
+    "_comment": "Controls out/soc_report.csv, which matches the Threat Sentinel (soc-update.com) schema Status,IOC,Verdict,Score,Country,Tags,Created,Link,Type. Upload that file into the Threat Sentinel console to close the loop. To go the other way, point ioc_file at a Threat Sentinel export (CSV with a BaseDomain or IOC column)."
   }
 }

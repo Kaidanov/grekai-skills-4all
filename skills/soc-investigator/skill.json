@@ -2,7 +2,7 @@
   "id": "soc-investigator",
   "category": "skills",
   "title": "SOC Investigator — Air-Gapped IOC Triage (Defender → VirusTotal → Sentinel)",
-  "description": "A cowork SOC playbook for locked-down tenants where the CTO forbids API/MCP/Entra access. Claude generates per-machine-type Defender hunting KQL, walks you through running and exporting it in your OWN authenticated browser, enriches the IOCs locally with your VirusTotal key, then prepares the Sentinel blast-radius pivot and a human-confirmed incident-closure package — no keys or raw tenant data ever leave your machine. Ships an enrichment engine, query generator, KQL references, and a bundled agent definition.",
+  "description": "A cowork SOC playbook for locked-down tenants where the CTO forbids API/MCP/Entra access. Claude generates per-machine-type Defender hunting KQL, walks you through running and exporting it in your OWN authenticated browser, enriches the IOCs locally with your VirusTotal key, then prepares the Sentinel blast-radius pivot and a human-confirmed incident-closure package — no keys or raw tenant data ever leave your machine. Closes the loop with Threat Sentinel (soc-update.com) over a CSV bridge: import its IOC exports, push findings back as soc_report.csv. Ships an enrichment engine, query generator, KQL references, flow diagrams, and a bundled agent definition.",
   "tags": ["security", "soc", "defender", "sentinel", "virustotal", "kql", "ioc", "ciso", "threat-hunting", "cowork"],
   "status": "live",
   "install": "npx degit Kaidanov/grekai-skills-4all/skills/soc-investigator .claude/skills/soc-investigator",

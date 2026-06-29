@@ -66,6 +66,15 @@
         "classification_reason": { "type": "string" },
         "comment_template":      { "type": "string" }
       }
+    },
+    "soc_report": {
+      "type": "object",
+      "description": "Controls out/soc_report.csv, emitted in the Threat Sentinel (soc-update.com) schema.",
+      "additionalProperties": true,
+      "properties": {
+        "default_status": { "type": "string", "description": "Value for the Status column, e.g. Open / New / Closed." },
+        "extra_tags":     { "type": "array", "items": { "type": "string" }, "description": "Tags appended to every row's Tags column." }
+      }
     }
   }
 }
