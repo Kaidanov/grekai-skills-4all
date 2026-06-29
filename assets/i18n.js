@@ -27,7 +27,8 @@
       contributeHtml: "Open source — <strong>fork it, build a skill, open a PR.</strong>",
       footerCatalogHtml: "Manifest-driven · add a folder + an entry in <code>skills.json</code> to register a new item. " +
         '· by <a href="https://set4u.biz" target="_blank" rel="noopener">Set4u</a> ' +
-        '· <a href="https://set4u.biz" target="_blank" rel="noopener">💖 Sponsor</a>',
+        '· <a href="https://github.com/sponsors/Kaidanov" target="_blank" rel="noopener">💖 Sponsor</a>' +
+        '<br><span class="disclaimer">Provided “as is”, without warranty of any kind. The authors accept no responsibility or liability for any loss, damage, or misuse arising from the use of these skills. Use at your own risk.</span>',
       // community buttons
       fork: "Fork", star: "Star", proposePr: "Propose a PR", discuss: "Discuss", comment: "Comment",
       contribute: "Contribute",
@@ -47,6 +48,8 @@
         "(<code>~/.claude/skills/</code>) so it's available in every project — or swap the target for a repo's " +
         "<code>.claude/skills/</code> to scope it to one project:",
       altSummaryHtml: "No <code>npx</code>? Use git sparse-checkout instead",
+      cmdMacLinux: "macOS / Linux",
+      cmdWindows: "Windows (PowerShell)",
       howToUse: "How to use",
       readme: "README",
       copy: "Copy", copied: "Copied!", copyFailed: "Copy failed",
@@ -78,7 +81,8 @@
       contributeHtml: "קוד פתוח — <strong>עשו פיצול, בנו כישור, פתחו PR.</strong>",
       footerCatalogHtml: "מבוסס מניפסט · הוסיפו תיקייה + רשומה ב-<code>skills.json</code> כדי לרשום פריט חדש. " +
         '· מאת <a href="https://set4u.biz" target="_blank" rel="noopener">Set4u</a> ' +
-        '· <a href="https://set4u.biz" target="_blank" rel="noopener">💖 חסות</a>',
+        '· <a href="https://github.com/sponsors/Kaidanov" target="_blank" rel="noopener">💖 חסות</a>' +
+        '<br><span class="disclaimer">מסופק “כפי שהוא” (AS IS), ללא אחריות מכל סוג. היוצרים אינם נושאים באחריות לכל נזק, אובדן או שימוש לרעה הנובעים מהשימוש בכישורים אלה. השימוש על אחריותכם בלבד.</span>',
       fork: "פיצול", star: "כוכב", proposePr: "הציעו PR", discuss: "דיון", comment: "תגובה",
       contribute: "תרומה",
       status_live: "פעיל", status_soon: "בקרוב", status_beta: "בטא", status_wip: "בעבודה",
@@ -95,6 +99,8 @@
         "(<code>~/.claude/skills/</code>) כדי שיהיה זמין בכל פרויקט — או החליפו את היעד ל-" +
         "<code>.claude/skills/</code> של מאגר כדי להגביל אותו לפרויקט אחד:",
       altSummaryHtml: "אין <code>npx</code>? השתמשו ב-git sparse-checkout במקום",
+      cmdMacLinux: "macOS / Linux",
+      cmdWindows: "Windows (PowerShell)",
       howToUse: "איך משתמשים",
       readme: "README",
       copy: "העתקה", copied: "הועתק!", copyFailed: "ההעתקה נכשלה",

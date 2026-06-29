@@ -40,6 +40,7 @@
       <div class="community">
         <span class="community__label" data-i18n="contribute">Contribute</span>
         <div id="d-community" class="ghrow"></div>
+        <div class="sponsor"><iframe src="https://github.com/sponsors/Kaidanov/button" title="Sponsor Kaidanov" height="32" width="114" style="border:0;border-radius:6px;"></iframe></div>
       </div>
 
       <section class="panel" id="install-panel">
@@ -47,9 +48,15 @@
         <p class="panel__hint" data-i18n-html="downloadHintHtml">Download the ZIP, then upload it in Claude Desktop or unzip it into <code>~/.claude/skills/</code>.</p>
         <p><a class="btn" id="download-zip" href="#" target="_blank" rel="noopener" download data-i18n="downloadZip">Download ZIP</a></p>
         <p class="panel__hint" data-i18n-html="installHintHtml">Prefer the command line? Add this skill to your <strong>global</strong> Claude skills folder (<code>~/.claude/skills/</code>) so it's available in every project — or swap the target for a repo's <code>.claude/skills/</code> to scope it to one project:</p>
+        <p class="cmd-os" data-i18n="cmdMacLinux">macOS / Linux</p>
         <div class="codeblock">
           <button class="copy" data-target="install-cmd" type="button" data-i18n="copy">Copy</button>
           <pre><code id="install-cmd"></code></pre>
+        </div>
+        <p class="cmd-os" data-i18n="cmdWindows">Windows (PowerShell)</p>
+        <div class="codeblock">
+          <button class="copy" data-target="install-win" type="button" data-i18n="copy">Copy</button>
+          <pre><code id="install-win"></code></pre>
         </div>
         <details class="alt">
           <summary data-i18n-html="altSummaryHtml">No <code>npx</code>? Use git sparse-checkout instead</summary>
@@ -230,15 +237,18 @@
         ghbtn(issueUrl, I18N.t("comment"), "comment", false)
       ].join("");
 
-      // Install commands
-      const installCmd = item.install ||
-        ("npx degit " + slug + "/skills/" + folder + " ~/.claude/skills/" + folder);
+      // Install commands — uniform across all skills (global ~/.claude/skills), per OS.
+      const installCmd =
+        "npx degit " + slug + "/skills/" + folder + " ~/.claude/skills/" + folder;
+      const installWin =
+        "npx degit " + slug + "/skills/" + folder + ' "$env:USERPROFILE\\.claude\\skills\\' + folder + '"';
       const installAlt =
         "git clone --depth 1 --filter=blob:none --sparse " + repoUrl + ".git\n" +
         "cd grekai-skills-4all\n" +
         "git sparse-checkout set skills/" + folder + "\n" +
         "cp -r skills/" + folder + " ~/.claude/skills/" + folder;
       $("install-cmd").textContent = installCmd;
+      $("install-win").textContent = installWin;
       $("install-alt").textContent = installAlt;
 
       // Download ZIP — per-skill release asset built by .github/workflows/skill-zips.yml
