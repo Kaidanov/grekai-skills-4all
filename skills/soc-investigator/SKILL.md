@@ -5,6 +5,17 @@ description: Air-gapped SOC investigation cowork for Microsoft Defender + VirusT
 
 # SOC Investigator — Air-Gapped IOC Triage
 
+> **Lazy? Point the user at [`QUICKSTART.md`](./QUICKSTART.md)** — a one-page,
+> copy-paste run-through (key → IOCs → Defender export → enrich → Sentinel → close).
+
+**Two modes:**
+- **Cowork (default, no API):** Claude generates KQL + steps; the human runs them
+  in their own browser and exports CSVs; Claude enriches locally. The five phases below.
+- **Local-automated (opt-in):** the human supplies their own API keys and
+  `scripts/run_local.py` runs Defender→VirusTotal→Sentinel end-to-end locally,
+  stopping for one manual approval before closing. See
+  [`references/local-automation.md`](./references/local-automation.md).
+
 A **cowork** playbook for SOC / CISO threat-hunting in a tenant where the CTO
 will **not** allow Claude (or any tool) to connect to Defender, Sentinel,
 VirusTotal, or Entra via API/MCP. Claude is the *execution brain*; the human is
@@ -99,7 +110,11 @@ Summarize `out/report.md` for the user.
   `soc_report.csv` — a CSV bridge, no API.
 
 ## Files
+- `QUICKSTART.md` — the one-page lazy-CISO run-through.
 - `scripts/gen_queries.py` — config → per-group Defender KQL.
-- `scripts/enrich.py` — unify CSVs + VirusTotal + Sentinel prep.
+- `scripts/enrich.py` — unify CSVs + VirusTotal + Sentinel prep (exposes `run()`).
+- `scripts/run_local.py` — opt-in local full-automation (manual approval at the end).
 - `assets/config.example.json` / `config.schema.json` — the generic surface.
+- `assets/.env.example` — local-automation credentials template.
+- `references/local-automation.md` — the local-automated mode spec.
 - `agents/soc-investigator.agent.md` — bundled cowork-SOC agent definition.

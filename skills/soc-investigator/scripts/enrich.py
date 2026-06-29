@@ -284,29 +284,28 @@ union Net, Alerts
 """
 
 
-def main(argv=None):
-    ap = argparse.ArgumentParser(description="Unify Defender CSVs + VirusTotal enrichment + Sentinel prep.")
-    ap.add_argument("--config", required=True)
-    ap.add_argument("--exports", default="exports/defender")
-    ap.add_argument("--out", default="out")
-    args = ap.parse_args(argv)
+def run(cfg, exports_dir="exports/defender", out_dir="out", api_key=None):
+    """Unify exported CSVs + VirusTotal enrich + write all out/ artifacts.
 
-    with open(args.config, "r", encoding="utf-8") as fh:
-        cfg = json.load(fh)
+    Reusable entry point (also called by scripts/run_local.py). Returns a summary
+    dict; returns None if there were no input rows. api_key defaults to the
+    VT_API_KEY env var when not passed.
+    """
     vt_cfg = cfg.get("virustotal", {}) or {}
     days = int(cfg.get("time_window_days", 7))
+    if api_key is None:
+        api_key = os.environ.get("VT_API_KEY", "").strip()
 
-    rows = read_exports(args.exports)
+    rows = read_exports(exports_dir)
     if not rows:
         print("No CSVs found in {0}. Export your Defender hunting results there first."
-              .format(args.exports), file=sys.stderr)
-        return 1
-    print("Unified {0} row(s) from {1}.".format(len(rows), args.exports))
+              .format(exports_dir), file=sys.stderr)
+        return None
+    print("Unified {0} row(s) from {1}.".format(len(rows), exports_dir))
 
     iocs = collect_iocs(rows)
     print("Found {0} distinct IOC(s) across the exports.".format(len(iocs)))
 
-    api_key = os.environ.get("VT_API_KEY", "").strip()
     if not api_key:
         print("VT_API_KEY not set -> VirusTotal enrichment SKIPPED (rows still unified).",
               file=sys.stderr)
@@ -326,13 +325,13 @@ def main(argv=None):
         if v in ("malicious", "suspicious"):
             suspect_rows.append(r)
 
-    os.makedirs(args.out, exist_ok=True)
+    os.makedirs(out_dir, exist_ok=True)
 
     # suspects.csv (injection-safe)
     fields = ["time", "device", "user", "group", "ioc_value", "verdict",
               "vt_malicious", "vt_total", "vt_reputation", "confidence",
               "sha256", "ip", "source_file"]
-    with open(os.path.join(args.out, "suspects.csv"), "w", encoding="utf-8", newline="") as fh:
+    with open(os.path.join(out_dir, "suspects.csv"), "w", encoding="utf-8", newline="") as fh:
         w = csv.writer(fh)
         w.writerow(fields)
         for r in suspect_rows:
@@ -349,7 +348,7 @@ def main(argv=None):
     confirmed_iocs = sorted({ioc_of_row(r) for r in suspect_rows if ioc_of_row(r)})
 
     # suspects.json
-    with open(os.path.join(args.out, "suspects.json"), "w", encoding="utf-8") as fh:
+    with open(os.path.join(out_dir, "suspects.json"), "w", encoding="utf-8") as fh:
         json.dump({
             "summary": {
                 "rows_total": len(rows),
@@ -365,7 +364,7 @@ def main(argv=None):
         }, fh, indent=2)
 
     # sentinel_entities.txt
-    with open(os.path.join(args.out, "sentinel_entities.txt"), "w", encoding="utf-8") as fh:
+    with open(os.path.join(out_dir, "sentinel_entities.txt"), "w", encoding="utf-8") as fh:
         fh.write("# Suspect devices\n")
         fh.write("\n".join(devices) + "\n\n")
         fh.write("# Suspect users\n")
@@ -374,7 +373,7 @@ def main(argv=None):
         fh.write("\n".join(confirmed_iocs) + "\n")
 
     # sentinel_filled.kql
-    with open(os.path.join(args.out, "sentinel_filled.kql"), "w", encoding="utf-8") as fh:
+    with open(os.path.join(out_dir, "sentinel_filled.kql"), "w", encoding="utf-8") as fh:
         fh.write(SENTINEL_TEMPLATE.format(
             days=days,
             iocs=kql_list(confirmed_iocs),
@@ -383,14 +382,14 @@ def main(argv=None):
         ))
 
     # report.md
-    write_report(os.path.join(args.out, "report.md"), cfg, rows, suspect_rows,
+    write_report(os.path.join(out_dir, "report.md"), cfg, rows, suspect_rows,
                  enriched, iocs, devices, users, bool(api_key))
 
     # soc_report.csv — Threat Sentinel (soc-update.com) schema, upload back to its console
-    write_soc_report(os.path.join(args.out, "soc_report.csv"), cfg, iocs, enriched)
+    write_soc_report(os.path.join(out_dir, "soc_report.csv"), cfg, iocs, enriched)
 
     print()
-    print("Wrote to {0}/:".format(args.out))
+    print("Wrote to {0}/:".format(out_dir))
     print("  - suspects.csv / suspects.json   ({0} suspect row(s))".format(len(suspect_rows)))
     print("  - sentinel_filled.kql            (paste into Sentinel -> Logs)")
     print("  - sentinel_entities.txt          ({0} device(s), {1} user(s))".format(len(devices), len(users)))
@@ -398,7 +397,30 @@ def main(argv=None):
     print("  - soc_report.csv                 ({0} IOC(s); upload to soc-update.com)".format(len(iocs)))
     if not api_key:
         print("\nNOTE: set VT_API_KEY and re-run to populate verdicts.")
-    return 0
+    return {
+        "out_dir": out_dir,
+        "rows_total": len(rows),
+        "suspect_rows": len(suspect_rows),
+        "distinct_iocs": len(iocs),
+        "devices": devices,
+        "users": users,
+        "confirmed_iocs": confirmed_iocs,
+        "vt_checked": bool(api_key),
+        "sentinel_kql": os.path.join(out_dir, "sentinel_filled.kql"),
+        "report_md": os.path.join(out_dir, "report.md"),
+        "soc_report_csv": os.path.join(out_dir, "soc_report.csv"),
+    }
+
+
+def main(argv=None):
+    ap = argparse.ArgumentParser(description="Unify Defender CSVs + VirusTotal enrichment + Sentinel prep.")
+    ap.add_argument("--config", required=True)
+    ap.add_argument("--exports", default="exports/defender")
+    ap.add_argument("--out", default="out")
+    args = ap.parse_args(argv)
+    with open(args.config, "r", encoding="utf-8") as fh:
+        cfg = json.load(fh)
+    return 0 if run(cfg, args.exports, args.out) is not None else 1
 
 
 # Threat Sentinel (soc-update.com) report schema — order is the integration contract.
