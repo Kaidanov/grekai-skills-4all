@@ -13,9 +13,13 @@ Usage:
     python3 gen_queries.py --config ../assets/config.example.json   # dry preview
 """
 import argparse
+import csv
 import json
 import os
 import sys
+
+# Columns (lower-cased) that carry an IOC in a Threat Sentinel / SOC export CSV.
+IOC_COLUMNS = ["basedomain", "ioc", "domain", "url", "hash", "sha256", "md5", "sha1"]
 
 
 def load_iocs(cfg, base_dir):
@@ -28,24 +32,42 @@ def load_iocs(cfg, base_dir):
     ioc_file = cfg.get("ioc_file")
     if ioc_file:
         path = ioc_file if os.path.isabs(ioc_file) else os.path.join(base_dir, ioc_file)
-        with open(path, "r", encoding="utf-8") as fh:
-            raw = fh.read().strip()
-        try:
-            data = json.loads(raw)
-            for k in iocs:
-                iocs[k].extend(data.get(k) or [])
-        except json.JSONDecodeError:
-            # newline-delimited: classify each line by shape
-            for line in raw.splitlines():
-                tok = line.strip()
-                if not tok or tok.startswith("#"):
-                    continue
-                iocs[classify(tok)].append(tok)
+        if path.lower().endswith(".csv"):
+            # CSV from Threat Sentinel (soc-update.com): BaseDomain / IOC / Domain / URL / Hash / SHA256
+            _load_iocs_csv(path, iocs)
+        else:
+            with open(path, "r", encoding="utf-8") as fh:
+                raw = fh.read().strip()
+            try:
+                data = json.loads(raw)
+                for k in iocs:
+                    iocs[k].extend(data.get(k) or [])
+            except json.JSONDecodeError:
+                # newline-delimited: classify each line by shape
+                for line in raw.splitlines():
+                    tok = line.strip()
+                    if not tok or tok.startswith("#"):
+                        continue
+                    iocs[classify(tok)].append(tok)
 
     # de-dup, preserve order
     for k in iocs:
         iocs[k] = list(dict.fromkeys(iocs[k]))
     return iocs
+
+
+def _load_iocs_csv(path, iocs):
+    """Pull IOCs out of a CSV exported by Threat Sentinel (New_query.csv or
+    SOC_Report.csv) — any column named BaseDomain/IOC/Domain/URL/Hash/SHA256."""
+    with open(path, "r", encoding="utf-8-sig", newline="") as fh:
+        reader = csv.DictReader(fh)
+        cols = [c for c in (reader.fieldnames or []) if (c or "").strip().lower() in IOC_COLUMNS]
+        for raw in reader:
+            low = {(k or "").strip().lower(): (v or "").strip() for k, v in raw.items()}
+            for col in cols:
+                val = low.get(col.strip().lower(), "")
+                if val:
+                    iocs[classify(val)].append(val)
 
 
 def classify(token):

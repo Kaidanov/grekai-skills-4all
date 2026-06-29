@@ -30,7 +30,10 @@ hand the browser steps to the user with exact, copy-pasteable instructions.
 
 ### Phase 1 — Config (the only place specifics live)
 Have the user copy `assets/config.example.json` to `config.json` and fill in:
-- `iocs` (domains / urls / hashes) — or point `ioc_file` at a list.
+- `iocs` (domains / urls / hashes) — or point `ioc_file` at a list. `ioc_file`
+  may be a **Threat Sentinel (soc-update.com) export CSV** with a `BaseDomain` or
+  `IOC` column; the skill folds those indicators into the hunt (see
+  `references/integration-threat-sentinel.md`).
 - `machine_groups` — one query (and one exported CSV) per entry. This is the
   generic version of the original "7 files": declare however many groups you
   want, each with a KQL `filter` like `DeviceType == "Server"`.
@@ -67,6 +70,9 @@ verdict rule, and writes to `out/`:
 - `sentinel_entities.txt` — suspect device + user lists.
 - `sentinel_filled.kql` — the Sentinel blast-radius query with the suspect
   entities already injected, ready to paste.
+- `soc_report.csv` — findings in **Threat Sentinel's** schema
+  (`Status,IOC,Verdict,Score,Country,Tags,Created,Link,Type`); the user uploads
+  this back into the soc-update.com console to close the loop.
 
 Summarize `out/report.md` for the user.
 
@@ -88,6 +94,9 @@ Summarize `out/report.md` for the user.
 - All scripts are **Python standard library only** — no `pip install`.
 - See `references/playbook.md`, `references/kql-defender.md`, and
   `references/kql-sentinel.md` for the detailed runbook and query catalog.
+- `references/integration-threat-sentinel.md` describes the full loop with
+  **Threat Sentinel (soc-update.com)**: intel in via IOC CSV, findings out via
+  `soc_report.csv` — a CSV bridge, no API.
 
 ## Files
 - `scripts/gen_queries.py` — config → per-group Defender KQL.

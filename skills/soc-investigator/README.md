@@ -13,6 +13,49 @@ never leave your machine.
 > table, it's honestly a *cowork agent*: it drives the workflow and processes
 > data locally while you run the portal queries and confirm the destructive step.
 
+![5-phase cowork pipeline](https://raw.githubusercontent.com/Kaidanov/grekai-skills-4all/main/assets/images/soc-investigator-pipeline.svg)
+
+## How it works in 30 seconds
+
+You give it indicators; it gives you *which of your machines and users are
+affected* and a closure package — without any tool ever touching your tenant's
+APIs.
+
+**Example.** You suspect the domain `evil-newdomain.example` and a hash:
+
+1. Put them in `config.json` → `python3 scripts/gen_queries.py --config config.json`
+   produces one Defender KQL per machine group (Servers, Workstations, Linux…).
+2. You paste each query into **your** Defender browser session and Export CSV.
+3. `python3 scripts/enrich.py --config config.json` unifies the CSVs, checks each
+   IOC in VirusTotal with **your** key, and writes:
+   ```
+   out/report.md            → 2 malicious IOCs, 3 affected machines, 2 users
+   out/sentinel_filled.kql  → blast-radius query, entities pre-injected
+   out/soc_report.csv       → Status,IOC,Verdict,Score,Country,Tags,Created,Link,Type
+   ```
+4. You run the Sentinel query, review the prepared close package, and click Close.
+
+Nothing left your machine except the queries you chose to paste.
+
+## The full loop — with Threat Sentinel (soc-update.com)
+
+This skill is the **execution** half of a loop whose **intel** half is
+[Threat Sentinel](https://soc-update.com) — your service that polls external
+threat feeds and emits candidate IOCs/KQL. They connect through a **CSV bridge**
+(no API), so the air-gap holds end to end:
+
+![full loop](https://raw.githubusercontent.com/Kaidanov/grekai-skills-4all/main/assets/images/soc-investigator-loop.svg)
+
+- **Intel in:** point `config.ioc_file` at a Threat Sentinel export — any CSV with
+  a `BaseDomain` or `IOC` column (e.g. its `New_query.csv`). The skill folds those
+  indicators straight into the hunt.
+- **Findings out:** `enrich.py` writes `out/soc_report.csv` in Threat Sentinel's
+  exact schema (`Status,IOC,Verdict,Score,Country,Tags,Created,Link,Type`). Upload
+  it back through the Threat Sentinel console to record what was found and closed.
+
+See [`references/integration-threat-sentinel.md`](./references/integration-threat-sentinel.md)
+for the field mapping and the cowork up/download steps.
+
 ## Why this exists
 
 The usual answer to "automate SOC triage" is a fleet of API integrations
@@ -89,9 +132,13 @@ key comes from `VT_API_KEY`):
 - `scripts/enrich.py` — unify CSVs + VirusTotal + Sentinel prep (stdlib only).
 - `references/kql-defender.md` — discovery + targeted hunt query catalog.
 - `references/kql-sentinel.md` — blast-radius, incident-mapping, close queries.
+- `references/integration-threat-sentinel.md` — the full loop with soc-update.com
+  (CSV field mapping + a ready prompt to finish the Threat Sentinel side).
 - `references/playbook.md` — the detailed runbook.
 - `assets/config.example.json` / `config.schema.json` — the generic surface.
 - `agents/soc-investigator.agent.md` — the bundled cowork-SOC agent.
+- Flow diagrams: `assets/images/soc-investigator-pipeline.svg` and
+  `…-loop.svg` (in the repo's shared images folder).
 
 ---
 

@@ -146,12 +146,41 @@ def vt_lookup(value, kind, api_key):
     attrs = data.get("data", {}).get("attributes", {})
     stats = attrs.get("last_analysis_stats", {}) or {}
     total = sum(v for v in stats.values() if isinstance(v, int))
+    created = attrs.get("creation_date") or attrs.get("first_submission_date")
     return {
         "malicious": int(stats.get("malicious", 0)),
         "total": total,
         "reputation": int(attrs.get("reputation", 0)),
+        "country": attrs.get("country", "") or "",
+        "tags": attrs.get("tags", []) or [],
+        "created": epoch_to_iso(created),
         "found": True,
     }
+
+
+def epoch_to_iso(epoch):
+    """VirusTotal timestamps are unix epoch seconds; render as UTC date."""
+    if not epoch:
+        return ""
+    try:
+        import datetime
+        return datetime.datetime.utcfromtimestamp(int(epoch)).strftime("%Y-%m-%d")
+    except (ValueError, TypeError, OverflowError):
+        return ""
+
+
+def gui_link(value, kind):
+    """Human-clickable VirusTotal GUI permalink for an IOC."""
+    if kind == "domain":
+        return "https://www.virustotal.com/gui/domain/{0}".format(value)
+    if kind == "ip":
+        return "https://www.virustotal.com/gui/ip-address/{0}".format(value)
+    if kind == "hash":
+        return "https://www.virustotal.com/gui/file/{0}".format(value)
+    if kind == "url":
+        uid = base64.urlsafe_b64encode(value.encode("utf-8")).decode("ascii").strip("=")
+        return "https://www.virustotal.com/gui/url/{0}".format(uid)
+    return ""
 
 
 def enrich_iocs(iocs, vt_cfg, api_key):
@@ -357,15 +386,55 @@ def main(argv=None):
     write_report(os.path.join(args.out, "report.md"), cfg, rows, suspect_rows,
                  enriched, iocs, devices, users, bool(api_key))
 
+    # soc_report.csv — Threat Sentinel (soc-update.com) schema, upload back to its console
+    write_soc_report(os.path.join(args.out, "soc_report.csv"), cfg, iocs, enriched)
+
     print()
     print("Wrote to {0}/:".format(args.out))
     print("  - suspects.csv / suspects.json   ({0} suspect row(s))".format(len(suspect_rows)))
     print("  - sentinel_filled.kql            (paste into Sentinel -> Logs)")
     print("  - sentinel_entities.txt          ({0} device(s), {1} user(s))".format(len(devices), len(users)))
     print("  - report.md                      (human-readable summary)")
+    print("  - soc_report.csv                 ({0} IOC(s); upload to soc-update.com)".format(len(iocs)))
     if not api_key:
         print("\nNOTE: set VT_API_KEY and re-run to populate verdicts.")
     return 0
+
+
+# Threat Sentinel (soc-update.com) report schema — order is the integration contract.
+SOC_REPORT_FIELDS = ["Status", "IOC", "Verdict", "Score", "Country", "Tags", "Created", "Link", "Type"]
+SOC_TYPE = {"domain": "domain", "url": "url", "ip": "ip", "hash": "file"}
+
+
+def write_soc_report(path, cfg, iocs, enriched):
+    """One row per distinct IOC in the exact SOC_Report.csv schema, sorted by Score desc."""
+    sr = cfg.get("soc_report", {}) or {}
+    status = sr.get("default_status", "Open")
+    extra_tags = sr.get("extra_tags", []) or []
+    vt = cfg.get("virustotal", {}) or {}
+
+    rows = []
+    for value, kind in iocs.items():
+        res = enriched.get(value) or {}
+        tags = list(res.get("tags", []) or []) + list(extra_tags)
+        rows.append({
+            "Status": status,
+            "IOC": value,
+            "Verdict": verdict_for(res, vt),
+            "Score": confidence(res),
+            "Country": res.get("country", ""),
+            "Tags": ";".join(str(t) for t in tags),
+            "Created": res.get("created", ""),
+            "Link": gui_link(value, kind),
+            "Type": SOC_TYPE.get(kind, kind),
+        })
+    rows.sort(key=lambda r: r["Score"], reverse=True)
+
+    with open(path, "w", encoding="utf-8", newline="") as fh:
+        w = csv.writer(fh)
+        w.writerow(SOC_REPORT_FIELDS)
+        for r in rows:
+            w.writerow([csv_safe(r[c]) for c in SOC_REPORT_FIELDS])
 
 
 def write_report(path, cfg, rows, suspect_rows, enriched, iocs, devices, users, vt_checked):
