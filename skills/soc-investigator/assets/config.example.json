@@ -1,0 +1,48 @@
+{
+  "$schema": "./config.schema.json",
+  "_comment": "EDIT THIS FILE — it is the only place you define your tenant's specifics. No secrets live here: the VirusTotal key is read from the VT_API_KEY environment variable. Copy this file to config.json and fill it in.",
+
+  "iocs": {
+    "domains": [
+      "bad-domain.example",
+      "phishing-site.example"
+    ],
+    "urls": [
+      "http://bad-domain.example/payload"
+    ],
+    "hashes": [
+      "44d88612fea8a8f36de82e1278abb02f"
+    ]
+  },
+  "ioc_file": null,
+
+  "time_window_days": 7,
+
+  "machine_groups": [
+    { "name": "Servers",        "filter": "DeviceType == \"Server\"" },
+    { "name": "Workstations",   "filter": "DeviceType == \"Workstation\"" },
+    { "name": "Windows_Server", "filter": "OSPlatform startswith \"WindowsServer\"" },
+    { "name": "Windows_Client", "filter": "OSPlatform startswith \"Windows1\"" },
+    { "name": "Linux",          "filter": "OSPlatform contains \"Linux\"" },
+    { "name": "macOS",          "filter": "OSPlatform contains \"macOS\"" },
+    { "name": "Other",          "filter": "isempty(DeviceType) or DeviceType !in (\"Server\", \"Workstation\")" }
+  ],
+
+  "virustotal": {
+    "malicious_threshold": 5,
+    "suspicious_min": 1,
+    "rate_limit_seconds": 15,
+    "_comment": "verdict = malicious if engines flagging >= malicious_threshold; suspicious if >= suspicious_min AND reputation < 0; else benign/unknown. rate_limit_seconds=15 respects the free VT public API (4 req/min); set to 1 for a premium key. The API key itself comes from the VT_API_KEY env var, never this file."
+  },
+
+  "portals": {
+    "defender_url": "https://security.microsoft.com/v2/advanced-hunting",
+    "sentinel_url": "https://portal.azure.com/#blade/Microsoft_Azure_Security_Insights/MainMenuBlade/0/id/<your-sentinel-workspace-resource-id>"
+  },
+
+  "closing": {
+    "classification": "TruePositive",
+    "classification_reason": "SuspiciousActivity",
+    "comment_template": "Validated via Defender hunting + VirusTotal ({malicious}/{total} engines) and Sentinel blast-radius correlation. Confidence {confidence}/100. Closed by SOC cowork playbook."
+  }
+}
