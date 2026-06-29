@@ -5,6 +5,39 @@ description: Air-gapped SOC investigation cowork for Microsoft Defender + VirusT
 
 # SOC Investigator — Air-Gapped IOC Triage
 
+## FIRST RESPONSE — show these usage options (do this before anything else)
+
+When this skill is invoked, your **first reply** must briefly say what this does in
+one line, then present this menu and ask the user to pick a number (or describe their
+goal). Do **not** start hunting until they choose.
+
+> **SOC Investigator** — triage suspicious indicators across Microsoft Defender →
+> VirusTotal → Sentinel, find which machines/users are affected, and prepare the
+> closure. No API access required (you run portal queries in your own browser).
+>
+> **What do you want to do?**
+> 1. **Quick triage** — I have IOCs (domains/URLs/hashes); find affected machines & users → [QUICKSTART](./QUICKSTART.md)
+> 2. **Discover new threats** — find brand-new domains/executables to investigate (anomaly hunt) → `references/kql-defender.md`
+> 3. **Enrich exports I already have** — I exported Defender CSVs; unify + VirusTotal → `scripts/enrich.py`
+> 4. **Threat Sentinel loop** — import IOCs from / push findings back to soc-update.com → `references/integration-threat-sentinel.md`
+> 5. **Automate it locally** — run end-to-end with my own API keys, one approval at the end → `references/local-automation.md`
+> 6. **Explain / is this safe?** — what it does, what leaves my machine → [GUIDE](./GUIDE.md)
+
+For the full mental model, modes, and FAQ, see **[`GUIDE.md`](./GUIDE.md)**.
+
+---
+
+> **Lazy? Point the user at [`QUICKSTART.md`](./QUICKSTART.md)** — a one-page,
+> copy-paste run-through (key → IOCs → Defender export → enrich → Sentinel → close).
+
+**Two modes:**
+- **Cowork (default, no API):** Claude generates KQL + steps; the human runs them
+  in their own browser and exports CSVs; Claude enriches locally. The five phases below.
+- **Local-automated (opt-in):** the human supplies their own API keys and
+  `scripts/run_local.py` runs Defender→VirusTotal→Sentinel end-to-end locally,
+  stopping for one manual approval before closing. See
+  [`references/local-automation.md`](./references/local-automation.md).
+
 A **cowork** playbook for SOC / CISO threat-hunting in a tenant where the CTO
 will **not** allow Claude (or any tool) to connect to Defender, Sentinel,
 VirusTotal, or Entra via API/MCP. Claude is the *execution brain*; the human is
@@ -99,7 +132,12 @@ Summarize `out/report.md` for the user.
   `soc_report.csv` — a CSV bridge, no API.
 
 ## Files
+- `GUIDE.md` — CISO guide (what it is, modes, what you can do, safety, FAQ).
+- `QUICKSTART.md` — the one-page lazy-CISO run-through.
 - `scripts/gen_queries.py` — config → per-group Defender KQL.
-- `scripts/enrich.py` — unify CSVs + VirusTotal + Sentinel prep.
+- `scripts/enrich.py` — unify CSVs + VirusTotal + Sentinel prep (exposes `run()`).
+- `scripts/run_local.py` — opt-in local full-automation (manual approval at the end).
 - `assets/config.example.json` / `config.schema.json` — the generic surface.
+- `assets/.env.example` — local-automation credentials template.
+- `references/local-automation.md` — the local-automated mode spec.
 - `agents/soc-investigator.agent.md` — bundled cowork-SOC agent definition.
