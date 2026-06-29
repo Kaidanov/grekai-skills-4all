@@ -11,7 +11,19 @@ Each skill lives in its own folder under `skills/`.
 
 That's it — the dashboard at the site root reads `skills.json` and renders the card automatically. No build step.
 
-## Installing a skill into Claude Code
+## Installing a skill
+
+**Easiest — Download ZIP (no CLI).** Every skill has a prebuilt ZIP on the
+[`skill-downloads` release](https://github.com/Kaidanov/grekai-skills-4all/releases/tag/skill-downloads)
+(`<id>.zip`), surfaced as a **Download ZIP** button on each skill page. Then:
+- **Claude Desktop / claude.ai:** Customize → Skills → **+** → *Upload a skill*.
+- **Claude Code:** unzip into `~/.claude/skills/` (e.g. `unzip <id>.zip -d ~/.claude/skills/`)
+  and restart, then invoke with `/<id>`.
+
+The ZIPs are regenerated automatically by `.github/workflows/skill-zips.yml` on
+every push to `main` that touches `skills/`.
+
+### Command-line install
 
 Each skill's `install` command uses [`degit`](https://github.com/Rich-Harris/degit)
 to copy the folder into a `.claude/skills/<name>/` directory, where Claude Code

@@ -44,7 +44,9 @@
 
       <section class="panel" id="install-panel">
         <h2 data-i18n="install">Install</h2>
-        <p class="panel__hint" data-i18n-html="installHintHtml">Add this skill to your <strong>global</strong> Claude skills folder (<code>~/.claude/skills/</code>) so it's available in every project — or swap the target for a repo's <code>.claude/skills/</code> to scope it to one project:</p>
+        <p class="panel__hint" data-i18n-html="downloadHintHtml">Download the ZIP, then upload it in Claude Desktop or unzip it into <code>~/.claude/skills/</code>.</p>
+        <p><a class="btn" id="download-zip" href="#" target="_blank" rel="noopener" download data-i18n="downloadZip">Download ZIP</a></p>
+        <p class="panel__hint" data-i18n-html="installHintHtml">Prefer the command line? Add this skill to your <strong>global</strong> Claude skills folder (<code>~/.claude/skills/</code>) so it's available in every project — or swap the target for a repo's <code>.claude/skills/</code> to scope it to one project:</p>
         <div class="codeblock">
           <button class="copy" data-target="install-cmd" type="button" data-i18n="copy">Copy</button>
           <pre><code id="install-cmd"></code></pre>
@@ -238,6 +240,13 @@
         "cp -r skills/" + folder + " ~/.claude/skills/" + folder;
       $("install-cmd").textContent = installCmd;
       $("install-alt").textContent = installAlt;
+
+      // Download ZIP — per-skill release asset built by .github/workflows/skill-zips.yml
+      const dl = $("download-zip");
+      if (dl) {
+        dl.href = repoUrl + "/releases/download/skill-downloads/" + folder + ".zip";
+        dl.setAttribute("download", folder + ".zip");
+      }
 
       // Usage
       const usage = I18N.loc(item, "usage");

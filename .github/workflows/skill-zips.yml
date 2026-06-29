@@ -1,0 +1,50 @@
+name: Build skill ZIPs
+
+# Publishes one downloadable .zip per skill as assets on a rolling "skill-downloads"
+# release, so the catalog can offer a generic "Download ZIP" button (no npx/git needed).
+# Stable URL: https://github.com/<owner>/<repo>/releases/download/skill-downloads/<id>.zip
+
+on:
+  push:
+    branches: [main]
+    paths: ["skills/**"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Zip each skill (SKILL.md folder at archive root)
+        run: |
+          set -euo pipefail
+          mkdir -p dist
+          for dir in skills/*/; do
+            id="$(basename "$dir")"
+            # skip the template and any folder without a SKILL.md
+            if [ "$id" = "_template" ] || [ ! -f "$dir/SKILL.md" ]; then
+              echo "skip $id"
+              continue
+            fi
+            ( cd skills && zip -r "../dist/$id.zip" "$id" \
+                -x "*/__pycache__/*" "*/exports/*" "*/out/*" "*/.venv/*" "*/config.json" )
+            echo "zipped $id"
+          done
+          ls -la dist
+
+      - name: Publish/update release assets
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: skill-downloads
+          name: Skill downloads
+          body: >
+            Auto-generated per-skill ZIPs. Each `<id>.zip` contains the skill
+            folder (SKILL.md at its root). Download one and either upload it in
+            Claude Desktop (Customize → Skills → Upload a skill) or unzip it into
+            `~/.claude/skills/`. Regenerated on every push to `main` that touches
+            `skills/`.
+          files: dist/*.zip
