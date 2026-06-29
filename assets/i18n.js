@@ -38,7 +38,12 @@
       loading: "Loading…",
       skillPrefix: "Skill",
       install: "Install",
-      installHintHtml: "Add this skill to your <strong>global</strong> Claude skills folder " +
+      downloadZip: "Download ZIP",
+      downloadHintHtml: "<strong>Easiest:</strong> download the ZIP, then either " +
+        "<strong>upload it in Claude Desktop</strong> (Customize → Skills → <em>+</em> → Upload a skill), " +
+        "or for <strong>Claude Code</strong> unzip it into your global skills folder: " +
+        "<code>unzip &lt;id&gt;.zip -d ~/.claude/skills/</code> then restart Claude Code.",
+      installHintHtml: "Prefer the command line? Add this skill to your <strong>global</strong> Claude skills folder " +
         "(<code>~/.claude/skills/</code>) so it's available in every project — or swap the target for a repo's " +
         "<code>.claude/skills/</code> to scope it to one project:",
       altSummaryHtml: "No <code>npx</code>? Use git sparse-checkout instead",
@@ -81,7 +86,12 @@
       loading: "טוען…",
       skillPrefix: "כישור",
       install: "התקנה",
-      installHintHtml: "הוסיפו את הכישור הזה לתיקיית הכישורים <strong>הגלובלית</strong> של Claude " +
+      downloadZip: "הורדת ZIP",
+      downloadHintHtml: "<strong>הכי קל:</strong> הורידו את ה-ZIP, ואז או " +
+        "<strong>העלו אותו ב-Claude Desktop</strong> (Customize ← Skills ← <em>+</em> ← Upload a skill), " +
+        "או עבור <strong>Claude Code</strong> חלצו אותו לתיקיית הכישורים הגלובלית: " +
+        "<code>unzip &lt;id&gt;.zip -d ~/.claude/skills/</code> והפעילו מחדש את Claude Code.",
+      installHintHtml: "מעדיפים שורת פקודה? הוסיפו את הכישור הזה לתיקיית הכישורים <strong>הגלובלית</strong> של Claude " +
         "(<code>~/.claude/skills/</code>) כדי שיהיה זמין בכל פרויקט — או החליפו את היעד ל-" +
         "<code>.claude/skills/</code> של מאגר כדי להגביל אותו לפרויקט אחד:",
       altSummaryHtml: "אין <code>npx</code>? השתמשו ב-git sparse-checkout במקום",

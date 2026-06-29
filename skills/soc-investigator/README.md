@@ -75,7 +75,25 @@ Phase 4  Enrich (script)       unify + VirusTotal + Sentinel prep
 Phase 5  Pivot & close (browser, you confirm)  affected machines/users → close
 ```
 
-## Install & load into Claude Code
+## Install
+
+### Easiest — Download ZIP (no CLI)
+
+Download **[soc-investigator.zip](https://github.com/Kaidanov/grekai-skills-4all/releases/download/skill-downloads/soc-investigator.zip)**
+(also via the **Download ZIP** button on the
+[skill page](https://grekai-skills-4all.vercel.app/skill?id=soc-investigator)), then:
+
+- **Claude Desktop / claude.ai:** Customize → Skills → **+** → *Upload a skill* → pick the ZIP.
+- **Claude Code:** unzip it into your global skills folder and restart:
+  ```bash
+  unzip soc-investigator.zip -d ~/.claude/skills/      # macOS/Linux
+  ```
+  ```powershell
+  Expand-Archive soc-investigator.zip "$env:USERPROFILE\.claude\skills\"   # Windows PowerShell
+  ```
+  This yields `~/.claude/skills/soc-investigator/SKILL.md`. Then type `/soc-investigator`.
+
+### Or via the command line
 
 A skill is loaded from a `SKILL.md` inside a `.claude/skills/<name>/` folder.
 Pick **personal** (available in every project) or **project** (this repo only).
