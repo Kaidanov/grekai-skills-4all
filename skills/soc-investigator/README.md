@@ -3,9 +3,9 @@
 **Defender → VirusTotal → Sentinel, without giving Claude any API access.**
 
 > ⚡ **Lazy? Start here → [QUICKSTART.md](./QUICKSTART.md)** — one page, copy-paste,
-> ~10 minutes. Want it hands-off with your own keys? See the **local-automated mode**
-> ([`references/local-automation.md`](./references/local-automation.md)) — runs the
-> whole flow locally and stops for one approval before closing.
+> ~10 minutes. New to it? Read the **[CISO GUIDE](./GUIDE.md)** — what it is, how to
+> use it, what you can do, and why it's safe. Want it hands-off with your own keys?
+> See the **local-automated mode** ([`references/local-automation.md`](./references/local-automation.md)).
 
 A cowork playbook for SOC / CISO threat-hunting in locked-down tenants where the
 CTO forbids direct API / MCP / Entra connections. Claude is the execution
