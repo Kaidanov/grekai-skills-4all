@@ -11,9 +11,9 @@
 [![GitHub stars](https://img.shields.io/github/stars/Kaidanov/grekai-skills-4all?style=social)](https://github.com/Kaidanov/grekai-skills-4all/stargazers)
 [![Live site](https://img.shields.io/badge/live-vercel-black)](https://grekai-skills-4all.vercel.app/)
 [![Made by Set4u](https://img.shields.io/badge/made%20by-Set4u-2563eb)](https://set4u.biz)
-[![Sponsor](https://img.shields.io/badge/%F0%9F%92%96-Sponsor-ff5e9c)](https://set4u.biz)
+[![Sponsor](https://img.shields.io/badge/%F0%9F%92%96-Sponsor-ff5e9c)](https://github.com/sponsors/Kaidanov)
 
-### 💖 [Support this project — keep it free &amp; open source](https://set4u.biz)
+### 💖 [Support this project — keep it free &amp; open source](https://github.com/sponsors/Kaidanov)
 
 </div>
 
@@ -90,6 +90,39 @@ npx serve .
 (Add New → Project → Import). No framework preset needed; `vercel.json` handles it.
 Every push redeploys automatically.
 
+## Install a skill
+
+**Easiest — Download ZIP (no CLI).** Every skill is packaged as a ZIP on the
+[`skill-downloads` release](https://github.com/Kaidanov/grekai-skills-4all/releases/tag/skill-downloads)
+(one `<id>.zip` per skill; also a **Download ZIP** button on each skill page).
+Then:
+
+- **Claude Desktop / claude.ai:** Customize → Skills → **+** → *Upload a skill* → pick the ZIP.
+- **Claude Code:** unzip into your global skills folder and restart, then type `/<id>`:
+  ```bash
+  # macOS / Linux
+  unzip <id>.zip -d ~/.claude/skills/
+  ```
+  ```powershell
+  # Windows (PowerShell)
+  Expand-Archive <id>.zip "$env:USERPROFILE\.claude\skills\"
+  ```
+
+**Command line (`degit`).** Replace `<id>` with the skill folder name:
+
+```bash
+# macOS / Linux
+npx degit Kaidanov/grekai-skills-4all/skills/<id> ~/.claude/skills/<id>
+```
+```powershell
+# Windows (PowerShell) — note the absolute path
+npx degit Kaidanov/grekai-skills-4all/skills/<id> "$env:USERPROFILE\.claude\skills\<id>"
+```
+
+> If `.claude/skills/` didn't exist when Claude Code was already running, **restart it**
+> so the new folder is watched. The ZIPs are rebuilt automatically on every push to
+> `main` that touches `skills/` (see `.github/workflows/skill-zips.yml`).
+
 ## Add a skill
 
 See [`skills/README.md`](./skills/README.md). In short: copy `skills/_template/`,
@@ -107,3 +140,19 @@ copyright notice. A link back to [set4u.biz](https://set4u.biz) or this repo is 
 Created and maintained by **Tzvi Gregory Kaidanov** — **[Set4u](https://set4u.biz)**.
 Contributions are welcome — see **[CONTRIBUTING](./CONTRIBUTING.md)**. If this catalog helps you,
 a ⭐ on the [repo](https://github.com/Kaidanov/grekai-skills-4all) means a lot and helps others find it.
+
+---
+
+## Disclaimer
+
+These skills, scripts, and templates are provided **"as is", without warranty of
+any kind**, express or implied, including but not limited to the warranties of
+merchantability, fitness for a particular purpose, and non-infringement. They may
+generate, query, or act on your data and third-party services; **you are solely
+responsible** for reviewing what they do before relying on them.
+
+To the maximum extent permitted by law, the authors and contributors accept **no
+responsibility or liability** for any loss, damage, data loss, cost, security
+incident, or other harm arising from the use, misuse, or inability to use anything
+in this repository. **Use at your own risk.** Nothing here is professional
+(security, legal, financial, medical, or tax) advice.

@@ -30,6 +30,7 @@
     </div>
     <p id="site-tagline" class="tagline">A catalog of agent skills, hooks &amp; connectors</p>
     <div id="community" class="community community--hero"></div>
+    <div class="sponsor"><iframe src="https://github.com/sponsors/Kaidanov/button" title="Sponsor Kaidanov" height="32" width="114" style="border:0;border-radius:6px;"></iframe></div>
     <p class="contribute" data-i18n-html="contributeHtml">
       Open source — <strong>fork it, build a skill, open a PR.</strong>
     </p>
@@ -49,15 +50,17 @@
   </main>
 
   <footer class="footer">
-    <span data-i18n-html="footerCatalogHtml">Manifest-driven &middot; add a folder + an entry in <code>skills.json</code> to register a new item. &middot; by <a href="https://set4u.biz" target="_blank" rel="noopener">Set4u</a> &middot; <a href="https://set4u.biz" target="_blank" rel="noopener">💖 Sponsor</a></span>
+    <span data-i18n-html="footerCatalogHtml">Manifest-driven &middot; add a folder + an entry in <code>skills.json</code> to register a new item. &middot; by <a href="https://set4u.biz" target="_blank" rel="noopener">Set4u</a> &middot; <a href="https://github.com/sponsors/Kaidanov" target="_blank" rel="noopener">💖 Sponsor</a></span>
   </footer>
 
   <script>
     const state = { items: [], categories: [], active: "all", query: "", layout: getLayout() };
 
-    // Layout: "condensed" (default — name + one line) or "spacious" (full cards).
+    // Layout: "spacious" (full cards) or "condensed" (name + one line).
+    // No stored preference → desktop defaults to spacious, mobile to condensed.
     function getLayout() {
       try { const l = localStorage.getItem("layout"); if (l === "condensed" || l === "spacious") return l; } catch (e) {}
+      try { if (window.matchMedia && window.matchMedia("(min-width: 768px)").matches) return "spacious"; } catch (e) {}
       return "condensed";
     }
 
