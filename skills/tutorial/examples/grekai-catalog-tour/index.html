@@ -148,17 +148,11 @@
       cc.style.display = isVideo ? 'none' : '';
       bar.style.display = isVideo ? 'none' : '';
       if (ctrlsEl) ctrlsEl.style.display = isVideo ? 'none' : '';
-      if (isVideo) {
-        audio.pause(); setPlay(false);
-        // The tab click is a user gesture → start playback (with sound) instead of
-        // leaving the video parked on its poster. Restoring the saved mode on load
-        // is not a gesture, so we only auto-play when the user clicked the tab.
-        if (userInitiated) { const r = videoEl.play(); if (r && r.catch) r.catch(() => {}); }
-      } else { videoEl.pause(); }
+      if (isVideo) { audio.pause(); setPlay(false); } else { videoEl.pause(); }
       [...modebar.children].forEach((b) => b.classList.toggle('active', b.dataset.mode === m));
       localStorage.setItem(MKEY, m);
     }
-    [...modebar.children].forEach((b) => { b.onclick = () => setMode(b.dataset.mode, true); });
+    [...modebar.children].forEach((b) => { b.onclick = () => setMode(b.dataset.mode); });
     setMode(localStorage.getItem(MKEY) || 'pics');
   }
 </script>

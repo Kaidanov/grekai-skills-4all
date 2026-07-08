@@ -197,16 +197,11 @@ const html = `<!DOCTYPE html>
       cc.style.display = isVideo ? 'none' : '';
       bar.style.display = isVideo ? 'none' : '';
       if (ctrlsEl) ctrlsEl.style.display = isVideo ? 'none' : '';
-      if (isVideo) {
-        audio.pause(); setPlay(false);
-        // The tab click is a user gesture → start playback (with sound) instead of
-        // parking on the poster. Restoring the saved mode on load is not a gesture.
-        if (userInitiated) { const r = videoEl.play(); if (r && r.catch) r.catch(() => {}); }
-      } else { videoEl.pause(); }
+      if (isVideo) { audio.pause(); setPlay(false); } else { videoEl.pause(); }
       [...modebar.children].forEach((b) => b.classList.toggle('active', b.dataset.mode === m));
       localStorage.setItem(MKEY, m);
     }
-    [...modebar.children].forEach((b) => { b.onclick = () => setMode(b.dataset.mode, true); });
+    [...modebar.children].forEach((b) => { b.onclick = () => setMode(b.dataset.mode); });
     setMode(localStorage.getItem(MKEY) || 'pics');
   }
 </script>
