@@ -1,0 +1,31 @@
+{
+  "name": "<Trip name>",
+  "home": "<HOME_AIRPORT_IATA>",
+  "currency": "EUR",
+  "date_start": "2026-07-22",
+  "date_end": "2026-07-31",
+  "travelers": { "adults": 2, "children": 2, "child_ages": [10, 13] },
+  "flights": [
+    { "no": "<FLIGHT_NO>", "from": "<IATA>", "to": "<IATA>", "dir": "out",
+      "depart": "2026-07-22T10:55", "arrive": "2026-07-22T14:45" },
+    { "no": "<FLIGHT_NO>", "from": "<IATA>", "to": "<IATA>", "dir": "in",
+      "depart": "2026-07-31T17:30", "arrive": "2026-07-31T21:00" }
+  ],
+  "stays": [
+    { "name": "<Hotel/Villa>", "place_id": null, "lat": 0.0, "lng": 0.0,
+      "check_in": "2026-07-22", "check_out": "2026-07-23" }
+  ],
+  "car": { "pickup": "2026-07-22T15:30", "return": "2026-07-31T14:00",
+           "place_id": null, "lat": 0.0, "lng": 0.0 },
+  "prefs": {
+    "pace": "balanced",
+    "interests": ["history", "art", "food", "wine", "scenery", "shopping"],
+    "with_kids": true, "heat_aware": true, "pool_days": true,
+    "budget_level": "mid", "max_radius_min": 150, "max_drive_min_per_day": 150,
+    "must_see": [], "wine_importer": null
+  },
+  "targets": [
+    { "name": "<Place>", "category": "attraction", "location": "<Area>",
+      "lat": 0.0, "lng": 0.0, "tags": [], "state": "suggested" }
+  ]
+}

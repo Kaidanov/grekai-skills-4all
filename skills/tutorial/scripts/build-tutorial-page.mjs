@@ -191,7 +191,7 @@ const html = `<!DOCTYPE html>
   if (modebar && videoEl) {
     const ctrlsEl = document.querySelector('.ctrls');
     const MKEY = 'tutorial-mode';
-    function setMode(m) {
+    function setMode(m, userInitiated) {
       const isVideo = m === 'video';
       frame.hidden = isVideo; videoEl.hidden = !isVideo;
       cc.style.display = isVideo ? 'none' : '';

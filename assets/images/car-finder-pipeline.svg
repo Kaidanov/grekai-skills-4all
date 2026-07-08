@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 690" font-family="Segoe UI, Helvetica, Arial, sans-serif" role="img" aria-label="Car Finder IL pipeline, top to bottom: criteria.json; source via Apify Yad2 read actor; score each car against its peer cohort; dedupe in Supabase keeping only new matches or real price drops; notify; ping to your phone. Already-seen listings are skipped.">
+  <rect x="1" y="1" width="478" height="688" rx="18" fill="#f6f8fc" stroke="#dbe2ee"/>
+  <text x="240" y="44" text-anchor="middle" font-size="23" font-weight="700" fill="#16181d">How Car Finder IL works</text>
+  <text x="240" y="68" text-anchor="middle" font-size="13" fill="#5b6371">Reads-only — it finds and ranks, it never posts, bumps, or buys</text>
+
+  <!-- 1 criteria (purple) -->
+  <rect x="28" y="86" width="424" height="66" rx="12" fill="#f0ebfe" stroke="#d9ccfb"/>
+  <text x="240" y="114" text-anchor="middle" font-size="16" font-weight="700" fill="#16181d">criteria.json</text>
+  <text x="240" y="135" text-anchor="middle" font-size="12.5" fill="#5b6371">your hard filters + scoring weights</text>
+  <line x1="240" y1="152" x2="240" y2="180" stroke="#9aa3b5" stroke-width="2"/>
+  <polygon points="233,173 247,173 240,182" fill="#9aa3b5"/>
+
+  <!-- 2 source -->
+  <rect x="28" y="182" width="424" height="66" rx="12" fill="#eaf1fb" stroke="#cfe0f7"/>
+  <text x="240" y="210" text-anchor="middle" font-size="16" font-weight="700" fill="#16181d">source · Apify Yad2 read actor</text>
+  <text x="240" y="231" text-anchor="middle" font-size="12.5" fill="#5b6371">no login · no browser · reads-only</text>
+  <line x1="240" y1="248" x2="240" y2="276" stroke="#9aa3b5" stroke-width="2"/>
+  <polygon points="233,269 247,269 240,278" fill="#9aa3b5"/>
+
+  <!-- 3 score -->
+  <rect x="28" y="278" width="424" height="66" rx="12" fill="#eaf1fb" stroke="#cfe0f7"/>
+  <text x="240" y="306" text-anchor="middle" font-size="16" font-weight="700" fill="#16181d">score · against its peer cohort</text>
+  <text x="240" y="327" text-anchor="middle" font-size="12.5" fill="#5b6371">price vs peers · hand · owner · km/yr · photos</text>
+  <line x1="240" y1="344" x2="240" y2="372" stroke="#9aa3b5" stroke-width="2"/>
+  <polygon points="233,365 247,365 240,374" fill="#9aa3b5"/>
+
+  <!-- 4 dedupe gate (amber) -->
+  <rect x="28" y="374" width="424" height="74" rx="12" fill="#fff2dd" stroke="#f3c884" stroke-width="2"/>
+  <text x="240" y="402" text-anchor="middle" font-size="16" font-weight="700" fill="#9a6400">dedupe · Supabase</text>
+  <text x="240" y="423" text-anchor="middle" font-size="12.5" fill="#6b5326">new match or real price drop?</text>
+  <text x="240" y="440" text-anchor="middle" font-size="11.5" fill="#8a7a4a">already-seen listings are skipped — no ping</text>
+  <line x1="240" y1="448" x2="240" y2="476" stroke="#9aa3b5" stroke-width="2"/>
+  <text x="252" y="467" font-size="11.5" fill="#5b6371">yes</text>
+  <polygon points="233,469 247,469 240,478" fill="#9aa3b5"/>
+
+  <!-- 5 notify -->
+  <rect x="28" y="478" width="424" height="66" rx="12" fill="#eaf1fb" stroke="#cfe0f7"/>
+  <text x="240" y="506" text-anchor="middle" font-size="16" font-weight="700" fill="#16181d">notify</text>
+  <text x="240" y="527" text-anchor="middle" font-size="12.5" fill="#5b6371">wa-ai (WhatsApp) · Telegram · ntfy</text>
+  <line x1="240" y1="544" x2="240" y2="572" stroke="#9aa3b5" stroke-width="2"/>
+  <polygon points="233,565 247,565 240,574" fill="#9aa3b5"/>
+
+  <!-- 6 phone (green) -->
+  <rect x="28" y="574" width="424" height="74" rx="12" fill="#e7f8f0" stroke="#bfe9d4" stroke-width="2"/>
+  <text x="240" y="604" text-anchor="middle" font-size="16" font-weight="700" fill="#14704a">📱 your phone</text>
+  <text x="240" y="625" text-anchor="middle" font-size="12.5" fill="#2f6b51">only genuinely good, new finds</text>
+  <text x="240" y="642" text-anchor="middle" font-size="11.5" fill="#5b6371">with the reasons it scored well</text>
+</svg>

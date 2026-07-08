@@ -11,9 +11,9 @@
 [![GitHub stars](https://img.shields.io/github/stars/Kaidanov/grekai-skills-4all?style=social)](https://github.com/Kaidanov/grekai-skills-4all/stargazers)
 [![Live site](https://img.shields.io/badge/live-vercel-black)](https://grekai-skills-4all.vercel.app/)
 [![Made by Set4u](https://img.shields.io/badge/made%20by-Set4u-2563eb)](https://set4u.biz)
-[![Sponsor](https://img.shields.io/badge/%F0%9F%92%96-Sponsor-ff5e9c)](https://set4u.biz)
+[![Sponsor](https://img.shields.io/badge/%F0%9F%92%96-Sponsor-ff5e9c)](https://github.com/sponsors/Kaidanov)
 
-### 💖 [Support this project — keep it free &amp; open source](https://set4u.biz)
+### 💖 [Support this project — keep it free &amp; open source](https://github.com/sponsors/Kaidanov)
 
 </div>
 
@@ -40,6 +40,7 @@ explanation, install command, and usage.
 
 | Skill | What it does | Docs |
 |---|---|---|
+| **[Trip Planner — Deterministic Itinerary, Workbook & Brochure](./skills/trip-planner/)** | Destination-agnostic trip planner: initial trip data (flights, stays, prefs) → a day-by-day **itinerary**, a scored **target bank** (stars, reviews, map links, distance-from-base), a 7-sheet **Excel workbook** with live budget formulas, and a printable **HTML brochure**. Deterministic core — anchors, clustering, day allocation, NN+2-opt routing, scheduling and conflict checks (car-after-flight, no-lodging, book-ahead) = **0 tokens**; the model only parses booking docs and writes a few blurbs. Ships as a skill, an **MCP server**, and hooks. | [README](./skills/trip-planner/README.md) · [page](https://grekai-skills-4all.vercel.app/skill?id=trip-planner) · [▶ demo](https://grekai-skills-4all.vercel.app/skills/trip-planner/examples/tuscany-brochure.html) |
 | **[Tutorial — Narrated Playwright Walkthroughs](./skills/tutorial/)** | Record narrated, themeable product tutorials: Playwright drives the app and screenshots each step, `edge-tts` (Jenny) narrates, and you get either a **no-ffmpeg HTML player** or an MP4, plus a light/dark, logo-branded `index.html` switching between all tutorials. Human-gated; ships `/tutorial-init/create/update/status`. | [README](./skills/tutorial/README.md) · [page](https://grekai-skills-4all.vercel.app/skill?id=tutorial) · [▶ demo](https://grekai-skills-4all.vercel.app/skills/tutorial/examples/grekai-catalog-tour/) |
 | **[Share Presentation — Collaborate Over Shared Org Folders](./skills/share-presentation/)** | Presentation collaboration **inside your organization** — no server, no repo. Stateful HTML reads/writes a `state.json` sidecar synced over a shared org folder (OneDrive / SharePoint / Google Drive / Dropbox); an MCP agent rewrites the deck from approved changes. | [README](./skills/share-presentation/README.md) · [page](https://grekai-skills-4all.vercel.app/skill?id=share-presentation) · [demo](./decks/elon-musk/) |
 | **[Session Handoff](./skills/handoff/)** | Package the current session so the **next** one resumes with zero re-research — a dated handoff doc, a copy-paste resume prompt, and a session-log metrics row. | [README](./skills/handoff/README.md) · [page](https://grekai-skills-4all.vercel.app/skill?id=handoff) |
@@ -49,6 +50,9 @@ explanation, install command, and usage.
 | **[My Claude Toolkit](./skills/my-claude-toolkit/)** | A portable, hand-authored Claude Code setup: helper command-scripts, hooks, a token/cost usage monitor + dashboard, a sparse-worktree engine, and a sanitized MCP-server inventory. | [README](./skills/my-claude-toolkit/README.md) · [page](https://grekai-skills-4all.vercel.app/skill?id=my-claude-toolkit) |
 | **[TLDR — End-of-Turn Status Report](./skills/tldr/)** | `/tldr` emits a tight status memo for the batch just finished — tokens (est total + exact per-subagent), time, a components-used table, done / to-do / issues / options, and a fresh-session call. Never fabricates numbers. | [README](./skills/tldr/README.md) · [page](https://grekai-skills-4all.vercel.app/skill?id=tldr) |
 | **[Token Audit — Cut Context Cost](./skills/token-audit/)** | `/token-audit` inventories your MCP servers, hooks, CLAUDE.md chain, skills, agents and memory, ranks the biggest per-session token sinks, and hands back Top-3 quick wins + a full reduction plan. Read-only by default. | [README](./skills/token-audit/README.md) · [page](https://grekai-skills-4all.vercel.app/skill?id=token-audit) |
+| **[Family Budget Planner (Israel-first)](./skills/family-budget-il/)** | Build a shared, Google-Sheets-ready family budget workbook, then keep it current by typing expenses in plain Hebrew or English — no bank links, no app. Setup wizard builds one `.xlsx` of live SUMIFS formulas; chat logging returns categorized rows to paste. Israel defaults (₪, HMOs, ארנונה, 15th-to-15th cycle, benefit clubs) but works anywhere. | [README](./skills/family-budget-il/README.md) · [page](https://grekai-skills-4all.vercel.app/skill?id=family-budget-il) |
+| **[Exit Strategist — Money-Independence & Early Retirement](./skills/exit-strategist/)** | Honest planning across the whole money-independence surface — salary-exit, FI/early retirement (Coast/Barista-FI), job-loss resilience, current-state mapping → one-page PDF, spending cuts, macro/relocation. Strips hustle-culture hype; runs a hard-gate **data-quality audit** on real exports before any number is used; localizes tax/pension/Section 14; stress-tests AI & macro shocks. Bilingual (EN/HE), any language. Not financial advice. | [README](./skills/exit-strategist/README.md) · [page](https://grekai-skills-4all.vercel.app/skill?id=exit-strategist) |
+| **[Car Finder IL — Smart Used-Car Alerts (Yad2)](./skills/car-finder-il/)** | Find a good second-hand car in Israel and get a phone ping **only when something genuinely worth it appears**. Reads Yad2 via an Apify actor (reads-only, no login), **scores each car against its own peer cohort** (price vs comparables, hand/יד, owner, km/yr, photos), dedupes in Supabase, and pushes only new matches / real price drops to WhatsApp · Telegram · ntfy. Stdlib-only Python; bilingual (EN/HE). | [README](./skills/car-finder-il/README.md) · [page](https://grekai-skills-4all.vercel.app/skill?id=car-finder-il) |
 
 > The full writeup for each skill — including the Share Presentation skill's architecture and UI mocks —
 > now lives in that skill's own folder, not here.
@@ -86,6 +90,39 @@ npx serve .
 (Add New → Project → Import). No framework preset needed; `vercel.json` handles it.
 Every push redeploys automatically.
 
+## Install a skill
+
+**Easiest — Download ZIP (no CLI).** Every skill is packaged as a ZIP on the
+[`skill-downloads` release](https://github.com/Kaidanov/grekai-skills-4all/releases/tag/skill-downloads)
+(one `<id>.zip` per skill; also a **Download ZIP** button on each skill page).
+Then:
+
+- **Claude Desktop / claude.ai:** Customize → Skills → **+** → *Upload a skill* → pick the ZIP.
+- **Claude Code:** unzip into your global skills folder and restart, then type `/<id>`:
+  ```bash
+  # macOS / Linux
+  unzip <id>.zip -d ~/.claude/skills/
+  ```
+  ```powershell
+  # Windows (PowerShell)
+  Expand-Archive <id>.zip "$env:USERPROFILE\.claude\skills\"
+  ```
+
+**Command line (`degit`).** Replace `<id>` with the skill folder name:
+
+```bash
+# macOS / Linux
+npx degit Kaidanov/grekai-skills-4all/skills/<id> ~/.claude/skills/<id>
+```
+```powershell
+# Windows (PowerShell) — note the absolute path
+npx degit Kaidanov/grekai-skills-4all/skills/<id> "$env:USERPROFILE\.claude\skills\<id>"
+```
+
+> If `.claude/skills/` didn't exist when Claude Code was already running, **restart it**
+> so the new folder is watched. The ZIPs are rebuilt automatically on every push to
+> `main` that touches `skills/` (see `.github/workflows/skill-zips.yml`).
+
 ## Add a skill
 
 See [`skills/README.md`](./skills/README.md). In short: copy `skills/_template/`,
@@ -103,3 +140,19 @@ copyright notice. A link back to [set4u.biz](https://set4u.biz) or this repo is 
 Created and maintained by **Tzvi Gregory Kaidanov** — **[Set4u](https://set4u.biz)**.
 Contributions are welcome — see **[CONTRIBUTING](./CONTRIBUTING.md)**. If this catalog helps you,
 a ⭐ on the [repo](https://github.com/Kaidanov/grekai-skills-4all) means a lot and helps others find it.
+
+---
+
+## Disclaimer
+
+These skills, scripts, and templates are provided **"as is", without warranty of
+any kind**, express or implied, including but not limited to the warranties of
+merchantability, fitness for a particular purpose, and non-infringement. They may
+generate, query, or act on your data and third-party services; **you are solely
+responsible** for reviewing what they do before relying on them.
+
+To the maximum extent permitted by law, the authors and contributors accept **no
+responsibility or liability** for any loss, damage, data loss, cost, security
+incident, or other harm arising from the use, misuse, or inability to use anything
+in this repository. **Use at your own risk.** Nothing here is professional
+(security, legal, financial, medical, or tax) advice.

@@ -7,11 +7,23 @@
   <meta name="description" content="Skill details — README, install command and usage." />
   <link rel="icon" href="./logo.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="./assets/style.css" />
+  <script>
+    // Set direction before paint to avoid an RTL flash.
+    (function () {
+      try {
+        var l = localStorage.getItem("lang") === "he" ? "he" : "en";
+        document.documentElement.lang = l;
+        document.documentElement.dir = l === "he" ? "rtl" : "ltr";
+      } catch (e) {}
+    })();
+  </script>
+  <script src="./assets/i18n.js"></script>
 </head>
 <body>
   <header class="hero hero--detail">
-    <a class="back" href="./">&larr; All skills</a>
-    <h1 id="skill-title">Loading…</h1>
+    <div id="lang-switch" class="langswitch" aria-label="Language"></div>
+    <a class="back" href="./" data-i18n="backAll">&larr; All skills</a>
+    <h1 id="skill-title" dir="auto" data-i18n="loading">Loading…</h1>
     <p id="skill-tagline" class="tagline"></p>
   </header>
 
@@ -21,39 +33,48 @@
         <span id="d-cat" class="card__cat"></span>
         <span id="d-status"></span>
       </div>
-      <p id="d-desc" class="detail__desc"></p>
+      <p id="d-desc" class="detail__desc" dir="auto"></p>
       <div id="d-tags" class="tags"></div>
 
       <div id="d-actions" class="detail__actions"></div>
       <div class="community">
-        <span class="community__label">Contribute</span>
+        <span class="community__label" data-i18n="contribute">Contribute</span>
         <div id="d-community" class="ghrow"></div>
+        <div class="sponsor"><iframe src="https://github.com/sponsors/Kaidanov/button" title="Sponsor Kaidanov" height="32" width="114" style="border:0;border-radius:6px;"></iframe></div>
       </div>
 
       <section class="panel" id="install-panel">
-        <h2>Install</h2>
-        <p class="panel__hint">Add this skill to your <strong>global</strong> Claude skills folder (<code>~/.claude/skills/</code>) so it's available in every project — or swap the target for a repo's <code>.claude/skills/</code> to scope it to one project:</p>
+        <h2 data-i18n="install">Install</h2>
+        <p class="panel__hint" data-i18n-html="downloadHintHtml">Download the ZIP, then upload it in Claude Desktop or unzip it into <code>~/.claude/skills/</code>.</p>
+        <p><a class="btn" id="download-zip" href="#" target="_blank" rel="noopener" download data-i18n="downloadZip">Download ZIP</a></p>
+        <p class="panel__hint" data-i18n-html="installHintHtml">Prefer the command line? Add this skill to your <strong>global</strong> Claude skills folder (<code>~/.claude/skills/</code>) so it's available in every project — or swap the target for a repo's <code>.claude/skills/</code> to scope it to one project:</p>
+        <p class="cmd-os" data-i18n="cmdMacLinux">macOS / Linux</p>
         <div class="codeblock">
-          <button class="copy" data-target="install-cmd" type="button">Copy</button>
+          <button class="copy" data-target="install-cmd" type="button" data-i18n="copy">Copy</button>
           <pre><code id="install-cmd"></code></pre>
         </div>
+        <p class="cmd-os" data-i18n="cmdWindows">Windows (PowerShell)</p>
+        <div class="codeblock">
+          <button class="copy" data-target="install-win" type="button" data-i18n="copy">Copy</button>
+          <pre><code id="install-win"></code></pre>
+        </div>
         <details class="alt">
-          <summary>No <code>npx</code>? Use git sparse-checkout instead</summary>
+          <summary data-i18n-html="altSummaryHtml">No <code>npx</code>? Use git sparse-checkout instead</summary>
           <div class="codeblock">
-            <button class="copy" data-target="install-alt" type="button">Copy</button>
+            <button class="copy" data-target="install-alt" type="button" data-i18n="copy">Copy</button>
             <pre><code id="install-alt"></code></pre>
           </div>
         </details>
       </section>
 
       <section class="panel" id="usage-panel" hidden>
-        <h2>How to use</h2>
-        <div id="d-usage" class="panel__usage"></div>
+        <h2 data-i18n="howToUse">How to use</h2>
+        <div id="d-usage" class="panel__usage" dir="auto"></div>
       </section>
 
       <section class="panel readme" id="readme-panel">
-        <h2>README</h2>
-        <div id="readme" class="markdown">Loading README…</div>
+        <h2 data-i18n="readme">README</h2>
+        <div id="readme" class="markdown" dir="auto" data-i18n="readmeLoading">Loading README…</div>
       </section>
     </article>
 
@@ -61,7 +82,7 @@
   </main>
 
   <footer class="footer">
-    <span>Part of <a href="./">GrekAI Skills 4 All</a> · <span id="repo-link"></span> · by <a href="https://set4u.biz" target="_blank" rel="noopener">Set4u</a> · <a href="https://set4u.biz" target="_blank" rel="noopener">💖 Sponsor</a></span>
+    <span><span data-i18n="footPartOf">Part of</span> <a href="./">GrekAI Skills 4 All</a> · <span id="repo-link"></span> · <span data-i18n="footBy">by</span> <a href="https://set4u.biz" target="_blank" rel="noopener">Set4u</a> · <a href="https://set4u.biz" target="_blank" rel="noopener">💖 <span data-i18n="sponsor">Sponsor</span></a></span>
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
@@ -100,7 +121,7 @@
       $("detail").hidden = true;
       const e = $("error");
       e.hidden = false;
-      e.innerHTML = esc(msg) + ' — <a href="./">back to the catalog</a>.';
+      e.innerHTML = esc(msg) + ' — <a href="./">' + esc(I18N.t("backToCatalog")) + "</a>.";
     }
 
     async function fetchFirst(base, names) {
@@ -152,29 +173,29 @@
           try {
             await navigator.clipboard.writeText(txt);
             const old = btn.textContent;
-            btn.textContent = "Copied!";
+            btn.textContent = I18N.t("copied");
             btn.classList.add("copied");
             setTimeout(() => { btn.textContent = old; btn.classList.remove("copied"); }, 1400);
           } catch (_) {
-            btn.textContent = "Copy failed";
+            btn.textContent = I18N.t("copyFailed");
           }
         });
       });
     }
 
     async function load() {
-      if (!wantedId) return fail("No skill specified");
+      if (!wantedId) return fail(I18N.t("noSkill"));
 
       let data;
       try {
         data = await (await fetch("./skills.json", { cache: "no-cache" })).json();
       } catch (err) {
-        return fail("Failed to load catalog: " + err.message);
+        return fail(I18N.t("failCatalog") + ": " + err.message);
       }
 
       const site = data.site || {};
       const item = (data.items || []).find((i) => i.id === wantedId);
-      if (!item) return fail("Skill \"" + wantedId + "\" not found");
+      if (!item) return fail(I18N.t("notFoundPre") + wantedId + I18N.t("notFoundPost"));
 
       const docs = (item.links && item.links.docs) || ("./skills/" + item.id + "/");
       const folder = folderFromDocs(docs, item.id);
@@ -184,22 +205,24 @@
       const ghTree = repoUrl + "/tree/" + branch + "/skills/" + folder;
 
       // Header + meta
-      document.title = item.title + " · GrekAI Skills 4 All";
-      $("skill-title").textContent = item.title;
-      $("skill-tagline").textContent = "Skill · " + slug + "/skills/" + folder;
-      $("d-cat").textContent = item.category || "skill";
+      const title = I18N.loc(item, "title");
+      document.title = title + " · GrekAI Skills 4 All";
+      $("skill-title").textContent = title;
+      $("skill-tagline").textContent = I18N.t("skillPrefix") + " · " + slug + "/skills/" + folder;
+      const cat = (data.categories || []).find((c) => c.id === item.category);
+      $("d-cat").textContent = cat ? I18N.loc(cat, "label") : (item.category || "skill");
       $("d-status").innerHTML = item.status
-        ? '<span class="status status--' + esc(item.status) + '">' + esc(item.status) + "</span>" : "";
-      $("d-desc").textContent = item.description || "";
+        ? '<span class="status status--' + esc(item.status) + '">' + esc(I18N.status(item.status)) + "</span>" : "";
+      $("d-desc").textContent = I18N.loc(item, "description");
       $("d-tags").innerHTML = (item.tags || [])
         .map((t) => '<span class="tag">' + esc(t) + "</span>").join("");
       $("repo-link").innerHTML = '<a href="' + esc(repoUrl) + '" target="_blank" rel="noopener">' + esc(slug) + "</a>";
 
       // Primary actions — each a distinct destination.
       const actions = [];
-      actions.push('<a class="btn" href="' + esc(ghTree) + '" target="_blank" rel="noopener">View source on GitHub</a>');
+      actions.push('<a class="btn" href="' + esc(ghTree) + '" target="_blank" rel="noopener">' + esc(I18N.t("viewSource")) + "</a>");
       if (item.links && item.links.demo) {
-        actions.push('<a class="btn btn--ghost" href="' + esc(item.links.demo) + '">Open demo</a>');
+        actions.push('<a class="btn btn--ghost" href="' + esc(item.links.demo) + '">' + esc(I18N.t("openDemo")) + "</a>");
       }
       $("d-actions").innerHTML = actions.join("");
 
@@ -208,28 +231,39 @@
         encodeURIComponent(item.title + ": ") + "&body=" +
         encodeURIComponent("About `skills/" + folder + "`\n\n");
       $("d-community").innerHTML = [
-        ghbtn(repoUrl + "/fork", "Fork", "fork", true),
-        ghbtn(repoUrl, "Star", "star", false),
-        ghbtn(repoUrl + "/compare", "Propose a PR", "pr", false),
-        ghbtn(issueUrl, "Comment", "comment", false)
+        ghbtn(repoUrl + "/fork", I18N.t("fork"), "fork", true),
+        ghbtn(repoUrl, I18N.t("star"), "star", false),
+        ghbtn(repoUrl + "/compare", I18N.t("proposePr"), "pr", false),
+        ghbtn(issueUrl, I18N.t("comment"), "comment", false)
       ].join("");
 
-      // Install commands
-      const installCmd = item.install ||
-        ("npx degit " + slug + "/skills/" + folder + " ~/.claude/skills/" + folder);
+      // Install commands — uniform across all skills (global ~/.claude/skills), per OS.
+      const installCmd =
+        "npx degit " + slug + "/skills/" + folder + " ~/.claude/skills/" + folder;
+      const installWin =
+        "npx degit " + slug + "/skills/" + folder + ' "$env:USERPROFILE\\.claude\\skills\\' + folder + '"';
       const installAlt =
         "git clone --depth 1 --filter=blob:none --sparse " + repoUrl + ".git\n" +
         "cd grekai-skills-4all\n" +
         "git sparse-checkout set skills/" + folder + "\n" +
         "cp -r skills/" + folder + " ~/.claude/skills/" + folder;
       $("install-cmd").textContent = installCmd;
+      $("install-win").textContent = installWin;
       $("install-alt").textContent = installAlt;
 
+      // Download ZIP — per-skill release asset built by .github/workflows/skill-zips.yml
+      const dl = $("download-zip");
+      if (dl) {
+        dl.href = repoUrl + "/releases/download/skill-downloads/" + folder + ".zip";
+        dl.setAttribute("download", folder + ".zip");
+      }
+
       // Usage
-      if (item.usage) {
+      const usage = I18N.loc(item, "usage");
+      if (usage) {
         $("usage-panel").hidden = false;
         // Render usage as markdown so indented code blocks / inline code work.
-        $("d-usage").innerHTML = window.marked ? marked.parse(item.usage, { mangle: false }) : esc(item.usage);
+        $("d-usage").innerHTML = window.marked ? marked.parse(usage, { mangle: false }) : esc(usage);
       }
 
       $("detail").hidden = false;
@@ -242,7 +276,7 @@
       names.push("README.md", "SKILL.md");
       const doc = await fetchFirst(docsBaseAbs, names);
       if (doc) renderMarkdown(doc.text, docsBaseAbs, { repoUrl: repoUrl, branch: branch, folder: folder });
-      else $("readme").innerHTML = '<p class="empty">No README found. <a href="' + esc(ghTree) + '" target="_blank" rel="noopener">View on GitHub</a>.</p>';
+      else $("readme").innerHTML = '<p class="empty">' + esc(I18N.t("noReadme")) + ' <a href="' + esc(ghTree) + '" target="_blank" rel="noopener">' + esc(I18N.t("viewOnGitHub")) + "</a>.</p>";
     }
 
     load();

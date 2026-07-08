@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 220" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="a2" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#475569"/>
+    </marker>
+    <style>
+      .t{fill:#0f172a;font-size:13px;font-weight:600}
+      .s{fill:#475569;font-size:11px}
+      .e{stroke:#475569;stroke-width:2;fill:none;marker-end:url(#a2)}
+    </style>
+  </defs>
+  <rect x="0" y="0" width="1000" height="220" fill="#f8fafc"/>
+  <text x="500" y="32" text-anchor="middle" class="t" font-size="18">soc-investigator — 5-phase cowork pipeline</text>
+
+  <g>
+    <rect x="20"  y="80" width="170" height="78" rx="10" fill="#ecfeff" stroke="#06b6d4"/>
+    <text x="105" y="108" text-anchor="middle" class="t">1 · Config</text>
+    <text x="105" y="128" text-anchor="middle" class="s">IOCs + machine</text>
+    <text x="105" y="144" text-anchor="middle" class="s">groups (you)</text>
+
+    <rect x="216" y="80" width="170" height="78" rx="10" fill="#fff" stroke="#0891b2"/>
+    <text x="301" y="108" text-anchor="middle" class="t">2 · Generate</text>
+    <text x="301" y="128" text-anchor="middle" class="s">gen_queries.py</text>
+    <text x="301" y="144" text-anchor="middle" class="s">→ N Defender KQL</text>
+
+    <rect x="412" y="80" width="170" height="78" rx="10" fill="#fff" stroke="#0891b2"/>
+    <text x="497" y="108" text-anchor="middle" class="t">3 · Hunt</text>
+    <text x="497" y="128" text-anchor="middle" class="s">browser, your</text>
+    <text x="497" y="144" text-anchor="middle" class="s">session · Export CSV</text>
+
+    <rect x="608" y="80" width="170" height="78" rx="10" fill="#fff" stroke="#0891b2"/>
+    <text x="693" y="108" text-anchor="middle" class="t">4 · Enrich</text>
+    <text x="693" y="128" text-anchor="middle" class="s">enrich.py · local</text>
+    <text x="693" y="144" text-anchor="middle" class="s">VirusTotal</text>
+
+    <rect x="804" y="80" width="176" height="78" rx="10" fill="#ecfeff" stroke="#06b6d4"/>
+    <text x="892" y="104" text-anchor="middle" class="t">5 · Pivot &amp; close</text>
+    <text x="892" y="124" text-anchor="middle" class="s">Sentinel · machines</text>
+    <text x="892" y="140" text-anchor="middle" class="s">+ users (you confirm)</text>
+  </g>
+
+  <path class="e" d="M190 119 H214"/>
+  <path class="e" d="M386 119 H410"/>
+  <path class="e" d="M582 119 H606"/>
+  <path class="e" d="M778 119 H802"/>
+
+  <text x="500" y="196" text-anchor="middle" class="s">Claude never connects to Defender / Sentinel / VirusTotal / Entra · keys &amp; raw data stay local</text>
+</svg>

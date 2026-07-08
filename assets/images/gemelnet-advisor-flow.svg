@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 670" font-family="Segoe UI, Helvetica, Arial, sans-serif" role="img" aria-label="GemelNet Advisor full flow, top to bottom: ask in Hebrew or English with fund keywords; fetch the official GemelNet open dataset on data.gov.il; compare funds, rank one against like-for-like peers, or turn a statement into a portfolio checkup; analyse management fees and the shekel cost on a balance; return a data-grounded answer using public fund-level data only — analysis, not financial advice.">
+  <rect x="1" y="1" width="478" height="668" rx="18" fill="#f6f8fc" stroke="#dbe2ee"/>
+  <text x="240" y="44" text-anchor="middle" font-size="23" font-weight="700" fill="#16181d">How GemelNet Advisor works</text>
+  <text x="240" y="68" text-anchor="middle" font-size="13" fill="#5b6371">Public regulator data — analysis, never buy/sell advice</text>
+
+  <!-- 1 ask (purple) -->
+  <rect x="28" y="86" width="424" height="66" rx="12" fill="#f0ebfe" stroke="#d9ccfb"/>
+  <text x="240" y="114" text-anchor="middle" font-size="16" font-weight="700" fill="#16181d">ask · Hebrew or English</text>
+  <text x="240" y="135" text-anchor="middle" font-size="12.5" fill="#5b6371">גמל · קרן השתלמות · פנסיה · fund number</text>
+  <line x1="240" y1="152" x2="240" y2="180" stroke="#9aa3b5" stroke-width="2"/>
+  <polygon points="233,173 247,173 240,182" fill="#9aa3b5"/>
+
+  <!-- 2 fetch -->
+  <rect x="28" y="182" width="424" height="66" rx="12" fill="#eaf1fb" stroke="#cfe0f7"/>
+  <text x="240" y="210" text-anchor="middle" font-size="16" font-weight="700" fill="#16181d">fetch · GemelNet open data</text>
+  <text x="240" y="231" text-anchor="middle" font-size="12.5" fill="#5b6371">live from data.gov.il · no scraping</text>
+  <line x1="240" y1="248" x2="240" y2="276" stroke="#9aa3b5" stroke-width="2"/>
+  <polygon points="233,269 247,269 240,278" fill="#9aa3b5"/>
+
+  <!-- 3 analyse / compare / rank / scan -->
+  <rect x="28" y="278" width="424" height="66" rx="12" fill="#eaf1fb" stroke="#cfe0f7"/>
+  <text x="240" y="306" text-anchor="middle" font-size="16" font-weight="700" fill="#16181d">compare · rank · statement checkup</text>
+  <text x="240" y="327" text-anchor="middle" font-size="12.5" fill="#5b6371">snapshot a fund · returns, assets, period</text>
+  <line x1="240" y1="344" x2="240" y2="372" stroke="#9aa3b5" stroke-width="2"/>
+  <polygon points="233,365 247,365 240,374" fill="#9aa3b5"/>
+
+  <!-- 4 like-for-like gate (amber) -->
+  <rect x="28" y="374" width="424" height="74" rx="12" fill="#fff2dd" stroke="#f3c884" stroke-width="2"/>
+  <text x="240" y="402" text-anchor="middle" font-size="16" font-weight="700" fill="#9a6400">peers · same classification only</text>
+  <text x="240" y="423" text-anchor="middle" font-size="12.5" fill="#6b5326">like-for-like · 3yr / 5yr over a single month</text>
+  <text x="240" y="440" text-anchor="middle" font-size="11.5" fill="#8a7a4a">no bond fund vs equity fund mismatches</text>
+  <line x1="240" y1="448" x2="240" y2="476" stroke="#9aa3b5" stroke-width="2"/>
+  <polygon points="233,469 247,469 240,478" fill="#9aa3b5"/>
+
+  <!-- 5 fees & shekel cost -->
+  <rect x="28" y="470" width="424" height="66" rx="12" fill="#eaf1fb" stroke="#cfe0f7"/>
+  <text x="240" y="498" text-anchor="middle" font-size="16" font-weight="700" fill="#16181d">fees · shekel cost on a balance</text>
+  <text x="240" y="519" text-anchor="middle" font-size="12.5" fill="#5b6371">דמי ניהול → ₪/year · a small gap compounds</text>
+  <line x1="240" y1="536" x2="240" y2="564" stroke="#9aa3b5" stroke-width="2"/>
+  <polygon points="233,557 247,557 240,566" fill="#9aa3b5"/>
+
+  <!-- 6 answer (green) -->
+  <rect x="28" y="566" width="424" height="74" rx="12" fill="#e7f8f0" stroke="#bfe9d4" stroke-width="2"/>
+  <text x="240" y="596" text-anchor="middle" font-size="16" font-weight="700" fill="#14704a">data-grounded answer</text>
+  <text x="240" y="617" text-anchor="middle" font-size="12.5" fill="#2f6b51">public fund-level data · names source &amp; period</text>
+  <text x="240" y="634" text-anchor="middle" font-size="11.5" fill="#5b6371">analysis — NOT financial advice</text>
+</svg>

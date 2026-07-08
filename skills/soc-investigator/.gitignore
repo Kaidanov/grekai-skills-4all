@@ -1,0 +1,14 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+
+# NEVER commit tenant data or secrets
+config.json
+exports/
+out/
+*.csv
+*.kql
+!references/*.kql
+*.env
+.env

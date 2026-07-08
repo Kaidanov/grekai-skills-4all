@@ -1,0 +1,12 @@
+{
+  "id": "family-budget-il",
+  "category": "skills",
+  "title": "Family Budget Planner (Israel-first)",
+  "description": "Build a shared, Google-Sheets-ready family budget workbook, then keep it current by typing expenses in plain Hebrew or English. Israel defaults (₪, HMOs, ארנונה, 15th-to-15th salary cycle, provident/pension funds, benefit clubs) but works for any country.",
+  "tags": ["israel", "budget", "family", "finance", "google-sheets", "hebrew", "rtl", "natural-language", "xlsx"],
+  "status": "live",
+  "install": "npx degit Kaidanov/grekai-skills-4all/skills/family-budget-il .claude/skills/family-budget-il",
+  "links": {
+    "docs": "./skills/family-budget-il/"
+  }
+}

@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Catalyst Research & Decision Dashboard</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+  :root{--bg:#0b0f1a;--card:#141a2a;--ink:#e7ecf5;--mut:#8a96ad;--line:#243049;
+        --up:#21c07a;--down:#ef5777;--accent:#6ea8ff;--warn:#f7b955}
+  *{box-sizing:border-box}
+  body{margin:0;font:15px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Arial;background:var(--bg);color:var(--ink)}
+  header{padding:18px 16px 8px}
+  h1{font-size:18px;margin:0 0 4px}
+  .sub{color:var(--mut);font-size:13px}
+  .banner{margin:10px 16px;padding:10px 12px;border:1px solid var(--warn);
+          border-radius:10px;color:var(--warn);font-size:12.5px;background:rgba(247,185,85,.07)}
+  .wrap{padding:8px 16px 40px;max-width:920px;margin:0 auto}
+  .chips{display:flex;flex-wrap:nowrap;gap:8px;margin:12px 0;overflow-x:auto;
+         scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .chips::-webkit-scrollbar{display:none}
+  .chip{flex:0 0 auto;white-space:nowrap;padding:7px 12px;border:1px solid var(--line);border-radius:999px;
+        background:var(--card);color:var(--ink);cursor:pointer;font-size:13px}
+  .chip.on{border-color:var(--accent);color:var(--accent)}
+  .tf{display:flex;flex-wrap:nowrap;gap:6px;margin:6px 0 12px;overflow-x:auto;
+      scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .tf::-webkit-scrollbar{display:none}
+  .tf button{flex:0 0 auto;white-space:nowrap;padding:6px 10px;border:1px solid var(--line);border-radius:8px;
+             background:var(--card);color:var(--mut);cursor:pointer;font-size:12.5px}
+  .tf button.on{border-color:var(--accent);color:var(--accent)}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin:12px 0}
+  .row{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap}
+  .name{font-weight:600}
+  .tag{font-size:11px;color:var(--mut);border:1px solid var(--line);border-radius:6px;padding:1px 6px}
+  .ret{font-variant-numeric:tabular-nums;font-weight:600}
+  .up{color:var(--up)} .down{color:var(--down)}
+  .grid7{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin:10px 0}
+  .gcell{text-align:center;background:#0f1525;border:1px solid var(--line);border-radius:8px;padding:6px 2px}
+  .gcell .l{font-size:10px;color:var(--mut)} .gcell .v{font-size:12px;font-variant-numeric:tabular-nums}
+  canvas{margin-top:8px}
+  .tabs{display:flex;gap:6px;margin:10px 0 6px}
+  .tabs button{flex:1;padding:7px;border:1px solid var(--line);border-radius:8px;background:#0f1525;
+               color:var(--mut);cursor:pointer;font-size:12.5px}
+  .tabs button.on{border-color:var(--accent);color:var(--accent)}
+  ul{margin:6px 0;padding-left:18px} li{margin:3px 0;font-size:13px}
+  .case{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+  .case div{background:#0f1525;border:1px solid var(--line);border-radius:8px;padding:8px;font-size:12.5px}
+  .for{border-left:3px solid var(--up)} .against{border-left:3px solid var(--down)}
+  textarea{width:100%;min-height:70px;background:#0f1525;color:var(--ink);border:1px solid var(--line);
+           border-radius:10px;padding:10px;font:13px ui-monospace,monospace;resize:vertical}
+  .btn{margin-top:8px;padding:8px 14px;border:1px solid var(--accent);border-radius:8px;background:transparent;
+       color:var(--accent);cursor:pointer}
+  .mut{color:var(--mut);font-size:12.5px}
+  .src a{color:var(--accent);text-decoration:none}
+  .key{display:flex;gap:6px;margin:6px 0}
+  .key input{flex:1;background:#0f1525;color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:7px}
+  .exp{font-size:12.5px}
+  .barwrap{height:8px;background:#0f1525;border-radius:6px;overflow:hidden;margin-top:4px}
+  .bar{height:100%}
+</style>
+</head>
+<body>
+<header>
+  <h1 id="title">Catalyst Research & Decision Dashboard</h1>
+  <div class="sub" id="subtitle">Multi-timeframe trends · sourced research · short vs long-term</div>
+</header>
+<div class="banner">⚠️ Decision aid, not financial advice. Figures load live where a data key is set,
+otherwise show the sourced period returns. Verify everything; do your own due diligence.</div>
+
+<div class="wrap">
+  <!-- API key (optional) -->
+  <div class="card">
+    <div class="exp"><b>Live charts (optional).</b> Add a free
+      <a href="https://twelvedata.com" target="_blank" style="color:var(--accent)">Twelve Data</a> API key
+      for live 1D–5Y series. Without it, the dashboard shows the sourced period returns.</div>
+    <div class="key">
+      <input id="apikey" placeholder="Twelve Data API key (stored locally only)"/>
+      <button class="btn" onclick="saveKey()">Save</button>
+    </div>
+    <div class="mut" id="keystate"></div>
+  </div>
+
+  <!-- ticker chips + timeframe -->
+  <div class="chips" id="chips"></div>
+  <div class="tf" id="tf"></div>
+
+  <!-- per-stock cards -->
+  <div id="cards"></div>
+
+  <!-- portfolio -->
+  <div class="card">
+    <div class="name">Analyze a portfolio</div>
+    <div class="mut">Paste holdings — one per line: <code>TICKER weight%</code> or just tickers.
+      Weights optional. Nothing leaves your browser.</div>
+    <textarea id="pf" placeholder="NVDA 30%&#10;PLTR 20%&#10;DELL 20%&#10;INTC 15%&#10;LLY 15%"></textarea>
+    <button class="btn" onclick="analyzePortfolio()">Analyze</button>
+    <div id="pfout"></div>
+  </div>
+
+  <!-- sources -->
+  <div class="card src">
+    <div class="name">Sources</div>
+    <ul id="sources"></ul>
+  </div>
+</div>
+
+<script>
+/* ===== Claude fills this object per run. One entry per name. =====
+   periodReturns are the sourced % changes shown when no live key is set. */
+window.RESEARCH_DATA = window.RESEARCH_DATA || {
+  meta:{ title:"Example: Trump-talked stocks", subtitle:"Catalyst → map · demo data" },
+  themeTickers:["NVDA","PLTR","DELL","INTC","LLY"],
+  stocks:[
+    { ticker:"DELL", name:"Dell Technologies", bucket:"Direct endorsement", cap:"~$290B", dividend:"Yes (small)",
+      profile:"\"Go buy a Dell\" + $1.4B Air Force contract; up ~228% YTD. Real AI-server demand, insiders selling.",
+      periodReturns:{"1D":-6.6,"1W":-3.1,"1M":8.0,"YTD":228,"1Y":257,"3Y":340,"5Y":520},
+      shortTerm:["Down 6%+ in a session — momentum cooling","Watch for further \"buy a Dell\" remarks / new contracts","Insiders (Silver Lake, GC) distributing"],
+      longTerm:["AI-server revenue surged 757% to $16B Q1","PE ~33, negative equity from buybacks","Thesis = AI backlog, not the tweet"],
+      research:["Analysts target ~$484; 18 Buy / 1 Sell","Endorsement-driven pop vs durable AI demand"],
+      sources:["Yahoo Finance — Dell trade 2026","BeInCrypto — Trump-promoted stocks"] },
+    { ticker:"PLTR", name:"Palantir", bucket:"Direct endorsement", cap:"~$330B", dividend:"None",
+      profile:"Truth Social praise for \"war fighting capabilities\" w/ ticker; AI/defense software; richly valued.",
+      periodReturns:{"1D":-6.5,"1W":-2.0,"1M":4.0,"YTD":60,"1Y":120,"3Y":480,"5Y":640},
+      shortTerm:["Rebounded ~33% off April low","Key level: holds $142 vs reclaim $175","Broad AI selloff drags it"],
+      longTerm:["Powers US military/intel work","Premium valuation leaves little margin","Software, not weapons"],
+      research:["Bull/bear split on valuation","Government revenue concentration"],
+      sources:["CBS News — Trump stock trades","BeInCrypto — Trump-promoted stocks"] },
+    { ticker:"INTC", name:"Intel", bucket:"Government stake", cap:"~$470B", dividend:"Verify",
+      profile:"US govt 9.9% stake; stock ~5x since; Trump took credit. Turnaround unproven.",
+      periodReturns:{"1D":-1.3,"1W":2.0,"1M":-4.0,"YTD":180,"1Y":210,"3Y":120,"5Y":60},
+      shortTerm:["Bull-flag near $108; first hurdle $124","Profit-taking, volume steady","Policy headline sensitivity high"],
+      longTerm:["Behind TSMC on advanced nodes","Government-backed turnaround bet","Execution risk remains"],
+      research:["BofA double-upgrade to Buy","Most policy-linked of the basket"],
+      sources:["TradingKey — Trump portfolio logic","CNBC — market news June 2026"] },
+    { ticker:"NVDA", name:"NVIDIA", bucket:"Policy-linked", cap:"~$4.7T", dividend:"Token (~$0.01/q)",
+      profile:"Account bought, then China export controls relaxed days later. AI bellwether.",
+      periodReturns:{"1D":-0.8,"1W":-2.0,"1M":3.0,"YTD":25,"1Y":50,"3Y":520,"5Y":900},
+      shortTerm:["Most-valuable company ~$4.7T","AI-trade sentiment swings dominate","Export-policy headline risk"],
+      longTerm:["80%+ data-center GPU share","Vera Rubin / HBM4 demand cycle","Valuation rich but earnings real"],
+      research:["Consensus Buy; AI-capex dependent","Policy tailwind on China access"],
+      sources:["companiesmarketcap — NVDA","CBS News — Trump stock trades"] },
+    { ticker:"LLY", name:"Eli Lilly", bucket:"Quiet beneficiary", cap:"~$1.0T", dividend:"Yes ~0.57%",
+      profile:"Account bought as favorable GLP-1 decisions landed; Medicare GLP-1 coverage a live tailwind.",
+      periodReturns:{"1D":0.5,"1W":1.5,"1M":6.0,"YTD":22,"1Y":35,"3Y":210,"5Y":430},
+      shortTerm:["Medicare GLP-1 bridge program news","Q1 EPS $8.55 beat by ~25%","Obesity-drug milestone ahead"],
+      longTerm:["GLP-1 franchise durability","PE rich vs pharma peers","Pipeline depth"],
+      research:["Targets ~$1,236 avg","Policy + clinical tailwinds align"],
+      sources:["Public.com — LLY","CNBC — LLY GLP-1"] }
+  ]
+};
+
+const TF=["1D","1W","1M","YTD","1Y","3Y","5Y"];
+const TFCFG={ "1D":{interval:"5min",size:78}, "1W":{interval:"30min",size:65},
+  "1M":{interval:"1day",size:22}, "YTD":{interval:"1day",size:170},
+  "1Y":{interval:"1day",size:252}, "3Y":{interval:"1week",size:156}, "5Y":{interval:"1week",size:260} };
+let activeTicker=null, activeTF="1Y", chart=null;
+const D=window.RESEARCH_DATA;
+
+function key(){ return localStorage.getItem("td_key")||""; }
+function saveKey(){ const v=document.getElementById("apikey").value.trim();
+  if(v) localStorage.setItem("td_key",v); renderKeyState(); if(activeTicker) drawChart(); }
+function renderKeyState(){ const k=key();
+  document.getElementById("keystate").textContent = k? "Live charts on (key saved locally)."
+    : "No key — showing sourced period returns."; if(k) document.getElementById("apikey").value=k; }
+
+function init(){
+  document.getElementById("title").textContent=D.meta?.title||"Catalyst Research & Decision Dashboard";
+  document.getElementById("subtitle").textContent=D.meta?.subtitle||"";
+  const chips=document.getElementById("chips");
+  D.stocks.forEach((s,i)=>{ const b=document.createElement("button");
+    b.className="chip"+(i===0?" on":""); b.textContent=s.ticker;
+    b.onclick=()=>selectTicker(s.ticker,b); chips.appendChild(b); });
+  const tf=document.getElementById("tf");
+  TF.forEach(t=>{ const b=document.createElement("button"); b.textContent=t;
+    b.className=(t===activeTF?"on":""); b.onclick=()=>selectTF(t,b); tf.appendChild(b); });
+  renderCards(); renderSources(); renderKeyState();
+  selectTicker(D.stocks[0].ticker, chips.firstChild);
+}
+function selectTicker(t,el){ activeTicker=t;
+  document.querySelectorAll("#chips .chip").forEach(c=>c.classList.remove("on")); el&&el.classList.add("on");
+  drawChart(); }
+function selectTF(t,el){ activeTF=t;
+  document.querySelectorAll("#tf button").forEach(c=>c.classList.remove("on")); el&&el.classList.add("on");
+  drawChart(); }
+
+function stock(t){ return D.stocks.find(s=>s.ticker===t); }
+
+function renderCards(){
+  const c=document.getElementById("cards"); c.innerHTML="";
+  D.stocks.forEach(s=>{
+    const card=document.createElement("div"); card.className="card";
+    const yr=s.periodReturns?.["1Y"]; const cls=yr>=0?"up":"down";
+    card.innerHTML=`
+      <div class="row"><span class="name">${s.name} <span class="tag">${s.ticker}</span></span>
+        <span class="tag">${s.bucket}</span></div>
+      <div class="mut" style="margin:4px 0">${s.cap} · Dividend: ${s.dividend}</div>
+      <div class="exp">${s.profile}</div>
+      <div class="grid7">${TF.map(t=>{const v=s.periodReturns?.[t];
+        const k=v==null?"":(v>=0?"up":"down"); const txt=v==null?"–":(v>=0?"+":"")+v+"%";
+        return `<div class="gcell"><div class="l">${t}</div><div class="v ${k}">${txt}</div></div>`}).join("")}</div>
+      <div class="tabs"><button class="on" onclick="tab(this,'st-${s.ticker}')">Short-term</button>
+        <button onclick="tab(this,'lt-${s.ticker}')">Long-term</button></div>
+      <ul id="st-${s.ticker}">${(s.shortTerm||[]).map(x=>`<li>${x}</li>`).join("")}</ul>
+      <ul id="lt-${s.ticker}" style="display:none">${(s.longTerm||[]).map(x=>`<li>${x}</li>`).join("")}</ul>
+      <div class="case"><div class="for"><b>Case for</b><br>${(s.research||[])[0]||"—"}</div>
+        <div class="against"><b>The catch</b><br>${(s.research||[])[1]||"—"}</div></div>`;
+    c.appendChild(card);
+  });
+}
+function tab(btn,id){ const card=btn.closest(".card");
+  card.querySelectorAll(".tabs button").forEach(b=>b.classList.remove("on")); btn.classList.add("on");
+  card.querySelectorAll("ul").forEach(u=>{ if(u.id.startsWith("st-")||u.id.startsWith("lt-")) u.style.display="none"; });
+  card.querySelector("#"+id).style.display="block"; }
+
+function renderSources(){
+  const seen=new Set(); const ul=document.getElementById("sources");
+  D.stocks.forEach(s=>(s.sources||[]).forEach(x=>seen.add(x)));
+  ul.innerHTML=[...seen].map(x=>`<li>${x}</li>`).join("")||"<li class='mut'>Add sources in RESEARCH_DATA.</li>";
+}
+
+/* Sourced mode has no live series — synthesise a deterministic path so the chart
+   shows the up/down moves in between, while start (100) and end (the sourced %)
+   stay exact so the headline figure is unchanged. */
+function syntheticSeries(ticker,tf,totalPct){
+  const n=TFCFG[tf]?.size>40?40:24, start=100, end=100*(1+totalPct/100);
+  let seed=0; const s=ticker+"|"+tf; for(let i=0;i<s.length;i++) seed=(seed*31+s.charCodeAt(i))>>>0;
+  const rand=()=>{ seed=(seed*1103515245+12345)>>>0; return seed/4294967296; };
+  const vol=Math.max(Math.abs(totalPct)*0.18,1.3)/100*start; // wiggle size, scaled to the move
+  const out=[]; let drift=0;
+  for(let i=0;i<n;i++){
+    const f=i/(n-1);
+    if(i===0){ out.push(start); continue; }
+    if(i===n-1){ out.push(end); continue; }
+    drift=drift*0.6+(rand()-0.5)*vol;            // smoothed random walk around the trend line
+    out.push(start+(end-start)*f+drift);
+  }
+  return out;
+}
+
+async function drawChart(){
+  const host=document.getElementById("cards");
+  let cv=document.getElementById("mainchart");
+  if(!cv){ cv=document.createElement("canvas"); cv.id="mainchart"; cv.height=160;
+    const box=document.createElement("div"); box.className="card";
+    box.innerHTML=`<div class="row"><span class="name" id="charttitle"></span>
+      <span class="ret" id="chartret"></span></div>`;
+    box.appendChild(cv); host.parentNode.insertBefore(box, host); }
+  const s=stock(activeTicker); if(!s) return;
+  document.getElementById("charttitle").textContent=`${activeTicker} · ${activeTF}`;
+  let series=await fetchSeries(activeTicker,activeTF);
+  let labels, data, live=true;
+  if(!series){ live=false; const r=s.periodReturns?.[activeTF]||0;
+    data=syntheticSeries(activeTicker,activeTF,r); labels=data.map((_,i)=>i); }
+  else { labels=series.map(p=>p.t); data=series.map(p=>p.c); }
+  const first=data[0], last=data[data.length-1];
+  const pct = first? ((last-first)/first*100):0;
+  const rEl=document.getElementById("chartret");
+  rEl.textContent=(pct>=0?"+":"")+pct.toFixed(1)+"%"+(live?"":" (sourced)");
+  rEl.className="ret "+(pct>=0?"up":"down");
+  const col=pct>=0?"#21c07a":"#ef5777";
+  if(chart) chart.destroy();
+  chart=new Chart(cv,{type:"line",data:{labels,datasets:[{data,borderColor:col,
+    backgroundColor:col+"22",fill:true,pointRadius:0,borderWidth:2,tension:.25}]},
+    options:{responsive:true,plugins:{legend:{display:false}},
+      scales:{x:{display:false},y:{ticks:{color:"#8a96ad"},grid:{color:"#243049"}}}}});
+}
+
+async function fetchSeries(ticker,tf){
+  const k=key(); if(!k) return null;
+  const cfg=TFCFG[tf]; let url=`https://api.twelvedata.com/time_series?symbol=${ticker}`+
+    `&interval=${cfg.interval}&outputsize=${cfg.size}&apikey=${k}`;
+  if(tf==="YTD") url=`https://api.twelvedata.com/time_series?symbol=${ticker}`+
+    `&interval=1day&start_date=${new Date().getFullYear()}-01-01&apikey=${k}`;
+  try{ const r=await fetch(url); const j=await r.json();
+    if(!j.values) return null;
+    return j.values.map(v=>({t:v.datetime,c:parseFloat(v.close)})).reverse();
+  }catch(e){ return null; }
+}
+
+function analyzePortfolio(){
+  const txt=document.getElementById("pf").value.trim();
+  const out=document.getElementById("pfout"); if(!txt){ out.innerHTML=""; return; }
+  const theme=new Set((D.themeTickers||D.stocks.map(s=>s.ticker)).map(x=>x.toUpperCase()));
+  const rows=txt.split(/\n+/).map(l=>{
+    const m=l.trim().match(/([A-Za-z.\-]{1,6})\s*[, ]?\s*([\d.]+)?\s*%?/);
+    if(!m) return null; return {t:m[1].toUpperCase(), w:m[2]?parseFloat(m[2]):null}; }).filter(Boolean);
+  const hasW=rows.some(r=>r.w!=null);
+  const total=hasW?rows.reduce((a,r)=>a+(r.w||0),0):rows.length;
+  let themeExp=0, maxName=null, maxW=0;
+  rows.forEach(r=>{ const w=hasW?(r.w||0):1; if(theme.has(r.t)) themeExp+=w;
+    if(w>maxW){maxW=w;maxName=r.t;} });
+  const themePct=Math.round(themeExp/total*100);
+  const concPct=Math.round(maxW/total*100);
+  const inTheme=rows.filter(r=>theme.has(r.t)).map(r=>r.t);
+  const gaps=[...theme].filter(t=>!rows.some(r=>r.t===t));
+  out.innerHTML=`
+    <div class="grid7" style="grid-template-columns:repeat(3,1fr);margin-top:10px">
+      <div class="gcell"><div class="l">Holdings</div><div class="v">${rows.length}</div></div>
+      <div class="gcell"><div class="l">Theme exposure</div><div class="v ${themePct>60?'down':'up'}">${themePct}%</div></div>
+      <div class="gcell"><div class="l">Top name</div><div class="v ${concPct>30?'down':''}">${maxName||'–'} ${concPct}%</div></div>
+    </div>
+    <div class="exp" style="margin-top:8px">
+      ${themePct>60?`<div class="case"><div class="against"><b>Single-factor risk</b><br>~${themePct}% of the book rides this one theme (${inTheme.join(", ")}). A theme-wide drawdown hits most of it at once.</div>
+      <div class="for"><b>Considerations (not directives)</b><br>Names the theme has that this book lacks: ${gaps.join(", ")||"none"} — hedges / picks-and-shovels worth researching.</div></div>`
+      :`<div class="mut">Theme exposure looks moderate. Per-holding research is in the cards above.</div>`}
+    </div>
+    <div class="mut" style="margin-top:8px">Decision aid, not advice — your weights, your call.</div>`;
+}
+
+init();
+</script>
+<script src="https://grekai-skills-4all.vercel.app/assets/demo-nav.js" data-skill-id="stock-mapper" data-skill-name="Stock Mapper"></script>
+</body>
+</html>

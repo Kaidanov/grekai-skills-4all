@@ -18,11 +18,13 @@ body {
   background: radial-gradient(1200px 600px at 50% -10%, #1b2030 0%, var(--bg) 60%);
   color: var(--text);
   min-height: 100vh;
+  overflow-x: hidden;
 }
 
 .hero {
   text-align: center;
-  padding: 64px 20px 28px;
+  padding: 18px 20px 18px;
+  position: relative;
 }
 .hero h1 {
   margin: 0;
@@ -33,7 +35,22 @@ body {
   background-clip: text;
   color: transparent;
 }
-.tagline { color: var(--muted); margin: 10px 0 24px; font-size: 17px; }
+.tagline { color: var(--muted); margin: 4px 0 12px; font-size: 15px; }
+
+/* Top bar: brand on the left, language switch alongside it. */
+.hero__bar {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  max-width: 1080px; margin: 0 auto 8px;
+}
+.hero__brand { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.hero__brand .hero-logo { margin: 0; flex: none; }
+/* Scoped with .hero to win over the legacy ".hero h1" size rule. */
+.hero .hero__wordmark {
+  margin: 0; font-size: clamp(18px, 5vw, 28px); letter-spacing: -0.5px; line-height: 1.1;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.hero__bar .langswitch { position: static; }
 
 .filters { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
 .chip {
@@ -51,9 +68,44 @@ body {
 
 main { max-width: 1080px; margin: 0 auto; padding: 16px 20px 48px; }
 
+.searchbar { position: relative; max-width: 520px; margin: 0 auto 22px; }
+.search__input {
+  width: 100%;
+  box-sizing: border-box;
+  background: var(--panel);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 11px 18px;
+  padding-inline-end: 40px;
+  font-size: 15px;
+  outline: none;
+  transition: border-color .15s ease;
+}
+.search__input:focus { border-color: var(--accent); }
+.search__input::placeholder { color: var(--muted); }
+/* Hide the native search clear control; we render our own. */
+.search__input::-webkit-search-cancel-button { -webkit-appearance: none; appearance: none; }
+.search__clear {
+  position: absolute;
+  inset-inline-end: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 26px; height: 26px;
+  border: none; border-radius: 50%;
+  background: var(--panel-2); color: var(--muted);
+  cursor: pointer; font-size: 18px; line-height: 1;
+  display: flex; align-items: center; justify-content: center;
+  transition: color .15s ease;
+}
+.search__clear:hover { color: var(--text); }
+/* display:flex above would override the UA [hidden] rule, so restore it. */
+.search__clear[hidden] { display: none; }
+
 .catalog {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  /* min(280px, 100%) keeps cards from overflowing narrow phones */
+  grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr));
   gap: 18px;
 }
 
@@ -73,7 +125,15 @@ main { max-width: 1080px; margin: 0 auto; padding: 16px 20px 48px; }
 .card__top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
 .card__cat { font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: var(--accent-2); }
 .card__title { font-size: 20px; margin: 4px 0 8px; }
-.card__desc { color: var(--muted); font-size: 14px; line-height: 1.55; flex: 1; }
+.card__body { flex: 1; display: flex; flex-direction: column; align-items: flex-start; }
+.card__desc { color: var(--muted); font-size: 14px; line-height: 1.55; margin: 0; }
+.card__more {
+  align-self: flex-start; margin-top: 6px; padding: 0;
+  background: none; border: 0; cursor: pointer;
+  color: var(--accent-2); font-size: 13px; font-family: inherit;
+}
+.card__more:hover { color: var(--accent); text-decoration: underline; }
+.card__more:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 3px; }
 
 .status {
   font-size: 11px; text-transform: uppercase; letter-spacing: .5px;
@@ -103,7 +163,7 @@ main { max-width: 1080px; margin: 0 auto; padding: 16px 20px 48px; }
 
 /* ---------- Contribute / community bar ---------- */
 .community { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin: 4px 0 2px; }
-.community--hero { justify-content: center; margin: 20px auto 10px; }
+.community--hero { justify-content: center; flex-wrap: nowrap; gap: 8px; margin: 8px auto 6px; }
 .community__label {
   font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--muted);
 }
@@ -120,7 +180,7 @@ main { max-width: 1080px; margin: 0 auto; padding: 16px 20px 48px; }
 .ghbtn--accent { background: var(--accent); border-color: var(--accent); color: #fff; }
 .ghbtn--accent:hover { border-color: var(--accent); opacity: .9; }
 
-.contribute { text-align: center; color: var(--muted); font-size: 14px; margin: 4px auto 0; max-width: 640px; line-height: 1.6; }
+.contribute { text-align: center; color: var(--muted); font-size: 13.5px; margin: 2px auto 0; max-width: 640px; line-height: 1.5; }
 .contribute strong { color: var(--text); }
 .contribute code { background: var(--panel-2); padding: 2px 6px; border-radius: 5px; font-size: 12.5px; }
 
@@ -130,6 +190,14 @@ main { max-width: 1080px; margin: 0 auto; padding: 16px 20px 48px; }
 .footer code { background: var(--panel-2); padding: 2px 6px; border-radius: 5px; }
 .footer a { color: var(--accent-2); text-decoration: none; }
 .footer a:hover { text-decoration: underline; }
+.footer .disclaimer { display: block; margin-top: 10px; font-size: 11.5px; opacity: .8; max-width: 720px; margin-inline: auto; }
+
+/* GitHub Sponsors button */
+.sponsor { display: flex; justify-content: center; margin: 8px auto 4px; }
+.sponsor iframe { vertical-align: middle; }
+
+/* OS label above an install command block */
+.cmd-os { margin: 12px 0 4px; font-size: 12.5px; font-weight: 600; color: var(--muted); }
 
 /* ---------- Skill detail page ---------- */
 .hero--detail { padding: 40px 20px 20px; position: relative; }
@@ -170,7 +238,7 @@ main { max-width: 1080px; margin: 0 auto; padding: 16px 20px 48px; }
   font-size: 13.5px; color: #d6e0ff; white-space: pre;
 }
 .copy {
-  position: absolute; top: 10px; right: 10px;
+  position: absolute; top: 10px; inset-inline-end: 10px;
   background: var(--panel-2); color: var(--text);
   border: 1px solid var(--border); border-radius: 7px;
   padding: 5px 11px; font-size: 12px; cursor: pointer;
@@ -224,3 +292,103 @@ main { max-width: 1080px; margin: 0 auto; padding: 16px 20px 48px; }
 .markdown hr { border: none; border-top: 1px solid var(--border); margin: 1.6em 0; }
 
 .hero-logo{display:block;margin:0 auto 8px;border-radius:14px}
+
+/* ---------- Language switch ---------- */
+.langswitch {
+  position: absolute; top: 14px; inset-inline-end: 16px;
+  display: inline-flex; gap: 2px; z-index: 5;
+  background: var(--panel); border: 1px solid var(--border);
+  border-radius: 999px; padding: 3px;
+}
+.langbtn {
+  background: transparent; color: var(--muted); border: none;
+  border-radius: 999px; padding: 5px 11px; font-size: 13px; line-height: 1;
+  cursor: pointer; transition: background .15s ease, color .15s ease;
+}
+.langbtn:hover { color: var(--text); }
+.langbtn--active { background: var(--accent); color: #fff; }
+
+/* ---------- RTL (Hebrew) ---------- */
+/* Markdown follows its own content direction (dir="auto"): an English README
+   stays LTR even in Hebrew mode, a Hebrew one mirrors. */
+.markdown:dir(rtl) { text-align: right; }
+.markdown:dir(rtl) ul, .markdown:dir(rtl) ol { padding-left: 0; padding-right: 1.4em; }
+.markdown:dir(rtl) blockquote {
+  border-left: none; border-right: 3px solid var(--accent);
+  border-radius: 8px 0 0 8px;
+}
+.markdown:dir(rtl) th, .markdown:dir(rtl) td { text-align: right; }
+/* Code / commands always read left-to-right */
+[dir="rtl"] .codeblock pre, .markdown pre { direction: ltr; text-align: left; }
+[dir="rtl"] .codeblock code, .markdown code { unicode-bidi: isolate; }
+
+/* ---------- Layout toggle (condensed / spacious) ---------- */
+.catalog-controls { display: flex; justify-content: flex-end; max-width: 1080px; margin: 0 auto 12px; }
+.segmented {
+  display: inline-flex; gap: 2px; padding: 3px;
+  background: var(--panel); border: 1px solid var(--border); border-radius: 999px;
+}
+.seg {
+  background: transparent; color: var(--muted); border: none; border-radius: 999px;
+  padding: 6px 14px; font-size: 13px; cursor: pointer; font-family: inherit;
+  transition: background .15s ease, color .15s ease;
+}
+.seg:hover { color: var(--text); }
+.seg--active { background: var(--accent); color: #fff; }
+
+/* ---------- Condensed catalog (default): name + one line, fully clickable ---------- */
+.catalog--condensed {
+  grid-template-columns: repeat(auto-fill, minmax(min(340px, 100%), 1fr));
+  gap: 10px;
+}
+.card--condensed { padding: 12px 16px; gap: 3px; }
+.card--condensed .card__row { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.card--condensed .card__title { font-size: 16px; margin: 0; line-height: 1.25; }
+.card--condensed .card__chev { color: var(--muted); font-size: 22px; line-height: 1; flex: none; }
+.card--condensed .card__desc {
+  margin: 0; font-size: 13px; line-height: 1.45;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+.dot {
+  display: inline-block; width: 8px; height: 8px; border-radius: 50%;
+  background: var(--accent-2); margin-inline-end: 7px; vertical-align: middle;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 720px) {
+  .hero { padding: 14px 16px 16px; }
+  .hero--detail { padding: 30px 16px 16px; }
+  main { padding: 10px 16px 40px; }
+}
+@media (max-width: 560px) {
+  .hero { padding: 12px 14px 14px; }
+  .tagline { font-size: 14px; margin: 4px 0 10px; }
+  .catalog { grid-template-columns: 1fr; gap: 14px; }
+  .catalog--condensed { grid-template-columns: 1fr; gap: 10px; }
+  .card { padding: 16px; }
+  .card--condensed { padding: 12px 14px; }
+  .panel { padding: 16px; margin-top: 16px; }
+  .contribute { font-size: 12.5px; }
+  /* Keep the four community buttons on a single line */
+  .community--hero { gap: 6px; margin: 8px auto 6px; }
+  .community--hero .ghbtn { padding: 7px 10px; font-size: 12.5px; gap: 5px; }
+  .chip { padding: 7px 14px; }
+  /* Comfortable tap targets, full-width primary actions */
+  .card__links .btn, .detail__actions .btn { flex: 1 1 auto; text-align: center; padding: 10px 14px; }
+  .markdown { font-size: 14.5px; }
+  .markdown h1 { font-size: 22px; }
+  .markdown h2 { font-size: 19px; }
+  .codeblock pre, .markdown pre { padding: 12px; }
+  .copy { top: 8px; inset-inline-end: 8px; padding: 4px 9px; }
+  .footer { padding: 24px 16px 40px; }
+}
+@media (max-width: 430px) {
+  /* Narrow phones: collapse community buttons to icons so they never wrap */
+  .community--hero .ghbtn__label { display: none; }
+  .community--hero .ghbtn { padding: 8px 11px; }
+}
+@media (max-width: 380px) {
+  .hero__wordmark { font-size: 18px; }
+  /* Skill-detail page keeps the floating switch */
+  .hero--detail .langswitch { top: 10px; inset-inline-end: 12px; }
+}

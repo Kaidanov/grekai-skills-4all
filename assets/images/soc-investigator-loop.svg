@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 460" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#475569"/>
+    </marker>
+    <style>
+      .box{rx:12;ry:12;stroke-width:2}
+      .t{fill:#0f172a;font-size:15px;font-weight:600}
+      .s{fill:#475569;font-size:12px}
+      .lbl{fill:#1e293b;font-size:12px;font-weight:600}
+      .edge{stroke:#475569;stroke-width:2;fill:none;marker-end:url(#arr)}
+      .csv{fill:#b45309;font-size:11px;font-weight:600}
+    </style>
+  </defs>
+
+  <rect x="0" y="0" width="980" height="460" fill="#f8fafc"/>
+  <text x="490" y="34" text-anchor="middle" class="t" font-size="20">SOC Investigator — the full loop (air-gapped, CSV bridge)</text>
+
+  <!-- Threat Sentinel -->
+  <rect x="40" y="80" width="250" height="120" rx="12" fill="#eef2ff" stroke="#6366f1" class="box"/>
+  <text x="165" y="112" text-anchor="middle" class="t">Threat Sentinel</text>
+  <text x="165" y="134" text-anchor="middle" class="s">soc-update.com (your app)</text>
+  <text x="165" y="156" text-anchor="middle" class="s">10 external feeds, 24h</text>
+  <text x="165" y="174" text-anchor="middle" class="s">→ ranks &amp; emits candidate IOCs</text>
+
+  <!-- soc-investigator -->
+  <rect x="365" y="70" width="575" height="320" rx="12" fill="#ecfeff" stroke="#06b6d4" class="box"/>
+  <text x="652" y="100" text-anchor="middle" class="t">soc-investigator skill (Claude cowork + you + browser)</text>
+
+  <rect x="390" y="120" width="240" height="56" rx="10" fill="#fff" stroke="#0891b2"/>
+  <text x="510" y="143" text-anchor="middle" class="lbl">1 · Config + Discovery</text>
+  <text x="510" y="162" text-anchor="middle" class="s">IOCs / machine groups</text>
+
+  <rect x="675" y="120" width="240" height="56" rx="10" fill="#fff" stroke="#0891b2"/>
+  <text x="795" y="143" text-anchor="middle" class="lbl">2 · Generate KQL</text>
+  <text x="795" y="162" text-anchor="middle" class="s">gen_queries.py → N files</text>
+
+  <rect x="675" y="196" width="240" height="56" rx="10" fill="#fff" stroke="#0891b2"/>
+  <text x="795" y="219" text-anchor="middle" class="lbl">3 · Hunt in Defender</text>
+  <text x="795" y="238" text-anchor="middle" class="s">browser · Export CSV</text>
+
+  <rect x="390" y="196" width="240" height="56" rx="10" fill="#fff" stroke="#0891b2"/>
+  <text x="510" y="219" text-anchor="middle" class="lbl">4 · Enrich (local)</text>
+  <text x="510" y="238" text-anchor="middle" class="s">enrich.py · VirusTotal</text>
+
+  <rect x="390" y="300" width="240" height="62" rx="10" fill="#fff" stroke="#0891b2"/>
+  <text x="510" y="324" text-anchor="middle" class="lbl">5 · Pivot in Sentinel</text>
+  <text x="510" y="343" text-anchor="middle" class="s">machines + users</text>
+
+  <rect x="675" y="300" width="240" height="62" rx="10" fill="#fff" stroke="#0891b2"/>
+  <text x="795" y="324" text-anchor="middle" class="lbl">6 · Close (you confirm)</text>
+  <text x="795" y="343" text-anchor="middle" class="s">prepared, never auto</text>
+
+  <!-- internal edges -->
+  <path class="edge" d="M630 148 H672"/>
+  <path class="edge" d="M795 176 V193"/>
+  <path class="edge" d="M675 224 H632"/>
+  <path class="edge" d="M510 252 V297"/>
+  <path class="edge" d="M630 331 H672"/>
+
+  <!-- bridge in: Threat Sentinel -> skill -->
+  <path class="edge" d="M290 130 C330 130, 350 148, 388 148"/>
+  <text x="338" y="118" text-anchor="middle" class="csv">IOCs CSV</text>
+  <text x="338" y="166" text-anchor="middle" class="s">(BaseDomain / IOC)</text>
+
+  <!-- bridge out: skill -> Threat Sentinel -->
+  <path class="edge" d="M388 340 C320 360, 250 300, 200 204"/>
+  <text x="250" y="392" text-anchor="middle" class="csv">soc_report.csv</text>
+  <text x="250" y="410" text-anchor="middle" class="s">Status,IOC,Verdict,Score,Country,Tags,Created,Link,Type</text>
+
+  <text x="490" y="450" text-anchor="middle" class="s">No API / Entra access — Claude generates &amp; processes; you run the portal queries in your own browser.</text>
+</svg>

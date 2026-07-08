@@ -29,6 +29,8 @@ npx degit Kaidanov/grekai-skills-4all/skills/setup-memory ~/.claude/skills/setup
 
 ## Use it
 
+![Setup Memory flow — run the script → memories/repo/ + MEMORY.md → filesystem junction into ~/.claude → Claude auto-loads it → committed, team-shared, token-efficient](../../assets/images/setup-memory-flow.svg)
+
 Run the script from your repo root — once per project you want memory in:
 
 ```powershell
@@ -48,6 +50,45 @@ Idempotent and **no admin required** (a directory junction, not a symlink). The 
 4. Replaces it with a junction: `~/.claude/projects/<slug>/memory` → `<repo>/memories/repo`.
 5. Seeds `_TEMPLATE.memory.md` + a `README.md` if missing. Prints slug, paths, and migrated-file
    count.
+
+## Example output
+
+A first run against a fresh repo prints the slug, the resolved paths, what it created,
+and a one-line summary (colours stripped here):
+
+```text
+Project   : C:\Projects\Foo.Bar_v2
+Slug      : c--Projects-Foo-Bar-v2
+Mem repo  : C:\Projects\Foo.Bar_v2\memories\repo
+Junction  : C:\Users\you\.claude\projects\c--Projects-Foo-Bar-v2\memory
+  [+] created C:\Projects\Foo.Bar_v2\memories\repo
+  [+] created junction -> C:\Projects\Foo.Bar_v2\memories\repo
+  [+] seeded MEMORY.md
+  [+] seeded _TEMPLATE.memory.md
+  [+] seeded README.md
+
+Done. Memory for 'c--Projects-Foo-Bar-v2' now lives in the repo at memories\repo and is junctioned into ~/.claude.
+Commit the 'memories/' folder to share it with the team (keep it secret-free).
+```
+
+Afterwards the memory is a normal, committable part of the tree, with the junction pointing
+back at it:
+
+```text
+C:\Projects\Foo.Bar_v2\
+└── memories\
+    └── repo\
+        ├── MEMORY.md             # the index loaded every session
+        ├── _TEMPLATE.memory.md   # frontmatter template for new facts
+        └── README.md
+
+C:\Users\you\.claude\projects\c--Projects-Foo-Bar-v2\
+└── memory  ─┘ (junction) ──> C:\Projects\Foo.Bar_v2\memories\repo
+```
+
+Re-running on a repo that already has the junction is a no-op (`[=] junction already
+exists -> …`); migrating an existing real memory folder instead prints
+`[~] migrated N file(s), replaced folder with junction`.
 
 ## Why the memory links **per-project**, not to one global folder
 

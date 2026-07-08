@@ -3,37 +3,213 @@
   "site": {
     "title": "GrekAI Skills 4 All",
     "tagline": "A catalog of agent skills, hooks & connectors",
+    "tagline_he": "קטלוג של כישורי סוכן, הוקים ומחברים",
     "owner": "Kaidanov",
     "repo": "https://github.com/Kaidanov/grekai-skills-4all",
     "repoSlug": "Kaidanov/grekai-skills-4all",
     "defaultBranch": "main"
   },
   "categories": [
-    { "id": "skills", "label": "Skills", "description": "Reusable agent / Claude skills." },
-    { "id": "hooks", "label": "Hooks", "description": "Automation hooks (SessionStart, pre/post events).", "comingSoon": true },
-    { "id": "connectors", "label": "Connectors", "description": "Integrations (OneDrive, Vercel, GitHub, …).", "comingSoon": true }
+    {
+      "id": "skills",
+      "label": "Skills",
+      "label_he": "כישורים",
+      "description": "Reusable agent / Claude skills."
+    }
   ],
   "items": [
     {
-      "id": "tutorial",
+      "id": "trip-planner",
+      "summary": "Destination-agnostic trip planner. Initial trip data → day-by-day itinerary, a scored target bank, a 7-sheet Excel workbook (live budget) and a printable HTML brochure. Deterministic core = 0 tokens.",
+      "summary_he": "מתכנן טיולים בלתי-תלוי-יעד. נתוני טיול ראשוניים ← מסלול יומי, בנק יעדים מדורג, חוברת Excel בת 7 גיליונות (תקציב חי) וברושור HTML להדפסה. ליבה דטרמיניסטית = 0 טוקנים.",
       "category": "skills",
-      "title": "Tutorial — Narrated Playwright Walkthroughs",
-      "description": "Record narrated, themeable product tutorials by driving any web app with Playwright and voicing every step with a neural TTS voice (Jenny by default). One plain-English goal becomes a drift-free MP4 + WebVTT captions plus a light/dark, logo-branded index.html that switches between all your tutorials. Human-gated: approve the scenario before recording, approve the video before publishing. Ships /tutorial-create, /tutorial-update and /tutorial-status, a config-driven theme, and runnable Playwright + render scripts.",
-      "tags": ["playwright", "tutorials", "video", "narration", "tts", "edge-tts", "theming", "claude-code"],
+      "title": "Trip Planner — Deterministic Itinerary, Workbook & Brochure",
+      "title_he": "מתכנן טיולים — מסלול דטרמיניסטי, חוברת עבודה וברושור",
+      "description": "Generic, destination-agnostic trip planner. Turns initial trip data (flight dates, accommodation stays, preferences) into a full plan: a day-by-day itinerary, a scored target bank of attractions / restaurants / wineries / shopping (stars, reviews, photos, map links, distance-from-base), a 7-sheet Excel workbook with live budget formulas, and a printable HTML brochure. The core is deterministic — anchors, clustering, day allocation, NN+2-opt routing, scheduling and conflict checks (car-after-flight, no-lodging, book-ahead) are pure algorithm + cached Google Places / Distance Matrix calls = 0 tokens. The model runs at most twice per trip: parse booking docs into events, and write a few short blurbs. Ships as a Claude skill, an MCP server (same engine as tools) and Claude Code hooks. Works for any destination.",
+      "description_he": "מתכנן טיולים גנרי, בלתי-תלוי-יעד. הופך נתוני טיול ראשוניים (תאריכי טיסה, לינות, העדפות) לתוכנית מלאה: מסלול יומי, בנק יעדים מדורג של אטרקציות / מסעדות / יקבים / קניות (כוכבים, ביקורות, תמונות, קישורי מפה, מרחק-מהבסיס), חוברת Excel בת 7 גיליונות עם נוסחאות תקציב חיות, וברושור HTML להדפסה. הליבה דטרמיניסטית — עוגנים, אשכולות, חלוקה ליום, ניתוב NN+2-opt, תזמון ובדיקות התנגשות (החזרת רכב אחרי טיסה, לילה ללא לינה, צורך בהזמנה מראש) הם אלגוריתם טהור + קריאות Google Places / Distance Matrix במטמון = 0 טוקנים. המודל רץ לכל היותר פעמיים לטיול: ניתוח מסמכי הזמנה לאירועים, וכתיבת כמה משפטי תיאור קצרים. מגיע ככישור Claude, שרת MCP (אותו מנוע ככלים) והוקים. מתאים לכל יעד.",
+      "tags": ["travel", "trip", "itinerary", "vacation", "planner", "excel", "xlsx", "brochure", "budget", "maps", "google-places", "mcp", "hooks", "deterministic", "0-tokens", "routing", "hebrew"],
       "status": "live",
-      "install": "npx degit Kaidanov/grekai-skills-4all/skills/tutorial .claude/skills/tutorial",
-      "usage": "Run /tutorial-init once (it asks a few questions and writes tutorial.config.json), then say \"/tutorial-create show a new user how to create their first record\". The skill drafts a scenario for your approval, records it with Playwright, narrates each step with edge-tts (Jenny), and builds either a no-ffmpeg HTML audio-slideshow player or a downloadable MP4 — then a themeable light/dark index.html switching between every tutorial. /tutorial-update <slug> re-records one; /tutorial-status reports stale/missing. HTML path needs only Node + Playwright + edge-tts (ffmpeg optional, for MP4).",
+      "install": "npx degit Kaidanov/grekai-skills-4all/skills/trip-planner .claude/skills/trip-planner",
+      "usage": "Just ask — \"plan a 8-day Tuscany family trip\" / \"build me an itinerary and travel workbook\" / \"shortlist and score restaurants near my hotel\". The skill collects the minimum (flights, stays, a prefs block, optional candidate places), enriches each place with Maps / Tripadvisor / Google Reviews links (plus stars + real drive-times when GOOGLE_MAPS_API_KEY is set, cached on disk), then runs the deterministic engine: derive bases from stays, cluster targets to the nearest base, allocate across days (respecting pace, opening days, pool/light days, max drive), route each day (nearest-neighbour + 2-opt), schedule clock times, and run conflict checks. It always offers all three outputs — a 7-sheet Excel workbook (live budget formulas), a self-contained print-to-PDF HTML brochure, and an inline itinerary. Try the worked example with zero setup: pip install openpyxl && python examples/build_example.py.",
+      "usage_he": "פשוט בקשו — \"תכנן טיול משפחתי לטוסקנה ל-8 ימים\" / \"בנה לי מסלול וחוברת טיול\" / \"דרג לי מסעדות ליד המלון\". הכישור אוסף את המינימום (טיסות, לינות, בלוק העדפות, ורשימת מקומות אופציונלית), מעשיר כל מקום בקישורי Maps / Tripadvisor / Google Reviews (וגם כוכבים וזמני-נסיעה אמיתיים כשמוגדר GOOGLE_MAPS_API_KEY, במטמון על הדיסק), ואז מריץ את המנוע הדטרמיניסטי: גזירת בסיסים מהלינות, אשכול יעדים לבסיס הקרוב, חלוקה לימים (לפי קצב, ימי פתיחה, ימי בריכה, נסיעה מרבית), ניתוב כל יום (NN + 2-opt), תזמון שעות ובדיקות התנגשות. תמיד מציע את שלושת הפלטים — חוברת Excel בת 7 גיליונות (נוסחאות תקציב חיות), ברושור HTML עצמאי להדפסה, ומסלול בתוך השיחה. נסו את הדוגמה המוגמרת בלי שום הגדרה: pip install openpyxl && python examples/build_example.py.",
       "links": {
-        "docs": "./skills/tutorial/",
-        "demo": "./skills/tutorial/examples/grekai-catalog-tour/"
+        "docs": "./skills/trip-planner/",
+        "demo": "./skills/trip-planner/examples/tuscany-brochure.html"
+      }
+    },
+    {
+      "id": "stock-mapper",
+      "summary": "Turn a market catalyst into a sourced map of the stocks that fit it, or paste your holdings for per-name research, 1D–5Y trends, and a decision analysis. A decision aid, not advice.",
+      "summary_he": "הופך קטליזטור שוק למפה מתועדת של המניות שמתאימות לו, או הדביקו אחזקות למחקר לכל מניה, מגמות 1D–5Y וניתוח החלטה. כלי החלטה, לא ייעוץ.",
+      "category": "skills",
+      "title": "Stock Mapper — Catalyst → Stocks & Portfolio Research",
+      "title_he": "ממפה מניות — קטליזטור ← מניות ומחקר תיק",
+      "description": "Turn a market-moving catalyst (a speech, executive order, policy, earnings/M&A headline, product launch, viral clip, macro shift, or a named theme like AI power / GLP-1 / rare earths) into a sourced map of the public stocks that fit it — OR paste your holdings and get full per-name research, multi-timeframe trend charts, and a decision analysis. Buckets names into pure-play / large-cap / picks-and-shovels / can't-buy-it, covers 1D–5Y trends, splits short- vs long-term factors, lists red flags and sources, and can emit a deployable single-file HTML research dashboard. Searches before it states every moving fact and never fabricates a price curve. A decision aid — NOT licensed financial advice or personalized buy/sell directives.",
+      "description_he": "הופך קטליזטור משפיע-שוק (נאום, צו נשיאותי, מדיניות, כותרת רווחים/מיזוג, השקת מוצר, קליפ ויראלי, שינוי מאקרו או תמה כמו AI / GLP-1 / מתכות נדירות) למפה מתועדת של המניות הציבוריות שמתאימות לו — או הדביקו את האחזקות שלכם וקבלו מחקר לכל מניה, גרפי מגמה במספר טווחי-זמן וניתוח החלטה. ממיין למניות-טהורות / לארג'-קאפ / ספקי-תשתית / לא-ניתן-לקנייה, מכסה מגמות 1D–5Y, מפצל גורמים לטווח קצר מול ארוך, מפרט דגלים אדומים ומקורות, ויכול להפיק דשבורד מחקר בקובץ HTML יחיד. מחפש לפני שהוא קובע כל עובדה משתנה ולעולם לא ממציא עקומת מחיר. כלי החלטה — לא ייעוץ פיננסי מורשה ולא הוראות קנייה/מכירה אישיות.",
+      "tags": ["finance", "stocks", "investing", "research", "catalyst", "portfolio", "market", "trends", "dashboard", "single-file-html", "hebrew", "rtl", "not-advice"],
+      "status": "live",
+      "install": "npx degit Kaidanov/grekai-skills-4all/skills/stock-mapper .claude/skills/stock-mapper",
+      "usage": "Just share the trigger — paste a link/screenshot/quote, name a theme (\"AI power\", \"rare earths\"), drop a ticker, or paste your holdings (\"NVDA 30%, PLTR 20%, ...\") and ask which stock fits, who benefits, what to buy, or \"analyze my portfolio / should I hold\". Mode A maps a catalyst to bucketed names (pure-play / large-cap / picks-and-shovels / can't-buy-it); Mode B analyzes exposure, overlap, concentration and gaps. It searches to ground every moving fact, reports 1D–5Y trends, splits short- vs long-term factors, lists red flags + sources, and can generate a deployable single-file HTML dashboard (assets/research-dashboard.html) with the run's data embedded. Optional 3-question interview tunes framing/horizon/depth. A decision aid, not advice — DYOR.",
+      "usage_he": "פשוט שתפו את הטריגר — הדביקו קישור/צילום-מסך/ציטוט, נקבו בתמה (\"AI power\", \"מתכות נדירות\"), שלחו טיקר, או הדביקו את האחזקות שלכם (\"NVDA 30%, PLTR 20%, ...\") ושאלו איזו מניה מתאימה, מי מרוויח, מה לקנות, או \"נתח לי את התיק / כדאי להחזיק\". מצב A ממפה קטליזטור לשמות ממוינים (טהורות / לארג'-קאפ / ספקי-תשתית / לא-ניתן-לקנייה); מצב B מנתח חשיפה, חפיפה, ריכוזיות ופערים. מחפש כדי לבסס כל עובדה משתנה, מדווח מגמות 1D–5Y, מפצל גורמים לטווח קצר מול ארוך, מפרט דגלים אדומים ומקורות, ויכול להפיק דשבורד HTML בקובץ יחיד עם נתוני הריצה מוטמעים. ראיון אופציונלי בן 3 שאלות מכוונן מסגור/אופק/עומק. כלי החלטה, לא ייעוץ — בדקו בעצמכם.",
+      "links": {
+        "docs": "./skills/stock-mapper/",
+        "demo": "./skills/stock-mapper/assets/research-dashboard.html"
+      }
+    },
+    {
+      "id": "exam-creator",
+      "summary": "Generate single-file, gamified HTML exam/study apps for kids — XP, badges, localStorage, 4 question types, Hebrew RTL + TTS. Runs offline by double-click or Netlify Drop.",
+      "summary_he": "מחולל אפליקציות מבחן/לימוד בקובץ HTML יחיד לילדים — נקודות, תגים, שמירה מקומית, 4 סוגי שאלות, עברית RTL והקראה. רץ אופליין בדאבל-קליק או ב-Netlify Drop.",
+      "category": "skills",
+      "title": "Exam Creator — Single-File Gamified Study Apps",
+      "description": "Generate single-file, self-contained HTML exam / study / quiz apps for kids and general study. Gamified (XP, levels, badges) with localStorage progress and continue-where-you-left-off, four question types (multiple choice, true/false, numeric with tolerance, short fill-in), immediate feedback + explanations, and optional Hebrew TTS readout that degrades silently. Hebrew RTL by default (LTR/other languages supported), mobile-first, accessible, and renders formulas without MathJax/KaTeX. Runs offline by double-click or Netlify Drop with zero dependencies — the packaged version of the apps in exam-hub-grekai.netlify.app. Never fabricates graded answers without flagging them for review.",
+      "tags": [
+        "education",
+        "exams",
+        "quiz",
+        "study",
+        "gamification",
+        "hebrew",
+        "rtl",
+        "single-file-html",
+        "offline",
+        "localstorage",
+        "tts",
+        "kids",
+        "netlify-drop"
+      ],
+      "status": "live",
+      "install": "npx degit Kaidanov/grekai-skills-4all/skills/exam-creator .claude/skills/exam-creator",
+      "usage": "Just ask — \"create a grade-8 Hebrew math exam app on fractions\" / \"תכין לי תרגול בכימיה לכיתה ח׳ מהספר של מטח\" / \"make an English tenses quiz for my kid\". The skill gathers the spec (subject, grade, language, topics, source material, question count & mix), generates the questions (using your source material when supplied and flagging AI-generated content for review otherwise), fills the bundled single-file template (XP/badge engine, localStorage, TTS fallback, all 4 question types), and hands back one HTML file ready for Netlify Drop plus how to add it to the exam hub. No dependencies — output is plain offline HTML.",
+      "links": {
+        "docs": "./skills/exam-creator/",
+        "demo": "./skills/exam-creator/examples/grade8-math-he.html"
+      }
+    },
+    {
+      "id": "family-budget-il",
+      "summary": "Build a shared, Sheets-ready family budget workbook, then log expenses in plain Hebrew/English. Israel-first, works anywhere.",
+      "summary_he": "בונה חוברת תקציב משפחתי משותפת ומוכנה ל-Sheets, ואז רושמים הוצאות בעברית/אנגלית פשוטה. ישראל-first, עובד בכל מקום.",
+      "category": "skills",
+      "title": "Family Budget Planner (Israel-first)",
+      "description": "Build a shared, Google-Sheets-ready family budget workbook, then keep it current by typing expenses in plain Hebrew or English — no bank connections, no app, no data uploads. A setup wizard generates one .xlsx with live SUMIFS formulas (upload to Drive → Open with Sheets → Share); ongoing chat logging returns clean categorized rows to paste. Israel defaults (₪, HMOs, ארנונה, 15th-to-15th salary cycle, provident/pension funds, benefit clubs) but works for any country. Adds a Goals tab, a where-do-we-stand cycle summary, and a Recommendations board that maps your benefit clubs to concrete savings.",
+      "tags": [
+        "israel",
+        "budget",
+        "family",
+        "finance",
+        "google-sheets",
+        "hebrew",
+        "rtl",
+        "natural-language",
+        "xlsx"
+      ],
+      "status": "live",
+      "install": "npx degit Kaidanov/grekai-skills-4all/skills/family-budget-il .claude/skills/family-budget-il",
+      "usage": "Just ask — \"בוא נקים תקציב משפחתי\" / \"set up a family budget\". The skill runs a short setup interview, writes a config JSON, then builds the workbook: python scripts/build_workbook.py --config budget_config.json --out family_budget.xlsx (then scripts/recalc.py to verify zero formula errors). Upload the .xlsx to Google Drive → Open with Google Sheets → Share. After that, log expenses in plain Hebrew/English (\"שילמתי 250 בשופרסל\", \"arnona 1247\", \"salary 18,500 net\") and Claude returns categorized rows for the Transactions tab. Needs Python + openpyxl; recalc additionally needs LibreOffice (soffice).",
+      "links": {
+        "docs": "./skills/family-budget-il/"
+      }
+    },
+    {
+      "id": "car-finder-il",
+      "summary": "Smart used-car alerts for Israel — scores each Yad2 car against its peers and pings your phone only on genuinely good finds. Reads-only.",
+      "summary_he": "התראות חכמות לרכב יד שנייה בישראל — נותן ציון לכל רכב ביד2 מול דומיו ושולח לטלפון רק מציאות ששוות באמת. קריאה בלבד.",
+      "category": "skills",
+      "title": "Car Finder IL — Smart Used-Car Alerts (Yad2)",
+      "title_he": "מאתר רכב — התראות חכמות לרכב יד שנייה (יד2)",
+      "description": "Find a good second-hand car in Israel (Yad2) and get pinged on your phone only when something genuinely worth it shows up. Reads listings via an Apify actor (no login, no browser, reads-only), scores each car against its OWN peer cohort (price vs comparable listings, hand/יד, owner type, km-per-year, photos), and on a schedule pushes ONLY new matches and real price drops to WhatsApp (wa-ai), Telegram or ntfy. Stdlib-only Python, no dependencies. Reads-only — it finds and ranks, it never posts, bumps, or buys.",
+      "description_he": "מציאת רכב יד שנייה טוב בישראל (יד2) עם התראה לטלפון רק כשבאמת מופיע משהו ששווה. מושך מודעות דרך אקטור של Apify (בלי התחברות, בלי דפדפן, קריאה בלבד), נותן ציון לכל רכב מול קבוצת ההשוואה שלו (מחיר מול מודעות דומות, יד, סוג בעלות, ק\"מ-לשנה, תמונות), ולפי לוח-זמנים שולח רק התאמות חדשות וירידות-מחיר אמיתיות לוואטסאפ (wa-ai), טלגרם או ntfy. פייתון ספרייה-סטנדרטית בלבד, בלי תלויות. קריאה בלבד — מוצא ומדרג, לא מפרסם, לא מקפיץ ולא קונה.",
+      "tags": [
+        "israel",
+        "cars",
+        "yad2",
+        "used-cars",
+        "alerts",
+        "apify",
+        "supabase",
+        "whatsapp",
+        "telegram",
+        "ntfy",
+        "scoring",
+        "hebrew",
+        "reads-only"
+      ],
+      "status": "live",
+      "install": "npx degit Kaidanov/grekai-skills-4all/skills/car-finder-il .claude/skills/car-finder-il",
+      "usage": "Try it with zero setup: python3 scripts/carfinder.py search examples/criteria.example.json --source mock --lang en — a ranked shortlist with a reason per car. For real data, set APIFY_TOKEN + APIFY_ACTOR_ID (a Yad2 vehicles actor from apify.com/store) and run search on your own criteria.json. For hands-off phone alerts, add Supabase (dedupe) + a push channel (wa-ai / Telegram / ntfy) and schedule carfinder.py run via the bundled .github/workflows template. Or just describe what you want ('family SUV, private owner, under 90k') and the assistant writes the criteria JSON for you. Reads-only — never posts, bumps, or buys.",
+      "usage_he": "אפשר לנסות בלי שום הגדרה: python3 scripts/carfinder.py search examples/criteria.example.json --source mock --lang he — רשימה מדורגת עם נימוק לכל רכב. לנתונים אמיתיים: הגדירו APIFY_TOKEN + APIFY_ACTOR_ID (אקטור רכבי יד2 מ-apify.com/store) והריצו search על criteria.json משלכם. להתראות אוטומטיות לטלפון: הוסיפו Supabase (למניעת כפילויות) וערוץ דחיפה (wa-ai / טלגרם / ntfy) ותזמנו את carfinder.py run דרך תבנית ה-.github/workflows המצורפת. או פשוט תארו מה אתם מחפשים ('רכב פנאי משפחתי, בעלות פרטית, עד 90 אלף') והעוזר יכתוב לכם את ה-JSON. קריאה בלבד — לא מפרסם, לא מקפיץ ולא קונה.",
+      "links": {
+        "docs": "./skills/car-finder-il/"
+      }
+    },
+    {
+      "id": "exit-strategist",
+      "summary": "Honest money-independence & early-retirement planning — audits your real exports first, then maps, models, and stress-tests. Not advice.",
+      "summary_he": "תכנון כן לעצמאות כלכלית ולפרישה מוקדמת — מבקר תחילה את הייצוא האמיתי שלך, ואז ממפה, מודל ומבחני-עומס. לא ייעוץ.",
+      "category": "skills",
+      "title": "Exit Strategist — Money-Independence, Early-Retirement & Financial Current-State Mapping",
+      "title_he": "אסטרטג היציאה — עצמאות כלכלית, פרישה מוקדמת ומיפוי מצב פיננסי נוכחי",
+      "description": "Honest planning across the whole money-independence surface: salary-exit / quit-the-9-5, FI & early retirement (Coast-FI, Barista-FI), job-loss resilience, current-state financial mapping (interview + uploaded reports → one-page PDF), spending optimization, and macro/relocation resilience. Strips the hustle-culture fantasy and rebuilds around realism, a full household balance sheet, local tax/pension/safety-net reality (Israel + US/UK/EU/India), late-life layers (pension current-vs-projected, eldercare, medical, child support), and stress tests for AI job loss and macro shocks (war, reserve duty, currency). A hard-gate DATA-QUALITY audit corrects real exports (mislabeled categories, transfers tagged as spending, missing months, duplicates) before any number is used. Never stores national ID numbers. Any language. Not financial advice.",
+      "description_he": "תכנון כן לכל מרחב העצמאות הכלכלית: יציאה מהשכר / לעזוב את ה-9-5, עצמאות כלכלית ופרישה מוקדמת (Coast-FI, Barista-FI), חוסן מול אובדן עבודה, מיפוי מצב פיננסי נוכחי (ראיון + דוחות שהועלו ← PDF בעמוד אחד), ייעול הוצאות וחוסן מאקרו/רילוקיישן. מסיר את אשליית 'תרבות ההאסל' ובונה מחדש סביב ריאליזם, מאזן משק-בית מלא, מציאות מס/פנסיה/רשת-ביטחון מקומית (ישראל + ארה\"ב/בריטניה/אירופה/הודו), שכבות אורך-חיים (פנסיה נוכחית מול תחזית, סיעוד, רפואה, מזונות) ומבחני-עומס לאובדן עבודה ל-AI וזעזועי מאקרו (מלחמה, מילואים, מטבע). ביקורת איכות-נתונים כשער-חובה מתקנת ייצוא אמיתי (קטגוריות שגויות, העברות המסומנות כהוצאה, חודשים חסרים, כפילויות) לפני שמשתמשים במספר כלשהו. לעולם לא שומר מספרי תעודת-זהות. בכל שפה. לא ייעוץ פיננסי.",
+      "tags": [
+        "finance",
+        "career",
+        "financial-independence",
+        "early-retirement",
+        "fire",
+        "current-state-mapping",
+        "data-quality",
+        "spending-optimization",
+        "ai-displacement",
+        "relocation",
+        "israel",
+        "any-language",
+        "not-advice"
+      ],
+      "status": "live",
+      "install": "npx degit Kaidanov/grekai-skills-4all/skills/exit-strategist .claude/skills/exit-strategist",
+      "usage": "Ask your assistant in any language: \"map where we stand\", \"can we retire early?\", \"where can we cut?\", \"I'm about to lose my job\", or paste a viral 7-prompt thread. It picks the use case, runs a data-quality audit on any uploaded export FIRST, maps the household balance sheet (interview + reports), localizes tax/pension/safety-net (incl. Israel Section 14), adds late-life layers via a multi-pot model, stress-tests AI/macro risk, and outputs a scenario-banded plan or a one-page snapshot PDF with required immediate-savings recommendations. Never share national ID numbers — run Har Habituach / Har Hakesef yourself and paste only the numbers. Structured analysis, not financial/tax/legal advice.",
+      "usage_he": "פנו לעוזר בכל שפה: \"תמפה איפה אנחנו עומדים\", \"אפשר לפרוש מוקדם?\", \"איפה כדאי לקצץ?\", \"אני עומד לאבד את העבודה\", או הדביקו שרשור 7-הפרומפטים הוויראלי. הכישור בוחר את התרחיש, מריץ ביקורת איכות-נתונים על כל ייצוא שהועלה תחילה, ממפה את מאזן משק-הבית (ראיון + דוחות), מתאים לוקלית מס/פנסיה/רשת-ביטחון (כולל סעיף 14 בישראל), מוסיף שכבות אורך-חיים במודל 'סירים נפרדים', מבצע מבחני-עומס לסיכוני AI/מאקרו, ומפיק תוכנית עם טווחי-תרחיש או תמונת-מצב בעמוד אחד עם המלצות חיסכון מיידיות. לעולם אל תשתפו מספר תעודת-זהות — הריצו בעצמכם את הר הביטוח / הר הכסף והדביקו רק את המספרים. ניתוח מובנה, לא ייעוץ פיננסי/מס/משפטי.",
+      "links": {
+        "docs": "./skills/exit-strategist/"
+      }
+    },
+    {
+      "id": "daily-cv",
+      "summary": "Self-learning job-hunt agent: validates live roles, then writes an ATS-optimized CV + cover letter (DOCX + PDF) from verified facts.",
+      "summary_he": "סוכן חיפוש-עבודה לומד: מאמת משרות פעילות וכותב קורות-חיים ומכתב מקדים מותאמי-ATS (DOCX + PDF) מעובדות מאומתות.",
+      "category": "skills",
+      "title": "Daily CV — Automated Job Hunt",
+      "description": "Config-driven, self-learning job-search agent. Reads your profile, validates that roles are actively accepting applications, and generates an ATS-optimised CV + cover letter (DOCX + PDF) from verified facts only — never repeating a company+role. Your real profile stays local and gitignored; only sanitized templates ship here.",
+      "tags": [
+        "job-search",
+        "cv",
+        "automation",
+        "ats",
+        "agent"
+      ],
+      "status": "live",
+      "usage": "Run INIT.md once to build your gitignored profile/PROFILE.json (the single source of truth). Then invoke the skill daily: each run finds one live, accepting role and generates an ATS-optimised CV + tailored cover letter (DOCX + PDF) from verified facts only — never repeating a company+role.",
+      "links": {
+        "docs": "./skills/daily-cv/"
       }
     },
     {
       "id": "gemelnet-advisor",
+      "summary": "Compare and rank Israeli pension / study / provident funds from the official GemelNet open data. Analysis, not advice.",
+      "summary_he": "השוואה ודירוג של קרנות פנסיה / השתלמות / גמל ישראליות מנתוני GemelNet הפתוחים. ניתוח, לא ייעוץ.",
       "category": "skills",
       "title": "GemelNet Advisor — Israeli Pension Funds",
       "description": "Query and analyze Israeli provident, study (קרן השתלמות) and investment-provident (גמל להשקעה) funds via the official GemelNet open dataset. Compare funds, rank one against its like-for-like peers, scan a statement into a portfolio checkup, and estimate shekel revenue — public fund-level data only, framed as data-grounded analysis, not financial advice. Ships with a UserPromptSubmit hook that auto-triggers on Hebrew/English fund keywords.",
-      "tags": ["israel", "pension", "gemelnet", "finance", "data-gov-il", "hook"],
+      "tags": [
+        "israel",
+        "pension",
+        "gemelnet",
+        "finance",
+        "data-gov-il",
+        "hook"
+      ],
       "status": "live",
       "install": "npx degit Kaidanov/grekai-skills-4all/skills/gemelnet-advisor .claude/skills/gemelnet-advisor",
       "usage": "Just ask your assistant — e.g. \"compare my study fund 9012 with its peers and tell me what I'm paying in fees\" — and it drives SKILL.md. Or run the stdlib-only engine directly: python3 scripts/gemelnet.py fund 9012 (also funds --q, compare, rank, revenue). Optionally wire the bundled UserPromptSubmit hook so it auto-triggers on Hebrew/English pension keywords. Public fund-level data only — analysis, not financial advice.",
@@ -42,11 +218,48 @@
       }
     },
     {
+      "id": "tutorial",
+      "summary": "Narrated, themeable product walkthroughs — Playwright drives & records the app, neural TTS narrates; output is a REAL motion video (MP4), a slideshow, or a no-ffmpeg HTML player.",
+      "summary_he": "הדרכות מוצר מוקלטות עם קריינות וערכת-נושא — Playwright מפעיל ומקליט את האפליקציה ו-TTS מקריא; הפלט הוא וידאו אמיתי בתנועה (MP4), מצגת שקופיות, או נגן HTML ללא ffmpeg.",
+      "category": "skills",
+      "title": "Tutorial — Narrated Playwright Walkthroughs",
+      "description": "Record narrated, themeable product tutorials by driving any web app with Playwright and voicing every step with a neural TTS voice (Jenny by default). One plain-English goal becomes a drift-free, narrated output: a REAL motion video of the app moving (MP4) by recording the live Playwright session and muxing narration over it, or a screenshot slideshow MP4, or a no-ffmpeg HTML player — each with WebVTT captions — plus a light/dark, logo-branded index.html that switches between all your tutorials. Human-gated: approve the scenario before recording, approve the video before publishing. Ships /tutorial-create, /tutorial-update and /tutorial-status, a config-driven theme, and runnable Playwright + render scripts.",
+      "tags": [
+        "playwright",
+        "tutorials",
+        "video",
+        "narration",
+        "tts",
+        "edge-tts",
+        "theming",
+        "claude-code"
+      ],
+      "status": "live",
+      "install": "npx degit Kaidanov/grekai-skills-4all/skills/tutorial .claude/skills/tutorial",
+      "usage": "Run /tutorial-init once (it asks a few questions and writes tutorial.config.json), then say \"/tutorial-create show a new user how to create their first record\". The skill drafts a scenario for your approval, records the live session with Playwright (video + screenshots), narrates each step with edge-tts (Jenny), then renders a REAL motion video (render-motion-video.mjs muxes narration over the recorded app, drift-free) — or a no-ffmpeg HTML player, or a screenshot slideshow MP4 — plus a themeable light/dark index.html switching between every tutorial. /tutorial-update <slug> re-records one; /tutorial-status reports stale/missing. The motion/slideshow MP4 needs a full ffmpeg (not Playwright's webm-only bundled one, or set FFMPEG_BIN); the HTML player needs only Node + Playwright + edge-tts.",
+      "links": {
+        "docs": "./skills/tutorial/",
+        "demo": "./skills/tutorial/examples/grekai-catalog-tour/"
+      }
+    },
+    {
       "id": "share-presentation",
+      "summary": "Collaborate on a presentation over a shared org folder — no server, no repo. Comment pins + AI edits sync via OneDrive / Drive / Dropbox.",
+      "summary_he": "שיתוף פעולה על מצגת דרך תיקייה ארגונית משותפת — בלי שרת, בלי ריפו. פתקי תגובות ועריכות AI מסתנכרנים דרך OneDrive / Drive / Dropbox.",
       "category": "skills",
       "title": "Share Presentation — Collaborate Over Shared Org Folders",
       "description": "Collaborate on a presentation across your organization with no server and no repo. Persistence rides on a shared org folder (OneDrive / SharePoint / Google Drive / Dropbox) that every teammate already syncs: stateful HTML reads/writes a sidecar state.json, and an MCP agent rewrites the deck from approved changes. Figma-style comment pins, AI prompt drafts and approvals.",
-      "tags": ["collaboration", "presentations", "shared-folder", "organization", "onedrive", "sharepoint", "mcp", "file-system-access", "serverless"],
+      "tags": [
+        "collaboration",
+        "presentations",
+        "shared-folder",
+        "organization",
+        "onedrive",
+        "sharepoint",
+        "mcp",
+        "file-system-access",
+        "serverless"
+      ],
       "status": "live",
       "usage": "Drop the deck HTML and its state.json into a shared org folder (OneDrive / SharePoint / Google Drive / Dropbox) that your team syncs. Open the deck HTML in a Chromium-based browser and grant File System Access when prompted. Add Figma-style comment pins and draft AI prompts; edits sync to everyone via the shared folder. Once a change is approved in state.json, point Claude at the folder via a File System MCP server and it rewrites the deck. Try the live demo first.",
       "links": {
@@ -55,59 +268,62 @@
       }
     },
     {
-      "id": "handoff",
+      "id": "tldr",
+      "summary": "/tldr emits an end-of-turn status memo — tokens, time, done / to-do / issues — and logs a daily trail. Never fabricates numbers.",
+      "summary_he": "/tldr מפיק תזכיר סטטוס לסוף תור — טוקנים, זמן, בוצע / לביצוע / בעיות — ושומר יומן יומי. לעולם לא ממציא מספרים.",
       "category": "skills",
-      "title": "Session Handoff",
-      "description": "Package the current working session so the NEXT session resumes with ZERO re-research. Produces a dated handoff doc, a standalone resume-prompt, and a session-log metrics row. Works in any repo — run it when context is nearly exhausted or you say \"hand off\".",
-      "tags": ["context-management", "productivity", "handoff", "sessions", "claude-code"],
+      "title": "TLDR — End-of-Turn Status Report",
+      "description": "One-command status memo for the batch of work just finished: tokens (total estimate + exact per-subagent), time, rounds, tools activated, a reasoning + Q&A summary, done, to-do, issues, options, and a fresh-session recommendation. Bundles a concurrency-safe daily trail log (one file per day, shared across all windows) plus an optional Stop hook that auto-captures a per-turn heartbeat with no /tldr needed. Never fabricates numbers — exact where measurable, estimates labelled, n/a otherwise.",
+      "tags": [
+        "context-management",
+        "productivity",
+        "status-report",
+        "token-efficiency",
+        "claude-code",
+        "hook"
+      ],
       "status": "live",
-      "usage": "When your session is nearly out of context, say \"hand off\" (or invoke the skill). It writes a dated handoff doc, a standalone copy-paste resume prompt, and an appended session-log.csv row under the project's docs/handoffs/ folder, then commits them.",
+      "install": "npx degit Kaidanov/grekai-skills-4all/skills/tldr ~/.claude/skills/tldr",
+      "usage": "Type /tldr (or ask for a status / wrap-up / TLDR). It opens with your ORIGINAL ASK quoted back (so you remember what you asked late in a session), then a work-statistics block (total tokens est + exact per-subagent breakdown + a components-used table), plus a reasoning + self/user Q&A summary, Done / To-do / Issues / Options, and an explicit new-session call. Each report is appended to a daily trail at ~/.claude/tldr-trail/<date>.md via scripts/Append-TldrTrail.ps1 (-Scope global|project, atomic lock, real wall-clock deltas); wire scripts/Log-TurnHeartbeat.ps1 as a Stop hook (see examples/settings.stop-hook.json) to auto-log every turn. Honors a project-specific report format if your repo defines one.",
       "links": {
-        "docs": "./skills/handoff/"
+        "docs": "./skills/tldr/"
       }
     },
     {
-      "id": "setup-memory",
+      "id": "token-audit",
+      "summary": "/token-audit ranks your biggest per-session token sinks (MCP, hooks, CLAUDE.md, skills) and hands back a reduction plan. Read-only.",
+      "summary_he": "/token-audit מדרג את צרכני-הטוקנים הגדולים שלך (MCP, הוקים, CLAUDE.md, כישורים) ומחזיר תוכנית קיצוץ. קריאה בלבד.",
       "category": "skills",
-      "title": "Setup Memory — Memory-in-Repo",
-      "description": "Move Claude's per-project memory INTO the repo (memories/repo/) and auto-load it via a filesystem junction. Memory becomes committed, team-shared, and token-efficient: pay once to write it, save tokens every future session. Generic and publishable — no secrets, no per-user content.",
-      "tags": ["memory", "context-management", "team", "token-efficiency", "claude-code"],
+      "title": "Token Audit — Cut Context Cost",
+      "description": "Audit your agent setup for token waste and get a prioritized, quality-preserving reduction plan. Inventories and estimates the per-session cost of CLAUDE.md files, MCP servers, SessionStart hooks, skills, agents, plugins and the memory index, ranks the biggest sinks, and proposes safe cuts. Read-only by default — proposes, never changes config without approval.",
+      "tags": [
+        "context-management",
+        "token-efficiency",
+        "mcp",
+        "hooks",
+        "claude-code"
+      ],
       "status": "live",
-      "usage": "Run the bundled PowerShell script against your repo root:\n\n    & \"$HOME\\.claude\\skills\\setup-memory\\scripts\\Setup-Memory.ps1\" -ProjectPath .\n\nIt creates memories/repo/ with a MEMORY.md index and junctions it into ~/.claude/projects/<slug>/memory. Idempotent, no admin required (add -WhatIf to preview).",
+      "install": "npx degit Kaidanov/grekai-skills-4all/skills/token-audit ~/.claude/skills/token-audit",
+      "usage": "Type /token-audit (or ask \"why is my context so big / what can I trim\"). It inventories MCP servers, hooks, the CLAUDE.md chain, skills, agents, plugins and memory, estimates each at ~bytes/4 tokens, ranks them biggest-first, and returns Top-3 quick wins + a full table + estimated total reclaim. Read-only — asks before applying any change.",
       "links": {
-        "docs": "./skills/setup-memory/"
-      }
-    },
-    {
-      "id": "dev-rules-and-agents",
-      "category": "skills",
-      "title": "Dev Rules & 13-Agent Roster",
-      "description": "A portable bundle of general engineering rules (coding, refactoring, working-style) plus a reusable 13-agent specialist roster and a routing standard. Drop it into any codebase to bootstrap CLAUDE.md / AGENTS.md / .cursor rules and stand up frontend, backend, refactor, QA, security, devops and orchestration subagents.",
-      "tags": ["agents", "subagents", "engineering-rules", "claude-md", "bootstrapping"],
-      "status": "live",
-      "usage": "Fold rules/* into your project's CLAUDE.md / AGENTS.md and copy agents/*.md into .claude/agents/ (transform to .github/agents/*.agent.md for Copilot). Or point your assistant at a single file: \"follow rules/refactoring-rules.md\" or \"use the refactor-test-guardian agent\".",
-      "links": {
-        "docs": "./skills/dev-rules-and-agents/"
-      }
-    },
-    {
-      "id": "daily-cv",
-      "category": "skills",
-      "title": "Daily CV — Automated Job Hunt",
-      "description": "Config-driven, self-learning job-search agent. Reads your profile, validates that roles are actively accepting applications, and generates an ATS-optimised CV + cover letter (DOCX + PDF) from verified facts only — never repeating a company+role. Your real profile stays local and gitignored; only sanitized templates ship here.",
-      "tags": ["job-search", "cv", "automation", "ats", "agent"],
-      "status": "live",
-      "usage": "Run INIT.md once to build your gitignored profile/PROFILE.json (the single source of truth). Then invoke the skill daily: each run finds one live, accepting role and generates an ATS-optimised CV + tailored cover letter (DOCX + PDF) from verified facts only — never repeating a company+role.",
-      "links": {
-        "docs": "./skills/daily-cv/"
+        "docs": "./skills/token-audit/"
       }
     },
     {
       "id": "my-claude-toolkit",
+      "summary": "A portable Claude Code setup — helper scripts, hooks, a token/cost usage monitor, and a sparse-worktree engine. Secrets stripped.",
+      "summary_he": "הגדרת Claude Code ניידת — סקריפטים, הוקים, מוניטור עלות/טוקנים ומנוע worktree דליל. הסודות הוסרו.",
       "category": "skills",
       "title": "My Claude Toolkit",
       "description": "A portable, hand-authored Claude Code setup: reusable helper command-scripts (commit-and-PR, verify), hooks, a token/cost usage monitor + dashboard, a sparse-worktree engine, and a sanitized MCP-server inventory. Use to bootstrap or restore your Claude Code setup on a new machine. All secrets stripped to env-var placeholders.",
-      "tags": ["claude-code", "toolkit", "hooks", "usage-monitor", "powershell"],
+      "tags": [
+        "claude-code",
+        "toolkit",
+        "hooks",
+        "usage-monitor",
+        "powershell"
+      ],
       "status": "live",
       "usage": "See SKILL.md for the reinstall steps. Copy the helper command-scripts (commit-and-PR, verify), hooks, and the token/cost usage monitor into ~/.claude/ or your project's .claude/ to restore or bootstrap your Claude Code setup on a new machine. All secrets are stripped to env-var placeholders.",
       "links": {
@@ -115,29 +331,88 @@
       }
     },
     {
-      "id": "tldr",
+      "id": "dev-rules-and-agents",
+      "summary": "Portable engineering rules + a reusable 13-agent specialist roster to bootstrap CLAUDE.md / AGENTS.md / subagents in any repo.",
+      "summary_he": "חוקי הנדסה ניידים + מערך של 13 סוכנים מומחים לאתחול CLAUDE.md / AGENTS.md / תת-סוכנים בכל ריפו.",
       "category": "skills",
-      "title": "TLDR — End-of-Turn Status Report",
-      "description": "One-command status memo for the batch of work just finished: tokens (total estimate + exact per-subagent), time, rounds, tools activated, a reasoning + Q&A summary, done, to-do, issues, options, and a fresh-session recommendation. Bundles a concurrency-safe daily trail log (one file per day, shared across all windows) plus an optional Stop hook that auto-captures a per-turn heartbeat with no /tldr needed. Never fabricates numbers — exact where measurable, estimates labelled, n/a otherwise.",
-      "tags": ["context-management", "productivity", "status-report", "token-efficiency", "claude-code", "hook"],
+      "title": "Dev Rules & 13-Agent Roster",
+      "description": "A portable bundle of general engineering rules (coding, refactoring, working-style) plus a reusable 13-agent specialist roster and a routing standard. Drop it into any codebase to bootstrap CLAUDE.md / AGENTS.md / .cursor rules and stand up frontend, backend, refactor, QA, security, devops and orchestration subagents.",
+      "tags": [
+        "agents",
+        "subagents",
+        "engineering-rules",
+        "claude-md",
+        "bootstrapping"
+      ],
       "status": "live",
-      "install": "npx degit Kaidanov/grekai-skills-4all/skills/tldr ~/.claude/skills/tldr",
-      "usage": "Type /tldr (or ask for a status / wrap-up / TLDR). You get a work-statistics block (total tokens est + exact per-subagent breakdown + a components-used table), plus a reasoning + self/user Q&A summary, Done / To-do / Issues / Options, and an explicit new-session call. Each report is appended to a daily trail at ~/.claude/tldr-trail/<date>.md via scripts/Append-TldrTrail.ps1 (-Scope global|project, atomic lock, real wall-clock deltas); wire scripts/Log-TurnHeartbeat.ps1 as a Stop hook (see examples/settings.stop-hook.json) to auto-log every turn. Honors a project-specific report format if your repo defines one.",
+      "usage": "Fold rules/* into your project's CLAUDE.md / AGENTS.md and copy agents/*.md into .claude/agents/ (transform to .github/agents/*.agent.md for Copilot). Or point your assistant at a single file: \"follow rules/refactoring-rules.md\" or \"use the refactor-test-guardian agent\".",
       "links": {
-        "docs": "./skills/tldr/"
+        "docs": "./skills/dev-rules-and-agents/"
       }
     },
     {
-      "id": "token-audit",
+      "id": "setup-memory",
+      "summary": "Move Claude's per-project memory into the repo and auto-load it — committed, team-shared, token-efficient.",
+      "summary_he": "מעביר את זיכרון הפרויקט של Claude לתוך הריפו וטוען אותו אוטומטית — מתועד, משותף לצוות וחסכוני בטוקנים.",
       "category": "skills",
-      "title": "Token Audit — Cut Context Cost",
-      "description": "Audit your agent setup for token waste and get a prioritized, quality-preserving reduction plan. Inventories and estimates the per-session cost of CLAUDE.md files, MCP servers, SessionStart hooks, skills, agents, plugins and the memory index, ranks the biggest sinks, and proposes safe cuts. Read-only by default — proposes, never changes config without approval.",
-      "tags": ["context-management", "token-efficiency", "mcp", "hooks", "claude-code"],
+      "title": "Setup Memory — Memory-in-Repo",
+      "description": "Move Claude's per-project memory INTO the repo (memories/repo/) and auto-load it via a filesystem junction. Memory becomes committed, team-shared, and token-efficient: pay once to write it, save tokens every future session. Generic and publishable — no secrets, no per-user content.",
+      "tags": [
+        "memory",
+        "context-management",
+        "team",
+        "token-efficiency",
+        "claude-code"
+      ],
       "status": "live",
-      "install": "npx degit Kaidanov/grekai-skills-4all/skills/token-audit ~/.claude/skills/token-audit",
-      "usage": "Type /token-audit (or ask \"why is my context so big / what can I trim\"). It inventories MCP servers, hooks, the CLAUDE.md chain, skills, agents, plugins and memory, estimates each at ~bytes/4 tokens, ranks them biggest-first, and returns Top-3 quick wins + a full table + estimated total reclaim. Read-only — asks before applying any change.",
+      "usage": "Run the bundled PowerShell script against your repo root:\n\n    & \"$HOME\\.claude\\skills\\setup-memory\\scripts\\Setup-Memory.ps1\" -ProjectPath .\n\nIt creates memories/repo/ with a MEMORY.md index and junctions it into ~/.claude/projects/<slug>/memory. Idempotent, no admin required (add -WhatIf to preview).",
       "links": {
-        "docs": "./skills/token-audit/"
+        "docs": "./skills/setup-memory/"
+      }
+    },
+    {
+      "id": "handoff",
+      "summary": "Package the current session so the next one resumes with zero re-research — a handoff doc, a resume prompt, and a metrics row.",
+      "summary_he": "אורז את הסשן הנוכחי כך שהבא ימשיך בלי מחקר מחדש — מסמך מסירה, פרומפט המשך ושורת מדדים.",
+      "category": "skills",
+      "title": "Session Handoff",
+      "description": "Package the current working session so the NEXT session resumes with ZERO re-research. Produces a dated handoff doc, a standalone resume-prompt, and a session-log metrics row. Works in any repo — run it when context is nearly exhausted or you say \"hand off\".",
+      "tags": [
+        "context-management",
+        "productivity",
+        "handoff",
+        "sessions",
+        "claude-code"
+      ],
+      "status": "live",
+      "usage": "When your session is nearly out of context, say \"hand off\" (or invoke the skill). It writes a dated handoff doc, a standalone copy-paste resume prompt, and an appended session-log.csv row under the project's docs/handoffs/ folder, then commits them.",
+      "links": {
+        "docs": "./skills/handoff/"
+      }
+    },
+    {
+      "id": "soc-investigator",
+      "summary": "Air-gapped IOC triage across Defender, VirusTotal & Sentinel via browser cowork — no API/Entra access needed. Loops with Threat Sentinel (soc-update.com).",
+      "category": "skills",
+      "title": "SOC Investigator — Air-Gapped IOC Triage (Defender → VirusTotal → Sentinel)",
+      "description": "A cowork SOC playbook for locked-down tenants where the CTO forbids API/MCP/Entra access. Claude generates per-machine-type Defender hunting KQL, walks you through running and exporting it in your OWN authenticated browser, enriches the IOCs locally with your VirusTotal key, then prepares the Sentinel blast-radius pivot and a human-confirmed incident-closure package — no keys or raw tenant data ever leave your machine. Closes the loop with Threat Sentinel (soc-update.com) over a CSV bridge: import its IOC exports, push findings back as soc_report.csv. Ships an enrichment engine, query generator, KQL references, flow diagrams, and a bundled agent definition.",
+      "tags": [
+        "security",
+        "soc",
+        "defender",
+        "sentinel",
+        "virustotal",
+        "kql",
+        "ioc",
+        "ciso",
+        "threat-hunting",
+        "cowork"
+      ],
+      "status": "live",
+      "install": "npx degit Kaidanov/grekai-skills-4all/skills/soc-investigator .claude/skills/soc-investigator",
+      "usage": "Fill assets/config.example.json with your IOCs and machine groups, then ask Claude to \"run the SOC investigation\". It generates the Defender KQL, guides you through the Defender/Sentinel exports in your own Chrome, enriches locally with your VT_API_KEY, and prepares the incident-close list for you to confirm.",
+      "links": {
+        "docs": "./skills/soc-investigator/"
       }
     }
   ]

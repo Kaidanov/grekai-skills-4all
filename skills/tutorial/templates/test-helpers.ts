@@ -9,6 +9,23 @@ export interface TutorialStep {
   narration: string;
   /** Absolute path the screenshot is written to (also referenced by the manifest). */
   screenshot: string;
+  /** When this step starts, in ms from the timeline's t0 — feeds the MOTION renderer
+   *  (render-motion-video.mjs) so it can cut the recorded session video per step. */
+  atMs?: number;
+}
+
+/**
+ * Records WHEN each step begins so the motion renderer can slice the recorded session
+ * video per step. Call `start()` once the app's first real frame is on screen, then
+ * `mark()` at the top of every step (right before you narrate / caption it).
+ */
+export class Timeline {
+  private t0 = Date.now();
+  readonly marks: number[] = [];
+  /** Reset t0 to "now" — call once, after the first meaningful frame is visible. */
+  start(): void { this.t0 = Date.now(); this.marks.length = 0; }
+  /** Record the current offset (ms) as a step boundary and return it. */
+  mark(): number { const at = Date.now() - this.t0; this.marks.push(at); return at; }
 }
 
 /** Full-screen intro card, shown for `ms`. Use once at the start. */
@@ -44,12 +61,38 @@ async function overlay(page: Page, inner: string, ms: number, dim: boolean): Pro
   await page.evaluate(() => document.getElementById('__tut_overlay')?.remove());
 }
 
-/** Write the step manifest that scripts/render-tutorial-video.mjs consumes. */
+/**
+ * Finalize and save the recorded session video to `dest` (e.g. <outputDir>/<slug>.webm),
+ * then return its path. The recording is only written once the context closes, so the
+ * reliable pattern is: create the context with `recordVideo`, run the steps, `await
+ * context.close()`, THEN call this. Returns null if the context wasn't recording.
+ */
+export async function saveVideo(page: Page, dest: string): Promise<string | null> {
+  const v = page.video();
+  if (!v) return null;
+  await v.saveAs(dest);     // waits for the recording to flush
+  return dest;
+}
+
+/**
+ * Write the step manifest both renderers consume.
+ *  - render-tutorial-video.mjs / build-tutorial-page.mjs use `image` + `narration` (slideshow / HTML).
+ *  - render-motion-video.mjs additionally uses `video` (the recorded webm) + per-step `atMs` (real motion).
+ * Pass `video` + per-step `atMs` to enable the motion path; omit them for the screenshot path.
+ */
 export function publishManifest(
   outFile: string,
-  data: { slug: string; title: string; voice?: string; width?: number; height?: number; tailPadMs?: number; steps: TutorialStep[] },
+  data: {
+    slug: string; title: string; voice?: string; width?: number; height?: number; tailPadMs?: number;
+    /** Path (relative to the manifest) of the recorded session video — enables the motion renderer. */
+    video?: string;
+    steps: TutorialStep[];
+  },
 ): void {
   mkdirSync(dirname(outFile), { recursive: true });
-  const steps = data.steps.map((s) => ({ image: s.screenshot, narration: s.narration, title: s.title }));
+  const steps = data.steps.map((s) => ({
+    image: s.screenshot, narration: s.narration, title: s.title,
+    ...(s.atMs != null ? { atMs: s.atMs } : {}),
+  }));
   writeFileSync(outFile, JSON.stringify({ ...data, steps }, null, 2));
 }

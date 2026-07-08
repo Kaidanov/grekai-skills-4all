@@ -83,6 +83,8 @@ The full step-by-step (with how the pipeline works end to end) is in **[HOW-TO.m
 
 ## How it works (pipeline)
 
+![Daily CV flow — profile → find a live accepting role → validate → tailor an ATS CV + cover letter from verified facts → DOCX + PDF → never repeat a company+role](../../assets/images/daily-cv-flow.svg)
+
 ```
 INIT.md ──> profile/PROFILE.json ─┐
 config/*  ──────────────────────> │
@@ -95,6 +97,49 @@ knowledge/DAILY_CV_LEARNINGS.md ─>│  SKILL.md workflow
                                   │   6. interview prep
                                   └─> 7. update tracker  8. append learnings
 ```
+
+## Example output
+
+A run ends with an apply link, the generated files, and a one-line learning. Sample
+(abridged, fictional — Jane Doe from `PROFILE.example.json`):
+
+```text
+## Daily CV Run — 2026-06-26
+
+Apply here: Acme Robotics — Senior Backend Engineer (https://boards.greenhouse.io/acme/jobs/4821007)
+
+Found live role: Senior Backend @ Acme Robotics — VERIFIED OPEN ✓ (Greenhouse API, accepting)
+Skipped: Globex (already in tracker — R2), Initech (posting closed — R1)
+Generated CV + cover letter (DOCX + PDF) from verified facts only.
+
+Files:
+- jdoe_CV_AcmeRobotics_20260626.docx / .pdf   (1 page confirmed)
+- jdoe_CoverLetter_AcmeRobotics_20260626.docx / .pdf
+- Saved to: ./out
+
+Pre-flight: All 8 checks passed
+ATS Score:  88% (22/25 keywords)
+Source:     Greenhouse API
+Learning:   Acme reposts via API even when the careers page 404s — fetch the JD with ?content=true.
+```
+
+CV header + a sample bullet, drawn straight from the profile (no invented metrics):
+
+```text
+JANE DOE
++1 555 0140 | jane.doe@example.com | linkedin.com/in/janedoe | Remote (EMEA)
+
+Summary
+Backend engineer with 8 years building distributed payment systems. Owns reliability
+for services handling 12M requests/day across a 40-node cluster.
+
+Experience — Globex (2021–present), Staff Engineer
+- Cut p99 latency 38% by sharding the ledger write path (metric from profile.key_metrics).
+```
+
+Every number above traces to `profile.key_metrics`; missing experience is logged as a gap,
+never written into existence. The same company+role pair is recorded in the tracker and
+learnings log, so a later run will never select Acme Robotics for this role again.
 
 ## Files
 
